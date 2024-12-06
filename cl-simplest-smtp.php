@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: CL Simplest SMTP
- * Plugin URI: https://example.com/plugins/cl-simplest-smtp/
- * Description: A simple SMTP plugin for WordPress.
+ * Plugin URI: https://wordpress.org/plugins/cl-simplest-smtp/
+ * Description: The simplest SMTP option for your WordPress.
  * Version: 1.0.0
  * Author: Carlos Longarela
  * Author URI: https://tabernawp.com/
@@ -35,10 +35,10 @@ function load_textdomain() {
 	load_plugin_textdomain( 'cl-simplest-smtp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 // Load plugin text domain.
-add_action( 'plugins_loaded', 'CL\Simplest_SMTP\load_text_domain' );
+add_action( 'plugins_loaded', __NAMESPACE__ . '\load_textdomain' );
 
-// Load plugin files.
-//require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'admin/cl-simplest-smtp-admin.php';
-//require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/cl-simplest-smtp-functions.php';
-//require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/cl-simplest-smtp-mailer.php';
-//require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'public/cl-simplest-smtp-public.php';
+// Load plugin parameters from constants or from WordPress plugin options.
+require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/cl-simplest-smtp-params.php';
+
+// Load plugin main hook.
+require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/cl-simplest-smtp-hook.php';

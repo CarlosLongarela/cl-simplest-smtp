@@ -11,12 +11,12 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Get the saved settings.
-$server = get_option( 'cl_simplest_smtp_server' );
-$port = get_option( 'cl_simplest_smtp_port' );
-$username = get_option( 'cl_simplest_smtp_username' );
-$password = get_option( 'cl_simplest_smtp_password' );
+$server     = get_option( 'cl_simplest_smtp_server' );
+$port       = get_option( 'cl_simplest_smtp_port' );
+$username   = get_option( 'cl_simplest_smtp_username' );
+$password   = get_option( 'cl_simplest_smtp_password' );
 $from_email = get_option( 'cl_simplest_smtp_from_email' );
-$from_name = get_option( 'cl_simplest_smtp_from_name' );
+$from_name  = get_option( 'cl_simplest_smtp_from_name' );
 
 ?>
 
