@@ -19,7 +19,6 @@ $from_email = get_option( 'cl_simplest_smtp_from_email' );
 $from_name  = get_option( 'cl_simplest_smtp_from_name' );
 
 ?>
-
 <div class="wrap">
 	<h1><?php esc_html_e( 'CL Simplest SMTP Settings', 'cl-simplest-smtp' ); ?></h1>
 
