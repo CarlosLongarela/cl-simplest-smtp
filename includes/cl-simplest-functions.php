@@ -147,7 +147,13 @@ function sanitize_callback( $options ) {
  */
 function render_settings_page() {
 	echo '<div class="wrap">';
-	echo '<h1>' . esc_html__( 'CL Simplest SMTP Settings', 'cl-simplest-smtp' ) . '</h1>';
+	// Add a button next to the title.
+	echo '<h1>' . esc_html__( 'CL Simplest SMTP Settings', 'cl-simplest-smtp' );
+	if ( ! defined( 'CL_SIMPLEST_SMTP_HIDE_DONATE' ) ) {
+		echo ' <a href="' . esc_url( 'https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4' ) . '" target="_blank" class="page-title-action">' . esc_html__( 'Invite me to a coffe', 'cl-simplest-smtp' ) . '</a>';
+	}
+	echo '</h1>';
+
 
 	if ( defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) {
 		// Load the template.

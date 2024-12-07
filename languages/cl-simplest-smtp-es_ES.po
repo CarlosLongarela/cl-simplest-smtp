@@ -1,0 +1,242 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CL Simplest SMTP\n"
+"POT-Creation-Date: 2024-12-07 20:37+0100\n"
+"PO-Revision-Date: 2024-12-07 20:38+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: cl-simplest-smtp.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#. translators: %s: URL to settings page
+#: includes/cl-simplest-functions.php:82
+#, php-format
+msgid ""
+"<strong>CL Simplest SMTP:</strong> You can't send mails using this plugin. "
+"Please <a href=\"%s\">configure the plugin settings</a>."
+msgstr ""
+"<strong>CL Simplest SMTP:</strong> No puedes enviar correos usando este "
+"plugin. Por favor <a href=\"%s\">configura las opciones del plugin</a>."
+
+#: includes/cl-simplest-functions.php:108
+#: includes/cl-simplest-functions.php:151
+#: includes/cl-simplest-smtp-admin.php:26
+msgid "CL Simplest SMTP Settings"
+msgstr "Opciones CL Simplest SMTP"
+
+#. Plugin Name of the plugin/theme
+#: includes/cl-simplest-functions.php:109
+#: includes/cl-simplest-smtp-admin.php:27
+msgid "CL Simplest SMTP"
+msgstr "CL Simplest SMTP"
+
+#: includes/cl-simplest-functions.php:153
+msgid "Invite me to a coffe"
+msgstr "Invítame a un café"
+
+#: includes/cl-simplest-functions.php:184
+msgid "Test mail from CL Simplest SMTP"
+msgstr "Probar el correo desde CL Simplest SMTP"
+
+#: includes/cl-simplest-functions.php:187
+msgid "This is a test mail from the CL Simplest SMTP plugin."
+msgstr "Este es un correo de prueba desde el plugin CL Simplest SMTP."
+
+#: includes/cl-simplest-functions.php:191
+msgid "HTML version"
+msgstr "Versión HTML"
+
+#: includes/cl-simplest-functions.php:192
+msgid "Message sent as HTML"
+msgstr "Mensaje enviado como HTML"
+
+#: includes/cl-simplest-functions.php:195
+msgid "Message sent as plain text"
+msgstr "Mensaje enviado como texto plano"
+
+#: includes/cl-simplest-functions.php:200
+#: includes/templates/test-mail-page.php:55
+msgid "WordPress Mail method (using current SMTP options)"
+msgstr "Método de correo de WordPress (usando las opciones actuales de SMTP)"
+
+#: includes/cl-simplest-functions.php:204
+#: includes/templates/test-mail-page.php:56
+msgid "Native PHP mail (ignoring WordPress SMTP options)"
+msgstr ""
+"Método de correo nativo de PHP (ignorando las opciones actuales de SMTP)"
+
+#: includes/cl-simplest-functions.php:209
+msgid "Fantastic! The test mail was sent successfully."
+msgstr "¡Fantástico! El correo de prueba se ha enviado correctamente."
+
+#: includes/cl-simplest-functions.php:211
+#: includes/cl-simplest-functions.php:217
+msgid "Mail method:"
+msgstr "Método de envío:"
+
+#: includes/cl-simplest-functions.php:212
+msgid "Please check your inbox."
+msgstr "Por favor revisa tu bandeja de entrada."
+
+#: includes/cl-simplest-functions.php:215
+msgid ""
+"Error: The test mail was not sent. Please check the SMTP or mail settings."
+msgstr ""
+"Error: El correo de prueba no se ha enviado. Por favor, comprueba las "
+"opciones SMTP o del correo."
+
+#: includes/templates/settings-info-page.php:28
+msgid ""
+"CONGRATULATIONS ! Your SMTP settings are saved in a configuration file. This "
+"is good for speed and security."
+msgstr ""
+"¡ ENHORABUENA ! Tus opciones del SMTP están guardadas en un archivo de "
+"configuración. Esto es bueno tanto por velocidad como por seguridad."
+
+#: includes/templates/settings-info-page.php:31
+msgid ""
+"These setting can't be changed here because are saved in a configuration "
+"file (maybe <code>wp-config.php</code> or something similar to <code>user-"
+"settings.php</code>)."
+msgstr ""
+"Estas opciones no se pueden cambiar aquí porque están guardadas en un "
+"archivo de configuración (quizás <code>wp-config.php</code> o algo similar a "
+"<code>user-settings.php</code>)."
+
+#: includes/templates/settings-info-page.php:36
+msgid ""
+"To change these settings you have to edit these <code>CL_SIMPLEST_SMTP*</"
+"code> constants that you previously setted."
+msgstr ""
+"Para cambiar estas opciones tienes que editar las constantes "
+"<code>CL_SIMPLEST_SMTP*</code> que guardaste previamente."
+
+#: includes/templates/settings-info-page.php:46
+msgid "SMTP Server"
+msgstr "Servidor SMTP"
+
+#: includes/templates/settings-info-page.php:51
+msgid "SMTP Port"
+msgstr "Puerto SMTP"
+
+#: includes/templates/settings-info-page.php:56
+msgid "SMTP Username"
+msgstr "Usuario SMTP"
+
+#: includes/templates/settings-info-page.php:61
+msgid "SMTP Password"
+msgstr "Clave SMTP"
+
+#: includes/templates/settings-info-page.php:66
+#: includes/templates/settings-page.php:90
+msgid "From Email"
+msgstr "Email del remitente"
+
+#: includes/templates/settings-info-page.php:71
+#: includes/templates/settings-page.php:98
+msgid "From Name"
+msgstr "Nombre del remitente"
+
+#: includes/templates/settings-page.php:29
+msgid "SMTP settings"
+msgstr "Configuración SMTP"
+
+#: includes/templates/settings-page.php:36
+msgid "Host"
+msgstr "Servidor"
+
+#: includes/templates/settings-page.php:44
+msgid "Secure connection type"
+msgstr "Tipo de conexión segura"
+
+#: includes/templates/settings-page.php:48
+msgid "SSL"
+msgstr "SSL"
+
+#: includes/templates/settings-page.php:49
+msgid "TLS"
+msgstr "TLS"
+
+#: includes/templates/settings-page.php:55
+msgid "Port"
+msgstr "Puerto"
+
+#: includes/templates/settings-page.php:63
+msgid "Authenticate connection"
+msgstr "Autenticar la conexión"
+
+#: includes/templates/settings-page.php:67
+msgid "No"
+msgstr "No"
+
+#: includes/templates/settings-page.php:68
+msgid "Yes"
+msgstr "Yes"
+
+#: includes/templates/settings-page.php:74
+msgid "SMTP User"
+msgstr "Usuario SMTP"
+
+#: includes/templates/settings-page.php:82
+msgid "SMTP Pass"
+msgstr "Clave SMTP"
+
+#: includes/templates/settings-page.php:105
+msgid "Save SMTP data"
+msgstr "Guardar datos SMTP"
+
+#: includes/templates/test-mail-page.php:18
+msgid "Test mail"
+msgstr "Probar el correo"
+
+#: includes/templates/test-mail-page.php:27
+msgid "Mail To"
+msgstr "Enviar correo a"
+
+#: includes/templates/test-mail-page.php:37
+msgid "Mail type"
+msgstr "Tipo de correo"
+
+#: includes/templates/test-mail-page.php:42
+msgid "HTML mail"
+msgstr "Correo HTML"
+
+#: includes/templates/test-mail-page.php:43
+msgid "Plain mail"
+msgstr "Correo de texto plano"
+
+#: includes/templates/test-mail-page.php:50
+msgid "Mail method"
+msgstr "Método de envío"
+
+#: includes/templates/test-mail-page.php:62
+msgid "Send test mail"
+msgstr "Enviar correo de prueba"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/cl-simplest-smtp/"
+msgstr "https://wordpress.org/plugins/cl-simplest-smtp/"
+
+#. Description of the plugin/theme
+msgid "The simplest SMTP option for your WordPress."
+msgstr "La opción más sencilla para usar SMTP en tu WordPress."
+
+#. Author of the plugin/theme
+msgid "Carlos Longarela"
+msgstr "Carlos Longarela"
+
+#. Author URI of the plugin/theme
+msgid "https://tabernawp.com/"
+msgstr "https://tabernawp.com/"
