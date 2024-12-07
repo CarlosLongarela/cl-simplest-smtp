@@ -16,18 +16,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Get the plugin option value.
  *
  * @param string $option_name The name of the option.
- * @param mixed  $default     The default value to return if the option is not set.
+ * @param mixed  $default_val The default value to return if the option is not set.
  *
  * @return mixed The option value.
  */
-function get_option( $option_name, $default = null ) {
+function get_option( $option_name, $default_val = null ) {
 	$options = get_option( 'cl_simplest_smtp_options', array() );
 
 	if ( isset( $options[ $option_name ] ) ) {
 		return $options[ $option_name ];
 	}
 
-	return $default;
+	return $default_val;
 }
 
 /**
@@ -39,7 +39,7 @@ function get_option( $option_name, $default = null ) {
  * @return bool True if the option was updated, false otherwise.
  */
 function update_option( $option_name, $value ) {
-	$options = get_option( 'cl_simplest_smtp_options', array() );
+	$options                 = get_option( 'cl_simplest_smtp_options', array() );
 	$options[ $option_name ] = $value;
 
 	return update_option( 'cl_simplest_smtp_options', $options );
