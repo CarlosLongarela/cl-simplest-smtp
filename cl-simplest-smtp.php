@@ -29,14 +29,14 @@ define( 'CL_SIMPLEST_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 // TODO: Solo para testing.
-define( 'CL_SIMPLEST_SMTP_HOST', 'smtp.prueba.com' );
-define( 'CL_SIMPLEST_SMTP_AUTH', true );
-define( 'CL_SIMPLEST_SMTP_PORT', 465 );
-define( 'CL_SIMPLEST_SMTP_USER', 'carlos@longarela.eu' );
-define( 'CL_SIMPLEST_SMTP_PASS', 'nadanada' );
-define( 'CL_SIMPLEST_SMTP_SECURE', 'tls' );
-define( 'CL_SIMPLEST_SMTP_FROM', 'carlos@longarela.eu' );
-define( 'CL_SIMPLEST_SMTP_NAME', 'Carlos Longarela' );
+//define( 'CL_SIMPLEST_SMTP_HOST', 'smtp-relay.brevo.com' );
+//define( 'CL_SIMPLEST_SMTP_AUTH', true );
+//define( 'CL_SIMPLEST_SMTP_PORT', 587 );
+//define( 'CL_SIMPLEST_SMTP_USER', '802435001@smtp-brevo.com' );
+//define( 'CL_SIMPLEST_SMTP_PASS', 'nYWgDahjb8H5EGtz' );
+//define( 'CL_SIMPLEST_SMTP_SECURE', 'tls' );
+//define( 'CL_SIMPLEST_SMTP_FROM', 'carlos@longarela.eu' );
+//define( 'CL_SIMPLEST_SMTP_NAME', 'Carlos Longarela' );
 
 /**
  * Load plugin text domain.
@@ -99,6 +99,34 @@ function register_settings_menu() {
 	);
 }
 add_action( 'admin_menu', __NAMESPACE__ . '\register_settings_menu' );
+
+/**
+ * Register plugin settings.
+ */
+function register_plugin_settings() {
+	register_setting( 'cl_simplest_smtp_options_group', 'cl_simplest_smtp_options', 'sanitize_callback' );
+}
+add_action( 'admin_init', __NAMESPACE__ . '\register_plugin_settings' );
+
+/**
+ * Sanitize callback for plugin options.
+ *
+ * @param array $options The options to sanitize.
+ * @return array The sanitized options.
+ */
+function sanitize_callback( $options ) {
+	// Sanitize each option as needed.
+	$options['host']   = sanitize_text_field( $options['host'] );
+	$options['auth']   = isset( $options['auth'] ) ? (bool) $options['auth'] : false;
+	$options['port']   = absint( $options['port'] );
+	$options['user']   = sanitize_text_field( $options['user'] );
+	$options['pass']   = sanitize_text_field( $options['pass'] );
+	$options['secure'] = sanitize_text_field( $options['secure'] );
+	$options['from']   = sanitize_email( $options['from'] );
+	$options['name']   = sanitize_text_field( $options['name'] );
+
+	return $options;
+}
 
 /**
  * Render the settings page.

@@ -28,7 +28,7 @@ if ( defined( 'CL_SIMPLEST_SMTP_NAME' ) ) {
 	$info_message = '<p><strong>' . esc_html__( 'CONGRATULATIONS ! Your SMTP settings are saved in a configuration file. This is good for speed and security.', 'cl-simplest-smtp' ) . '</strong></p>';
 
 	$info_message .= '<p>' . wp_kses(
-		__( 'These setting can\'t be changed here because are saved in a configuration file (maybe <code>wp-config.php</code> or similar to <code>user-settings.php</code>).', 'cl-simplest-smtp' ),
+		__( 'These setting can\'t be changed here because are saved in a configuration file (maybe <code>wp-config.php</code> or something similar to <code>user-settings.php</code>).', 'cl-simplest-smtp' ),
 		array( 'code' => array() )
 	) . '</p>';
 
