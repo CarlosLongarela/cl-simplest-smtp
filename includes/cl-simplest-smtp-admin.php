@@ -39,38 +39,3 @@ function render_settings_page() {
 	// Load the template.
 	include_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-page.php';
 }
-
-/**
- * Register the settings.
- */
-function register_settings() {
-	register_setting(
-		'cl_simplest_smtp_settings',
-		'cl_simplest_smtp_server'
-	);
-
-	register_setting(
-		'cl_simplest_smtp_settings',
-		'cl_simplest_smtp_port'
-	);
-
-	register_setting(
-		'cl_simplest_smtp_settings',
-		'cl_simplest_smtp_username'
-	);
-
-	register_setting(
-		'cl_simplest_smtp_settings',
-		'cl_simplest_smtp_password'
-	);
-
-	register_setting(
-		'cl_simplest_smtp_settings',
-		'cl_simplest_smtp_from_email'
-	);
-
-	register_setting(
-		'cl_simplest_smtp_settings',
-		'cl_simplest_smtp_from_name'
-	);
-}

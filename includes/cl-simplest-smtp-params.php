@@ -14,9 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
+	// Here we define that the plugin options were setted form the database (options table).
+	define( 'CL_SIMPLEST_SMTP_HOST_FROM_DB', true );
+
 	// If the constant is not defined, get ALL the values from the plugin options.
+	$cl_simplest_smtp_data = get_option( 'cl_simplest_smtp_options' );
+
 	$cl_simplest_smtp_host   = get_option( 'cl_simplest_smtp_host' );
 	$cl_simplest_smtp_port   = get_option( 'cl_simplest_smtp_port' );
+	$cl_simplest_smtp_auth   = get_option( 'cl_simplest_smtp_auth' );
 	$cl_simplest_smtp_user   = get_option( 'cl_simplest_smtp_user' );
 	$cl_simplest_smtp_pass   = get_option( 'cl_simplest_smtp_pass' );
 	$cl_simplest_smtp_secure = get_option( 'cl_simplest_smtp_secure' );
@@ -24,6 +30,7 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
 	$cl_simplest_smtp_name   = get_option( 'cl_simplest_smtp_name' );
 
 	define( 'CL_SIMPLEST_SMTP_HOST', esc_attr( $cl_simplest_smtp_host ) );
+	define( 'CL_SIMPLEST_SMTP_AUTH', filter_var( $cl_simplest_smtp_auth, FILTER_VALIDATE_BOOLEAN ) );
 	define( 'CL_SIMPLEST_SMTP_PORT', absint( $cl_simplest_smtp_port ) );
 	define( 'CL_SIMPLEST_SMTP_USER', esc_attr( $cl_simplest_smtp_user ) );
 	define( 'CL_SIMPLEST_SMTP_PASS', esc_attr( $cl_simplest_smtp_pass ) );
