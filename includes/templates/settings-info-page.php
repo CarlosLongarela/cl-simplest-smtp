@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for the settings page of the CL Simplest SMTP plugin.
+ * The template for the info page of the CL Simplest SMTP plugin.
  *
  * @package CL\Simplest_SMTP
  */

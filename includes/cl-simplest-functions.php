@@ -157,5 +157,7 @@ function render_settings_page() {
 		require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-info-page.php';
 	}
 
+	require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/test-mail-page.php';
+
 	echo '</div>';
 }
