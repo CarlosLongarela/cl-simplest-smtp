@@ -161,3 +161,61 @@ function render_settings_page() {
 
 	echo '</div>';
 }
+
+/**
+ * Send a test mail.
+ */
+function send_test_mail() {
+	if ( isset( $_POST['mail-to'], $_POST['mail-type'], $_POST['mail-method'], $_POST['cl_smtp_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['cl_smtp_nonce'] ), 'cl_simplest_smtp_test_mail_nonce' ) ) {
+		$mail_to     = sanitize_email( wp_unslash( $_POST['mail-to'] ) );
+		$mail_type   = sanitize_text_field( wp_unslash( $_POST['mail-type'] ) );
+		$mail_method = sanitize_text_field( wp_unslash( $_POST['mail-method'] ) );
+
+		// Set the mail headers.
+		$headers = array();
+
+		// Set the mail subject.
+		$subject = __( 'Test mail from CL Simplest SMTP', 'cl-simplest-smtp' );
+
+		// Set the mail message.
+		$message = __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' );
+
+		if ( 'html' === $mail_type ) {
+			$headers[] = 'Content-Type: text/html; charset=UTF-8';
+			$message  .= '<br /><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong>';
+			$text_html = __( 'Message sent as HTML', 'cl-simplest-smtp' );
+		} else {
+			$text_html = __( 'Message sent as plain text', 'cl-simplest-smtp' );
+		}
+
+		// Send the mail.
+		if ( 'wp_mail' === $mail_method ) {
+			$test_mail_type = __( 'WordPress Mail method (using current SMTP options)', 'cl-simplest-smtp' );
+			$result         = wp_mail( $mail_to, $subject, $message, $headers );
+		} else {
+			$test_mail_type = __( 'Native PHP mail (ignoring WordPress SMTP options)', 'cl-simplest-smtp' );
+			$result         = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
+		}
+
+		if ( $result ) {
+			$message_notice  = '<p>' . esc_html__( 'Fantastic! The test mail was sent successfully.', 'cl-simplest-smtp' ) . '</p>';
+			$message_notice .= '<p>' . esc_html( $text_html ) . '</p>';
+			$message_notice .= '<p>' . esc_html__( 'Mail method:', 'cl-simplest-smtp' ) . ' ' . esc_html( $test_mail_type ) . '</p>';
+			$message_notice .= '<p>' . esc_html__( 'Please check your inbox.', 'cl-simplest-smtp' ) . '</p>';
+			$type            = 'success';
+		} else {
+			$message_notice  = '<p>' . esc_html__( 'Error: The test mail was not sent. Please check the SMTP or mail settings.', 'cl-simplest-smtp' ) . '</p>';
+			$message_notice .= '<p>' . esc_html( $text_html ) . '</p>';
+			$message_notice .= '<p>' . esc_html__( 'Mail method:', 'cl-simplest-smtp' ) . ' ' . esc_html( $test_mail_type ) . '</p>';
+			$type            = 'error';
+		}
+
+		wp_admin_notice(
+			$message_notice,
+			array(
+				'type'        => $type,
+				'dismissible' => true,
+			)
+		);
+	}
+}

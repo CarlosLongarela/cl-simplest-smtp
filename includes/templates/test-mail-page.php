@@ -10,49 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Code is Poetry, but you are not an poet ;)' );
 }
 
-// Comprobar que se hyan enviado los datos de nuevo mail y validar el nonce.
-if ( isset( $_POST['mail-to'], $_POST['mail-type'], $_POST['mail-method'], $_POST['cl_smtp_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['cl_smtp_nonce'] ), 'cl_simplest_smtp_test_mail_nonce' ) ) {
-	$mail_to     = sanitize_email( wp_unslash( $_POST['mail-to'] ) );
-	$mail_type   = sanitize_text_field( wp_unslash( $_POST['mail-type'] ) );
-	$mail_method = sanitize_text_field( wp_unslash( $_POST['mail-method'] ) );
-
-	// Set the mail headers.
-	$headers = array();
-
-	// Set the mail subject.
-	$subject = __( 'Test mail from CL Simplest SMTP', 'cl-simplest-smtp' );
-
-	// Set the mail message.
-	$message = __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' );
-
-	if ( 'html' === $mail_type ) {
-		$headers[] = 'Content-Type: text/html; charset=UTF-8';
-		$message  .= '<br /><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong>';
-	}
-
-	// Send the mail.
-	if ( 'wp_mail' === $mail_method ) {
-		$result = wp_mail( $mail_to, $subject, $message, $headers );
-	} else {
-		$result = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
-	}
-
-	// Show the result.
-	if ( $result ) {
-		?>
-		<div class="notice notice-success is-dismissible">
-			<p><?php esc_html_e( 'The test mail was sent successfully.', 'cl-simplest-smtp' ); ?></p>
-		</div>
-		<?php
-	} else {
-		?>
-		<div class="notice notice-error is-dismissible">
-			<p><?php esc_html_e( 'The test mail was not sent. Please check the SMTP settings.', 'cl-simplest-smtp' ); ?></p>
-		</div>
-		<?php
-	}
-}
-
+// Check that the new mail data has been sent and validate the nonce.
+CL\Simplest_SMTP\send_test_mail()
 ?>
 
 <div class="cl-test-mail-settings">
