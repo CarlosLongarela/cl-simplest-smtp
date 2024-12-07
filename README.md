@@ -23,4 +23,4 @@ If you have any questions or issues with the plugin, please contact us at suppor
 
 ## License
 
-CL Simplest SMTP is licensed under the MIT License. See the `LICENSE` file for more information.
+CL Simplest SMTP is licensed under the GPL2 License. See the `LICENSE` file for more information.
