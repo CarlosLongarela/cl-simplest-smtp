@@ -28,6 +28,16 @@ define( 'CL_SIMPLEST_SMTP_VERSION', '1.0.0' );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
+// TODO: Solo para testing.
+define( 'CL_SIMPLEST_SMTP_HOST', 'smtp.prueba.com' );
+define( 'CL_SIMPLEST_SMTP_AUTH', true );
+define( 'CL_SIMPLEST_SMTP_PORT', 465 );
+define( 'CL_SIMPLEST_SMTP_USER', 'carlos@longarela.eu' );
+define( 'CL_SIMPLEST_SMTP_PASS', 'nadanada' );
+define( 'CL_SIMPLEST_SMTP_SECURE', 'tls' );
+define( 'CL_SIMPLEST_SMTP_FROM', 'carlos@longarela.eu' );
+define( 'CL_SIMPLEST_SMTP_NAME', 'Carlos Longarela' );
+
 /**
  * Load plugin text domain.
  *

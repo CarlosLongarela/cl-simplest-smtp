@@ -12,7 +12,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="cl-info-settings">
-	<?php esc_html_e( 'These setting can\'t be changed here because are configured in a configuration file (maybe <code>wp-config.php</code> or similar to <code>user-settings.php</code>). To change these settings you have to edit these <code>CL_SIMPLEST_SMTP*</code> constants that you previously setted.', 'cl-simplest-smtp' ); ?>
+	<?php
+	$info_message = '<p><strong>' . esc_html__( 'CONGRATULATIONS ! Your SMTP settings are saved in a configuration file. This is good for speed and security.', 'cl-simplest-smtp' ) . '</strong></p>';
+
+	$info_message .= '<p>' . wp_kses(
+		__( 'These setting can\'t be changed here because are saved in a configuration file (maybe <code>wp-config.php</code> or similar to <code>user-settings.php</code>).', 'cl-simplest-smtp' ),
+		array( 'code' => array() )
+	) . '</p>';
+
+	$info_message .= '<p>' . wp_kses(
+		__( 'To change these settings you have to edit these <code>CL_SIMPLEST_SMTP*</code> constants that you previously setted.', 'cl-simplest-smtp' ),
+		array( 'code' => array() )
+	) . '</p>';
+
+	wp_admin_notice( $info_message, array( 'type' => 'success' ) );
+	?>
 </div>
 
 <div class="cl-smtp-preview-settings">
@@ -43,6 +57,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p>
 		<strong><?php esc_html_e( 'From Name', 'cl-simplest-smtp' ); ?>:</strong>
-		<?php echo esc_attr( $from_name ); ?>
+		<?php echo esc_attr( CL_SIMPLEST_SMTP_NAME ); ?>
 	</p>
 </div>
