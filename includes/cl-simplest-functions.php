@@ -186,7 +186,6 @@ function send_test_mail() {
 			$text_html = __( 'Message sent as HTML', 'cl-simplest-smtp' );
 		} else {
 			$from_mail = get_option( 'admin_email' );
-			$headers[] = 'From: <' . $from_mail . '>' . "\r\n";
 			$text_html = __( 'Message sent as plain text', 'cl-simplest-smtp' );
 		}
 
@@ -195,6 +194,7 @@ function send_test_mail() {
 			$test_mail_type = __( 'WordPress Mail method (using current SMTP options)', 'cl-simplest-smtp' );
 			$result         = wp_mail( $mail_to, $subject, $message, $headers );
 		} else {
+			$headers[]      = 'From: <' . $from_mail . '>' . "\r\n";
 			$test_mail_type = __( 'Native PHP mail (ignoring WordPress SMTP options)', 'cl-simplest-smtp' );
 			$result         = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
 		}
