@@ -185,6 +185,8 @@ function send_test_mail() {
 			$message  .= '<br /><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong>';
 			$text_html = __( 'Message sent as HTML', 'cl-simplest-smtp' );
 		} else {
+			$from_mail = get_option( 'admin_email' );
+			$headers[] = 'From: <' . $from_mail . '>' . "\r\n";
 			$text_html = __( 'Message sent as plain text', 'cl-simplest-smtp' );
 		}
 
