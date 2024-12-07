@@ -7,6 +7,11 @@
 
 namespace CL\Simplest_SMTP;
 
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Code is Poetry, but you are not an poet ;)' );
+}
+
 /**
  * Get the plugin option value.
  *

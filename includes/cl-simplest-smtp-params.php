@@ -8,8 +8,9 @@
 namespace CL\Simplest_SMTP;
 
 // Exit if accessed directly.
+// If this file is called directly, abort.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	die( 'Code is Poetry, but you are not an poet ;)' );
 }
 
 if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {

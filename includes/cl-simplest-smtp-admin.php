@@ -8,8 +8,9 @@
 namespace CL\Simplest_SMTP;
 
 // Exit if accessed directly.
+// If this file is called directly, abort.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	die( 'Code is Poetry, but you are not an poet ;)' );
 }
 
 // Add the settings page.
@@ -17,7 +18,6 @@ add_action( 'admin_menu', 'add_settings_page' );
 
 // Register the settings.
 add_action( 'admin_init', 'register_settings' );
-
 
 /**
  * Add the settings page.

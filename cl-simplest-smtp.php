@@ -11,6 +11,7 @@
  * Text Domain: cl-simplest-smtp
  * Domain Path: /languages
  * Requires at least: 6.4
+ * Requires PHP: 7.4
  *
  * @package CL\Simplest_SMTP
  */
@@ -18,8 +19,9 @@
 namespace CL\Simplest_SMTP;
 
 // Exit if accessed directly.
+// If this file is called directly, abort.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	die( 'Code is Poetry, but you are not an poet ;)' );
 }
 
 // Define plugin constants.
