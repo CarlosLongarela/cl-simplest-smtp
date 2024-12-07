@@ -95,6 +95,9 @@ add_action( 'admin_menu', __NAMESPACE__ . '\register_settings_menu' );
  * Render the settings page.
  */
 function render_settings_page() {
+	echo '<div class="wrap">';
+	echo '<h1>' . esc_html__( 'CL Simplest SMTP Settings', 'cl-simplest-smtp' ) . '</h1>';
+
 	if ( defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) {
 		// Load the template.
 		require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-page.php';
@@ -102,4 +105,6 @@ function render_settings_page() {
 		// Load the template.
 		require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-info-page.php';
 	}
+
+	echo '</div>';
 }

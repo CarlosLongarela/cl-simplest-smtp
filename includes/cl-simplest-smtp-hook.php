@@ -46,33 +46,31 @@ function use_email_smtp( $phpmailer ) {
  * @return bool
  */
 function check_params() {
-	$res = true;
-
 	if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
-		$res = false;
+		return false;
 	}
 
 	if ( ! defined( 'CL_SIMPLEST_SMTP_AUTH' ) || ! is_bool( CL_SIMPLEST_SMTP_AUTH ) ) {
-		$res = false;
+		return false;
 	}
 
 	if ( ! defined( 'CL_SIMPLEST_SMTP_PORT' ) || ! is_int( CL_SIMPLEST_SMTP_PORT ) ) {
-		$res = false;
+		return false;
 	}
 
 	if ( ! defined( 'CL_SIMPLEST_SMTP_USER' ) ) {
-		$res = false;
+		return false;
 	}
 
 	if ( ! defined( 'CL_SIMPLEST_SMTP_PASS' ) ) {
-		$res = false;
+		return false;
 	}
 
 	if ( ! defined( 'CL_SIMPLEST_SMTP_SECURE' ) || ( 'tls' !== CL_SIMPLEST_SMTP_SECURE && 'ssl' !== CL_SIMPLEST_SMTP_SECURE ) ) {
-		$res = false;
+		return false;
 	}
 
-	return $res;
+	return true;
 }
 
 if ( check_params() ) {

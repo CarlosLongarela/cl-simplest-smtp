@@ -31,7 +31,7 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
 
 	define( 'CL_SIMPLEST_SMTP_HOST', esc_attr( $cl_simplest_smtp_host ) );
 	define( 'CL_SIMPLEST_SMTP_AUTH', filter_var( $cl_simplest_smtp_auth, FILTER_VALIDATE_BOOLEAN ) );
-	define( 'CL_SIMPLEST_SMTP_PORT', absint( $cl_simplest_smtp_port ) );
+	define( 'CL_SIMPLEST_SMTP_PORT', filter_var( $cl_simplest_smtp_port, FILTER_VALIDATE_INT ) );
 	define( 'CL_SIMPLEST_SMTP_USER', esc_attr( $cl_simplest_smtp_user ) );
 	define( 'CL_SIMPLEST_SMTP_PASS', esc_attr( $cl_simplest_smtp_pass ) );
 	define( 'CL_SIMPLEST_SMTP_SECURE', esc_attr( $cl_simplest_smtp_secure ) );
