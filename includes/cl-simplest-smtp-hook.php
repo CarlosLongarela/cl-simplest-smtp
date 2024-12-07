@@ -29,11 +29,11 @@ function use_email_smtp( $phpmailer ) {
 	$phpmailer->Password   = CL_SIMPLEST_SMTP_PASS;
 	$phpmailer->SMTPSecure = CL_SIMPLEST_SMTP_SECURE;
 
-	if ( defined( CL_SIMPLEST_SMTP_FROM ) && ! empty( CL_SIMPLEST_SMTP_FROM ) ) {
+	if ( defined( 'CL_SIMPLEST_SMTP_FROM' ) && ! empty( CL_SIMPLEST_SMTP_FROM ) ) {
 		$phpmailer->From = CL_SIMPLEST_SMTP_FROM;
 	}
 
-	if ( defined( CL_SIMPLEST_SMTP_NAME ) && ! empty( CL_SIMPLEST_SMTP_NAME ) ) {
+	if ( defined( 'CL_SIMPLEST_SMTP_NAME' ) && ! empty( CL_SIMPLEST_SMTP_NAME ) ) {
 		$phpmailer->FromName = CL_SIMPLEST_SMTP_NAME;
 	}
 	// phpcs:enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase

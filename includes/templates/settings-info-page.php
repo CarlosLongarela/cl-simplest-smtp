@@ -9,6 +9,18 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Code is Poetry, but you are not an poet ;)' );
 }
+
+if ( defined( 'CL_SIMPLEST_SMTP_FROM' ) ) {
+	$from_mail = CL_SIMPLEST_SMTP_FROM;
+} else {
+	$from_mail = '';
+}
+
+if ( defined( 'CL_SIMPLEST_SMTP_NAME' ) ) {
+	$from_name = CL_SIMPLEST_SMTP_NAME;
+} else {
+	$from_name = '';
+}
 ?>
 
 <div class="cl-info-settings">
@@ -52,11 +64,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p>
 		<strong><?php esc_html_e( 'From Email', 'cl-simplest-smtp' ); ?>:</strong>
-		<?php echo esc_attr( CL_SIMPLEST_SMTP_FROM ); ?>
+		<?php echo esc_attr( $from_mail ); ?>
 	</p>
 
 	<p>
 		<strong><?php esc_html_e( 'From Name', 'cl-simplest-smtp' ); ?>:</strong>
-		<?php echo esc_attr( CL_SIMPLEST_SMTP_NAME ); ?>
+		<?php echo esc_attr( $from_name ); ?>
 	</p>
 </div>

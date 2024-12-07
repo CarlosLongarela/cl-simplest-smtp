@@ -10,13 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Code is Poetry, but you are not an poet ;)' );
 }
 
-if ( defined( CL_SIMPLEST_SMTP_FROM ) && ! empty( CL_SIMPLEST_SMTP_FROM ) ) {
+if ( defined( 'CL_SIMPLEST_SMTP_FROM' ) && ! empty( CL_SIMPLEST_SMTP_FROM ) ) {
 	$from_mail = CL_SIMPLEST_SMTP_FROM;
 } else {
 	$from_mail = '';
 }
 
-if ( defined( CL_SIMPLEST_SMTP_NAME ) && ! empty( CL_SIMPLEST_SMTP_NAME ) ) {
+if ( defined( 'CL_SIMPLEST_SMTP_NAME' ) && ! empty( CL_SIMPLEST_SMTP_NAME ) ) {
 	$from_name = CL_SIMPLEST_SMTP_NAME;
 } else {
 	$from_name = '';
