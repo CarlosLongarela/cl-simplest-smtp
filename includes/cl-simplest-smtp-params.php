@@ -14,48 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
-	$cl_simplest_smtp = get_option( 'cl_simplest_smtp' );
+	// If the constant is not defined, get ALL the values from the plugin options.
+	$cl_simplest_smtp_host   = get_option( 'cl_simplest_smtp_host' );
+	$cl_simplest_smtp_port   = get_option( 'cl_simplest_smtp_port' );
+	$cl_simplest_smtp_user   = get_option( 'cl_simplest_smtp_user' );
+	$cl_simplest_smtp_pass   = get_option( 'cl_simplest_smtp_pass' );
+	$cl_simplest_smtp_secure = get_option( 'cl_simplest_smtp_secure' );
+	$cl_simplest_smtp_from   = get_option( 'cl_simplest_smtp_from' );
+	$cl_simplest_smtp_name   = get_option( 'cl_simplest_smtp_name' );
 
-	if ( false === $cl_simplest_smtp ) {
-		$cl_simplest_smtp = array(
-			'host'   => '',
-			'auth'   => false,
-			'port'   => 25,
-			'user'   => '',
-			'pass'   => '',
-			'secure' => '',
-			'from'   => '',
-			'name'   => '',
-		);
-	}
-
-	define( 'CL_SIMPLEST_SMTP_HOST', esc_attr( $cl_simplest_smtp['host'] ) );
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_AUTH' ) ) {
-		define( 'CL_SIMPLEST_SMTP_AUTH', filter_var( $cl_simplest_smtp['auth'], FILTER_VALIDATE_BOOLEAN ) );
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_PORT' ) ) {
-		define( 'CL_SIMPLEST_SMTP_PORT', absint( $cl_simplest_smtp['port'] ) );
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_USER' ) ) {
-		define( 'CL_SIMPLEST_SMTP_USER', esc_attr( $cl_simplest_smtp['user'] ) );
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_PASS' ) ) {
-		define( 'CL_SIMPLEST_SMTP_PASS', esc_attr( $cl_simplest_smtp['pass'] ) );
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_SECURE' ) ) {
-		define( 'CL_SIMPLEST_SMTP_SECURE', esc_attr( $cl_simplest_smtp['secure'] ) );
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_FROM' ) ) {
-		define( 'CL_SIMPLEST_SMTP_FROM', filter_var( $cl_simplest_smtp['from'], FILTER_VALIDATE_EMAIL ) );
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_NAME' ) ) {
-		define( 'CL_SIMPLEST_SMTP_NAME', esc_attr( $cl_simplest_smtp['name'] ) );
-	}
+	define( 'CL_SIMPLEST_SMTP_HOST', esc_attr( $cl_simplest_smtp_host ) );
+	define( 'CL_SIMPLEST_SMTP_PORT', absint( $cl_simplest_smtp_port ) );
+	define( 'CL_SIMPLEST_SMTP_USER', esc_attr( $cl_simplest_smtp_user ) );
+	define( 'CL_SIMPLEST_SMTP_PASS', esc_attr( $cl_simplest_smtp_pass ) );
+	define( 'CL_SIMPLEST_SMTP_SECURE', esc_attr( $cl_simplest_smtp_secure ) );
+	define( 'CL_SIMPLEST_SMTP_FROM', filter_var( $cl_simplest_smtp_from, FILTER_VALIDATE_EMAIL ) );
+	define( 'CL_SIMPLEST_SMTP_NAME', esc_attr( $cl_simplest_smtp_name ) );
 }
