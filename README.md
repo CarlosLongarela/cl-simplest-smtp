@@ -1,16 +1,18 @@
 # CL Simplest SMTP
 
-- Contributors: carloslongarela
-- Tags: system, debug, mail, smtp
-- Donate link: https://www.paypal.me/CarlosLongarela
-- Requires at least: 5.0
-- Tested up to: 6.7.1
-- Requires PHP: 7.4
-- Stable tag: 1.0.0
-- License: GPL2+
-- License URI: https://www.gnu.org/licenses/gpl-2.0.html
+> * Contributors: carloslongarela
+> * Tags: system, debug, mail, smtp
+> * Donate link: https://www.paypal.me/CarlosLongarela
+> * Requires at least: 5.0
+> * Tested up to: 6.7.1
+> * Requires PHP: 7.4
+> * Stable tag: 1.0.0
+> * License: GPL2+
+> * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Send mails throught SMTP server. Simplest option to send mail when hosting or server do not permits send mail or is missconfigured.
+Send mails throught SMTP server.
+
+Simplest option to send mail when hosting or server do not permits send mail or is missconfigured.
 
 ## Description
 
