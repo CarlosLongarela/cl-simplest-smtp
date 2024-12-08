@@ -26,6 +26,11 @@ We also could to check the SMTP options and check the native PHP mail.
 2. Click "Add New" and Search for "CL Simplest SMTP"
 3. Install and Activate
 
+## Frequently Asked Questions
+
+## Upgrade Notice
+Upgrade plugin from WordPress public repository or uploading the plugin zip file from WordPress admin panel -> Plugins -> Add new plugin
+
 ## Screenshots
 1. SMTP save options
 2. SMTP config file options
