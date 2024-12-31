@@ -22,6 +22,19 @@ We also could to check the SMTP options and check the native PHP mail.
 3 - Install and Activate
 
 == Frequently Asked Questions ==
+### Configure plugin with contstants.
+Configure plugin with constants is the fastest option and also avoid database queries.
+
+We must set these constants in our `wp-config.php` file:
+
+define( 'CL_SIMPLEST_SMTP_HOST', 'your-smtp-host' );
+define( 'CL_SIMPLEST_SMTP_AUTH', true );
+define( 'CL_SIMPLEST_SMTP_PORT', 587 );
+define( 'CL_SIMPLEST_SMTP_USER', 'your-smtp@user' );
+define( 'CL_SIMPLEST_SMTP_PASS', 'your-smtp-password' );
+define( 'CL_SIMPLEST_SMTP_SECURE', 'tls' );
+define( 'CL_SIMPLEST_SMTP_FROM', 'your-smtp-sender@email' );
+define( 'CL_SIMPLEST_SMTP_NAME', 'Your Sender Name' );
 
 == Upgrade Notice ==
 Upgrade plugin from WordPress public repository or uploading the plugin zip file from WordPress admin panel -> Plugins -> Add new plugin.
@@ -29,8 +42,7 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 == Screenshots ==
 1. SMTP save options
 2. SMTP config file options
-3. Mailc check
 
 == Changelog ==
-= 1.0.0 - 2024-12-08 =
+= 1.0.0 - 2024-12-31 =
 * Info: Initial release.
