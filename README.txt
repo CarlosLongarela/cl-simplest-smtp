@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,14 +27,15 @@ Configure plugin with constants is the fastest option and also avoid database qu
 
 We must set these constants in our `wp-config.php` file:
 
-define( 'CL_SIMPLEST_SMTP_HOST', 'your-smtp-host' );
-define( 'CL_SIMPLEST_SMTP_AUTH', true );
-define( 'CL_SIMPLEST_SMTP_PORT', 587 );
-define( 'CL_SIMPLEST_SMTP_USER', 'your-smtp@user' );
-define( 'CL_SIMPLEST_SMTP_PASS', 'your-smtp-password' );
-define( 'CL_SIMPLEST_SMTP_SECURE', 'tls' );
-define( 'CL_SIMPLEST_SMTP_FROM', 'your-smtp-sender@email' );
-define( 'CL_SIMPLEST_SMTP_NAME', 'Your Sender Name' );
+`define( 'CL_SIMPLEST_SMTP_HOST', 'your-smtp-host' );` // SMTP server
+`define( 'CL_SIMPLEST_SMTP_AUTH', true );` // enable SMTP authentication
+`define( 'CL_SIMPLEST_SMTP_PORT', 587 );` // set the SMTP port
+`define( 'CL_SIMPLEST_SMTP_USER', 'your-smtp@user' );` // SMTP account username
+`define( 'CL_SIMPLEST_SMTP_PASS', 'your-smtp-password' );` // SMTP account password
+`define( 'CL_SIMPLEST_SMTP_SECURE', 'tls' );` // To use STARTTLS: 'tls'; To use SSL: 'ssl';
+`define( 'CL_SIMPLEST_SMTP_FROM', 'your-smtp-sender@email' );` // SMTP from email
+`define( 'CL_SIMPLEST_SMTP_NAME', 'Your Sender Name' );` // SMTP from name
+
 
 == Upgrade Notice ==
 Upgrade plugin from WordPress public repository or uploading the plugin zip file from WordPress admin panel -> Plugins -> Add new plugin.
@@ -44,5 +45,8 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 2. SMTP config file options
 
 == Changelog ==
+= 1.0.1 - 2024-12-31 =
+* Info: Updated readme.txt file.
+
 = 1.0.0 - 2024-12-31 =
 * Info: Initial release.
