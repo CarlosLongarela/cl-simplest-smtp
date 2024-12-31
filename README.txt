@@ -22,7 +22,7 @@ We also could to check the SMTP options and check the native PHP mail.
 3 - Install and Activate
 
 == Frequently Asked Questions ==
-### Configure plugin with contstants.
+### Configure plugin with constants.
 Configure plugin with constants is the fastest option and also avoid database queries.
 
 We must set these constants in our `wp-config.php` file:
