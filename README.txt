@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable tag: 1.0.4
+Stable tag: 1.0.4b
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,7 +43,7 @@ We must set these constants in our `wp-config.php` file:
 
 This option is the optimal for security.
 
-## This plugin will slow down my WordPress?
+### This plugin will slow down my WordPress?
 No. This plugin is very lightweight and only adds one CSS file if you are in the WordPress SMTP options page `/wp-admin/options-general.php?page=cl-simplest-smtp`and does not add anything to any other pages or on the frontend.
 
 Only adds one database option (first FAQ) with an array of 8 short values and nothing if you configure it with constants in your `wp-config.php` file (the best option for speed and security).
@@ -56,6 +56,9 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 2. SMTP config file options
 
 == Changelog ==
+= 1.0.4b - 2025-01-04 =
+* Improved: New screenshot on WordPress website and added two new FAQs
+
 = 1.0.4 - 2025-01-04 =
 * Improved: Added airmail envelope border appearance to settings.
 * Improved: Delete options from the database on plugin uninstall.
