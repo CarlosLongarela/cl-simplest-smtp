@@ -47,6 +47,7 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 == Changelog ==
 = 1.0.4 - 2025-01-04 =
 * Improved: Added airmail envelope border appearance to settings.
+* Improved: Delete options from the database on plugin uninstall.
 
 = 1.0.3 - 2025-01-04 =
 * Improved: Show the mail test options in a details HTML tag and added CSS to the options screen to improve presentation.

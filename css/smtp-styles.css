@@ -34,6 +34,6 @@
 			transparent 48px
 		) border-box;
 	border-radius: 4px;
-	margin: 20px 0;
+	margin-block: 20px;
 	padding: 20px;
 }
