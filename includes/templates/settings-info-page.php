@@ -41,7 +41,7 @@ if ( defined( 'CL_SIMPLEST_SMTP_NAME' ) ) {
 	?>
 </div>
 
-<div class="cl-smtp-preview-settings">
+<div class="cl-smtp-preview-settings cl-airmail-border">
 	<p>
 		<strong><?php esc_html_e( 'SMTP Server', 'cl-simplest-smtp' ); ?>:</strong>
 		<?php echo esc_attr( CL_SIMPLEST_SMTP_HOST ); ?>
