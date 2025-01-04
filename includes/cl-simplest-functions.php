@@ -175,9 +175,11 @@ function send_test_mail() {
 		$mail_to     = sanitize_email( wp_unslash( $_POST['mail-to'] ) );
 		$mail_type   = sanitize_text_field( wp_unslash( $_POST['mail-type'] ) );
 		$mail_method = sanitize_text_field( wp_unslash( $_POST['mail-method'] ) );
+		$from_mail   = get_option( 'admin_email' );
 
 		// Set the mail headers.
-		$headers = array();
+		$headers   = array();
+		$headers[] = 'MIME-Version: 1.0';
 
 		// Set the mail subject.
 		$subject = __( 'Test mail from CL Simplest SMTP', 'cl-simplest-smtp' );
@@ -190,7 +192,7 @@ function send_test_mail() {
 			$message  .= '<br /><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong>';
 			$text_html = __( 'Message sent as HTML', 'cl-simplest-smtp' );
 		} else {
-			$from_mail = get_option( 'admin_email' );
+			$headers[] = 'Content-Type: text/plain; charset=UTF-8';
 			$text_html = __( 'Message sent as plain text', 'cl-simplest-smtp' );
 		}
 
