@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Check that the new mail data has been sent and validate the nonce.
 CL\Simplest_SMTP\send_test_mail();
+
+$admin_mail = get_option( 'admin_email' );
 ?>
 
 <details class="cl-test-mail-settings">
@@ -28,7 +30,7 @@ CL\Simplest_SMTP\send_test_mail();
 					</label>
 				</th>
 				<td>
-					<input type="email" name="mail-to" id="mail-to" required class="regular-text" />
+					<input type="email" name="mail-to" id="mail-to" value="<?php echo esc_html( $admin_mail ); ?>" required class="regular-text" />
 				</td>
 			</tr>
 			<tr>
