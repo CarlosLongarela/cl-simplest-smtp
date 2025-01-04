@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CL Simplest SMTP\n"
-"POT-Creation-Date: 2024-12-07 20:37+0100\n"
-"PO-Revision-Date: 2024-12-31 01:50+0100\n"
+"POT-Creation-Date: 2025-01-04 19:24+0100\n"
+"PO-Revision-Date: 2025-01-04 19:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -46,56 +46,60 @@ msgstr "CL Simplest SMTP"
 msgid "Invite me to a coffe"
 msgstr "Invítame a un café"
 
-#: includes/cl-simplest-functions.php:184
+#: includes/cl-simplest-functions.php:185
 msgid "Test mail from CL Simplest SMTP"
 msgstr "Probar el correo desde CL Simplest SMTP"
 
-#: includes/cl-simplest-functions.php:187
+#: includes/cl-simplest-functions.php:188
 msgid "This is a test mail from the CL Simplest SMTP plugin."
 msgstr "Este es un correo de prueba desde el plugin CL Simplest SMTP."
 
-#: includes/cl-simplest-functions.php:191
+#: includes/cl-simplest-functions.php:192
 msgid "HTML version"
 msgstr "Versión HTML"
 
-#: includes/cl-simplest-functions.php:192
+#: includes/cl-simplest-functions.php:193
 msgid "Message sent as HTML"
 msgstr "Mensaje enviado como HTML"
 
-#: includes/cl-simplest-functions.php:195
+#: includes/cl-simplest-functions.php:196
 msgid "Message sent as plain text"
 msgstr "Mensaje enviado como texto plano"
 
-#: includes/cl-simplest-functions.php:200
-#: includes/templates/test-mail-page.php:55
+#: includes/cl-simplest-functions.php:201
+#: includes/templates/test-mail-page.php:57
 msgid "WordPress Mail method (using current SMTP options)"
 msgstr "Método de correo de WordPress (usando las opciones actuales de SMTP)"
 
-#: includes/cl-simplest-functions.php:204
-#: includes/templates/test-mail-page.php:56
+#: includes/cl-simplest-functions.php:205
+#: includes/templates/test-mail-page.php:58
 msgid "Native PHP mail (ignoring WordPress SMTP options)"
 msgstr ""
 "Método de correo nativo de PHP (ignorando las opciones actuales de SMTP)"
 
-#: includes/cl-simplest-functions.php:209
+#: includes/cl-simplest-functions.php:210
 msgid "Fantastic! The test mail was sent successfully."
 msgstr "¡Fantástico! El correo de prueba se ha enviado correctamente."
 
-#: includes/cl-simplest-functions.php:211
-#: includes/cl-simplest-functions.php:217
+#: includes/cl-simplest-functions.php:212
+#: includes/cl-simplest-functions.php:218
 msgid "Mail method:"
 msgstr "Método de envío:"
 
-#: includes/cl-simplest-functions.php:212
+#: includes/cl-simplest-functions.php:213
 msgid "Please check your inbox."
 msgstr "Por favor revisa tu bandeja de entrada."
 
-#: includes/cl-simplest-functions.php:215
+#: includes/cl-simplest-functions.php:216
 msgid ""
 "Error: The test mail was not sent. Please check the SMTP or mail settings."
 msgstr ""
 "Error: El correo de prueba no se ha enviado. Por favor, comprueba las "
 "opciones SMTP o del correo."
+
+#: includes/cl-simplest-functions.php:219
+msgid "The error returned the following message:"
+msgstr "El error devolvió el siguiente mensaje:"
 
 #: includes/templates/settings-info-page.php:28
 msgid ""
@@ -140,88 +144,88 @@ msgid "SMTP Password"
 msgstr "Clave SMTP"
 
 #: includes/templates/settings-info-page.php:66
-#: includes/templates/settings-page.php:90
+#: includes/templates/settings-page.php:91
 msgid "From Email"
 msgstr "Correo del remitente"
 
 #: includes/templates/settings-info-page.php:71
-#: includes/templates/settings-page.php:98
+#: includes/templates/settings-page.php:99
 msgid "From Name"
 msgstr "Nombre del remitente"
 
-#: includes/templates/settings-page.php:29
+#: includes/templates/settings-page.php:30
 msgid "SMTP settings"
 msgstr "Configuración SMTP"
 
-#: includes/templates/settings-page.php:36
+#: includes/templates/settings-page.php:37
 msgid "Host"
 msgstr "Servidor"
 
-#: includes/templates/settings-page.php:44
+#: includes/templates/settings-page.php:45
 msgid "Secure connection type"
 msgstr "Tipo de conexión segura"
 
-#: includes/templates/settings-page.php:48
+#: includes/templates/settings-page.php:49
 msgid "SSL"
 msgstr "SSL"
 
-#: includes/templates/settings-page.php:49
+#: includes/templates/settings-page.php:50
 msgid "TLS"
 msgstr "TLS"
 
-#: includes/templates/settings-page.php:55
+#: includes/templates/settings-page.php:56
 msgid "Port"
 msgstr "Puerto"
 
-#: includes/templates/settings-page.php:63
+#: includes/templates/settings-page.php:64
 msgid "Authenticate connection"
 msgstr "Autenticar la conexión"
-
-#: includes/templates/settings-page.php:67
-msgid "No"
-msgstr "No"
 
 #: includes/templates/settings-page.php:68
 msgid "Yes"
 msgstr "Si"
 
-#: includes/templates/settings-page.php:74
+#: includes/templates/settings-page.php:69
+msgid "No"
+msgstr "No"
+
+#: includes/templates/settings-page.php:75
 msgid "SMTP User"
 msgstr "Usuario SMTP"
 
-#: includes/templates/settings-page.php:82
+#: includes/templates/settings-page.php:83
 msgid "SMTP Pass"
 msgstr "Clave SMTP"
 
-#: includes/templates/settings-page.php:105
+#: includes/templates/settings-page.php:106
 msgid "Save SMTP data"
 msgstr "Guardar datos SMTP"
 
-#: includes/templates/test-mail-page.php:18
+#: includes/templates/test-mail-page.php:20
 msgid "Test mail"
 msgstr "Probar el correo"
 
-#: includes/templates/test-mail-page.php:27
+#: includes/templates/test-mail-page.php:29
 msgid "Mail To"
 msgstr "Enviar correo a"
 
-#: includes/templates/test-mail-page.php:37
+#: includes/templates/test-mail-page.php:39
 msgid "Mail type"
 msgstr "Tipo de correo"
 
-#: includes/templates/test-mail-page.php:42
+#: includes/templates/test-mail-page.php:44
 msgid "HTML mail"
 msgstr "Correo HTML"
 
-#: includes/templates/test-mail-page.php:43
+#: includes/templates/test-mail-page.php:45
 msgid "Plain mail"
 msgstr "Correo de texto plano"
 
-#: includes/templates/test-mail-page.php:50
+#: includes/templates/test-mail-page.php:52
 msgid "Mail method"
 msgstr "Método de envío"
 
-#: includes/templates/test-mail-page.php:62
+#: includes/templates/test-mail-page.php:64
 msgid "Send test mail"
 msgstr "Enviar correo de prueba"
 
