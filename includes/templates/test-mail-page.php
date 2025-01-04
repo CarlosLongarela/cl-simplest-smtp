@@ -40,10 +40,11 @@ $admin_mail = get_option( 'admin_email' );
 					</label>
 				</th>
 				<td>
-					<select name="mail-type">
-						<option value="html"><?php esc_html_e( 'HTML mail', 'cl-simplest-smtp' ); ?></option>
-						<option value="plain"><?php esc_html_e( 'Plain mail', 'cl-simplest-smtp' ); ?></option>
-					</select>
+					<input type="radio" name="mail-type" value="html" id="mail-type-html" checked />
+					<label for="mail-type-html"><?php esc_html_e( 'HTML mail', 'cl-simplest-smtp' ); ?></label>
+					<br />
+					<input type="radio" name="mail-type" value="plain" id="mail-type-plain" />
+					<label for="mail-type-plain"><?php esc_html_e( 'Plain mail', 'cl-simplest-smtp' ); ?></label>
 				</td>
 			</tr>
 			<tr>
@@ -53,10 +54,11 @@ $admin_mail = get_option( 'admin_email' );
 					</label>
 				</th>
 				<td>
-					<select name="mail-method">
-						<option value="wp_mail"><?php esc_html_e( 'WordPress Mail method (using current SMTP options)', 'cl-simplest-smtp' ); ?></option>
-						<option value="php_mail"><?php esc_html_e( 'Native PHP mail (ignoring WordPress SMTP options)', 'cl-simplest-smtp' ); ?></option>
-					</select>
+					<input type="radio" name="mail-method" value="wp_mail" id="mail-method-wp_mail" checked />
+					<label for="mail-method-wp_mail"><?php esc_html_e( 'WordPress Mail method (using current SMTP options)', 'cl-simplest-smtp' ); ?></label>
+					<br />
+					<input type="radio" name="mail-method" value="php_mail" id="mail-method-php_mail" />
+					<label for="mail-method-php_mail"><?php esc_html_e( 'Native PHP mail (ignoring WordPress SMTP options)', 'cl-simplest-smtp' ); ?></label>
 				</td>
 			</tr>
 		</table>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CL Simplest SMTP\n"
 "POT-Creation-Date: 2025-01-04 19:25+0100\n"
-"PO-Revision-Date: 2025-01-04 19:25+0100\n"
+"PO-Revision-Date: 2025-01-04 19:58+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: gl_ES\n"
@@ -74,7 +74,7 @@ msgstr "Método de correo de WordPress (usando as opcións actuais de SMTP)"
 #: includes/cl-simplest-functions.php:205
 #: includes/templates/test-mail-page.php:58
 msgid "Native PHP mail (ignoring WordPress SMTP options)"
-msgstr "Método de correo nativo de PHP (ignorando as opciones actuais de SMTP)"
+msgstr "Método de correo nativo de PHP (ignorando as opcións actuais de SMTP)"
 
 #: includes/cl-simplest-functions.php:210
 msgid "Fantastic! The test mail was sent successfully."

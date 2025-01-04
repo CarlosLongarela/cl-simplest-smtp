@@ -23,9 +23,9 @@ We also could to check the SMTP options and check the native PHP mail.
 
 == Frequently Asked Questions ==
 ### This plugin adds any options to my database?
-If you configure the plugin with constants in your `wp-config.php` file (see next FAQ), this plugin does not add any data to your database. This is the fastest option because the mail does not need to check data from your database,
+If you configure the plugin with constants in your `wp-config.php` file (see next FAQ), this plugin does not add any data to your database. This is the fastest option because the mail does not need to check data from your database.
 
-If you configure the options from the WordPress admin panel, the plugin will save only one array of options in your database with all the SMTP parameters. The options saved in your database (`wp_options` table) is cl_simplest_smtp_options`.
+If you configure the options from the WordPress admin panel, the plugin will save only one array of options in your database with all the SMTP parameters. The options saved in your database (`wp_options` table) is `cl_simplest_smtp_options`.
 
 ### Configure plugin with constants.
 Configure plugin with constants is the fastest option and also avoids database queries.
@@ -71,7 +71,7 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 * Improved: Delete options from the database on plugin uninstall.
 * Improved: Show error messages when sending fails in the Check Mail option.
 * Improved: Added default mail to send in tests, obtained from WordPress admin email.
-* Fix: Added charset on test/plain test mails and MIME version.
+* Fix: Added charset on text/plain test mails and MIME version.
 
 = 1.0.3 - 2025-01-04 =
 * Improved: Show the mail test options in a details HTML tag and added CSS to the options screen to improve presentation.
