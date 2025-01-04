@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 CL\Simplest_SMTP\send_test_mail()
 ?>
 
-<div class="cl-test-mail-settings">
-	<h2><?php esc_html_e( 'Test mail', 'cl-simplest-smtp' ); ?>:</h2>
+<details class="cl-test-mail-settings">
+	<summary><h2><?php esc_html_e( 'Test mail', 'cl-simplest-smtp' ); ?>:</h2></summary>
 
 	<form method="post" action="">
 		<?php wp_nonce_field( 'cl_simplest_smtp_test_mail_nonce', 'cl_smtp_nonce' ); ?>
@@ -61,4 +61,4 @@ CL\Simplest_SMTP\send_test_mail()
 
 		<?php submit_button( __( 'Send test mail', 'cl-simplest-smtp' ) ); ?>
 	</form>
-</div>
+</details>

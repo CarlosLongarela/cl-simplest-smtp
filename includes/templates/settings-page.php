@@ -64,8 +64,8 @@ if ( ! is_array( $options ) ) {
 			</th>
 			<td>
 				<select name="cl_simplest_smtp_options[auth]">
-					<option value="0" <?php selected( $options['auth'], false ); ?>><?php esc_html_e( 'No', 'cl-simplest-smtp' ); ?></option>
 					<option value="1" <?php selected( $options['auth'], true ); ?>><?php esc_html_e( 'Yes', 'cl-simplest-smtp' ); ?></option>
+					<option value="0" <?php selected( $options['auth'], false ); ?>><?php esc_html_e( 'No', 'cl-simplest-smtp' ); ?></option>
 				</select>
 			</td>
 		</tr>

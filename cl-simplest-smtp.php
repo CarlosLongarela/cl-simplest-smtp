@@ -6,14 +6,14 @@
  * @author            Carlos Longarela
  * @copyright         2024 Carlos Longarela
  * @license           GPL-2.0-or-later
- * @updated           2024-12-07
+ * @updated           2025-01-04
  * @github            https://github.com/CarlosLongarela/cl-simplest-smtp/
  *
  * @wordpress-plugin
  * Plugin Name:       CL Simplest SMTP
  * Plugin URI:        https://wordpress.org/plugins/cl-simplest-smtp/
  * Description:       The simplest SMTP option for your WordPress.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Requires at least: 5.0
  * Requires PHP:      7.4
  * Tested up to:      6.7.1
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'CL_SIMPLEST_SMTP_VERSION', '1.0.2' );
+define( 'CL_SIMPLEST_SMTP_VERSION', '1.0.3' );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -55,7 +55,21 @@ require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/cl-simplest-functions.php';
 
 
 if ( check_params() ) {
-	add_action( 'phpmailer_init', 'CL\Simplest_SMTP\use_email_smtp' );
+	add_action( 'phpmailer_init', __NAMESPACE__ . '\use_email_smtp' );
 } else {
-	add_action( 'admin_notices', 'CL\Simplest_SMTP\show_no_params_notice' );
+	add_action( 'admin_notices', __NAMESPACE__ . '\show_no_params_notice' );
 }
+
+/**
+ * Enqueue styles for the plugin settings page.
+ *
+ * @return void
+ */
+function enqueue_styles() {
+	$screen = get_current_screen();
+
+	if ( 'settings_page_cl-simplest-smtp' === $screen->id ) {
+		wp_enqueue_style( 'cl-simplest-smtp-styles', CL_SIMPLEST_SMTP_PLUGIN_URL . 'css/smtp-styles.css' );
+	}
+}
+add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_styles' );

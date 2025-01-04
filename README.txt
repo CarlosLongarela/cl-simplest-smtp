@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,9 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 2. SMTP config file options
 
 == Changelog ==
+= 1.0.3 - 2025-01-04 =
+* Improved: Show the mail test options in a details HTML tag and added CSS to the options screen to improve presentation.
+
 = 1.0.2 - 2024-12-31 =
 * Fix: readme.txt typo error.
 

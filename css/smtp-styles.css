@@ -1,0 +1,17 @@
+:root {
+	--cl-mail-bg-base: #135e96;
+}
+
+.cl-test-mail-settings summary {
+	cursor: pointer;
+	color: var(--cl-mail-bg-base);
+}
+
+.cl-test-mail-settings summary:hover {
+	text-decoration: underline;
+}
+
+.cl-test-mail-settings summary h2 {
+	display: inline-block;
+	color: var(--cl-mail-bg-base);
+}
