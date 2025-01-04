@@ -44,7 +44,7 @@ We must set these constants in our `wp-config.php` file:
 This option is the optimal for security.
 
 ### This plugin will slow down my WordPress?
-No. This plugin is very lightweight and only adds one CSS file if you are in the WordPress SMTP options page `/wp-admin/options-general.php?page=cl-simplest-smtp`and does not add anything to any other pages or on the frontend.
+No. This plugin is very lightweight and only adds one CSS file if you are in the WordPress SMTP options page `/wp-admin/options-general.php?page=cl-simplest-smtp` and does not add anything to any other pages or on the frontend.
 
 Only adds one database option (first FAQ) with an array of 8 short values and nothing if you configure it with constants in your `wp-config.php` file (the best option for speed and security).
 
