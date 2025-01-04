@@ -154,7 +154,6 @@ function render_settings_page() {
 	}
 	echo '</h1>';
 
-
 	if ( defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) {
 		// Load the template.
 		require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-page.php';
@@ -215,7 +214,22 @@ function send_test_mail() {
 			$message_notice  = '<p>' . esc_html__( 'Error: The test mail was not sent. Please check the SMTP or mail settings.', 'cl-simplest-smtp' ) . '</p>';
 			$message_notice .= '<p>' . esc_html( $text_html ) . '</p>';
 			$message_notice .= '<p>' . esc_html__( 'Mail method:', 'cl-simplest-smtp' ) . ' ' . esc_html( $test_mail_type ) . '</p>';
-			$type            = 'error';
+			$message_notice .= '<p><strong>' . esc_html__( 'The error returned the following message:', 'cl-simplest-smtp' ) . '</strong></p>';
+			if ( 'wp_mail' === $mail_method ) {
+				global $phpmailer;
+
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				if ( ! empty( $phpmailer->ErrorInfo ) ) {
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$message_notice .= '<p><em>' . esc_html( $phpmailer->ErrorInfo ) . '</em></p>';
+				}
+			} else {
+				$error_maessage = error_get_last();
+				if ( ! empty( $error_maessage['message'] ) ) {
+					$message_notice .= '<p><em>' . esc_html( $error_maessage['message'] ) . '</em></p>';
+				}
+			}
+			$type = 'error';
 		}
 
 		wp_admin_notice(

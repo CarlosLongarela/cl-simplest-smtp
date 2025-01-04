@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Check that the new mail data has been sent and validate the nonce.
-CL\Simplest_SMTP\send_test_mail()
+CL\Simplest_SMTP\send_test_mail();
 ?>
 
 <details class="cl-test-mail-settings">
