@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable tag: 1.0.4b
+Stable tag: 1.0.5
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,11 @@ No. This plugin is very lightweight and only adds one CSS file if you are in the
 
 Only adds one database option (first FAQ) with an array of 8 short values and nothing if you configure it with constants in your `wp-config.php` file (the best option for speed and security).
 
+### Can I hide the Invite me to a coffe button?
+Yes, of course you must to define the constant `CL_SIMPLEST_SMTP_HIDE_DONATE` as `true`in your `wp-config.php` file and the button will fly out ;)
+
+`define( 'CL_SIMPLEST_SMTP_HIDE_DONATE', true );`
+
 == Upgrade Notice ==
 Upgrade plugin from WordPress public repository or uploading the plugin zip file from WordPress admin panel -> Plugins -> Add new plugin.
 
@@ -56,6 +61,8 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 2. SMTP config file options
 
 == Changelog ==
+= 1.0.5 - 2025-01-05 =
+
 = 1.0.4b - 2025-01-04 =
 * Improved: New screenshot on WordPress website and added two new FAQs
 
