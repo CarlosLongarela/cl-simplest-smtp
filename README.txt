@@ -48,10 +48,12 @@ No. This plugin is very lightweight and only adds one CSS file if you are in the
 
 Only adds one database option (first FAQ) with an array of 8 short values and nothing if you configure it with constants in your `wp-config.php` file (the best option for speed and security).
 
-### Can I hide the Invite me to a coffe button?
-Yes, of course you must to define the constant `CL_SIMPLEST_SMTP_HIDE_DONATE` as `true`in your `wp-config.php` file and the button will fly out ;)
+### Can I hide the "Invite me to a coffe" button?
+Yes, of course. You must to define the constant `CL_SIMPLEST_SMTP_HIDE_DONATE` as `true`in your `wp-config.php` file and the button will fly out ;)
 
 `define( 'CL_SIMPLEST_SMTP_HIDE_DONATE', true );`
+
+But you can invite me to that coffee at any time from https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4
 
 == Upgrade Notice ==
 Upgrade plugin from WordPress public repository or uploading the plugin zip file from WordPress admin panel -> Plugins -> Add new plugin.
@@ -61,7 +63,8 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 2. SMTP config file options
 
 == Changelog ==
-= 1.0.5 - 2025-01-05 =
+= 1.0.5 - 2025-01-06 =
+* Improved: Changed selectors to option fields on the test mailing page.
 
 = 1.0.4b - 2025-01-04 =
 * Improved: New screenshot on WordPress website and added two new FAQs
