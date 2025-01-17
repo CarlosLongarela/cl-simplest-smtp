@@ -155,10 +155,8 @@ function render_settings_page() {
 	echo '</h1>';
 
 	if ( defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) {
-		// Load the template.
 		require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-page.php';
 	} else {
-		// Load the template.
 		require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-info-page.php';
 	}
 
