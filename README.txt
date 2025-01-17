@@ -55,6 +55,11 @@ Yes, of course. You must to define the constant `CL_SIMPLEST_SMTP_HIDE_DONATE` a
 
 But you can invite me to that coffee at any time from https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4
 
+### How can I tell you about a bug, ask for a functionality or contribute to the plugin?
+The plugin development of this plugin is managed in this GitHub repository https://github.com/CarlosLongarela/cl-simplest-smtp
+
+You can send us issues, requests or any comments to https://github.com/CarlosLongarela/cl-simplest-smtp/issues or create a pull request to contribute with any new bug fix, functionality or any other code change.
+
 == Upgrade Notice ==
 Upgrade plugin from WordPress public repository or uploading the plugin zip file from WordPress admin panel -> Plugins -> Add new plugin.
 
@@ -63,7 +68,7 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 2. SMTP config file options
 
 == Changelog ==
-= 1.0.5 - 2025-01-06 =
+= 1.0.5 - 2025-01-17 =
 * Improved: Changed selectors to option fields on the test mailing page.
 
 = 1.0.4b - 2025-01-04 =
