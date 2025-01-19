@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CL Simplest SMTP\n"
-"POT-Creation-Date: 2025-01-04 19:25+0100\n"
-"PO-Revision-Date: 2025-01-04 19:58+0100\n"
+"POT-Creation-Date: 2025-01-19 14:29+0100\n"
+"PO-Revision-Date: 2025-01-19 14:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: gl_ES\n"
@@ -46,57 +46,57 @@ msgstr "CL Simplest SMTP"
 msgid "Invite me to a coffe"
 msgstr "Invítame a un café"
 
-#: includes/cl-simplest-functions.php:185
+#: includes/cl-simplest-functions.php:178
 msgid "Test mail from CL Simplest SMTP"
 msgstr "Probar o correo dende CL Simplest SMTP"
 
-#: includes/cl-simplest-functions.php:188
+#: includes/cl-simplest-functions.php:213
 msgid "This is a test mail from the CL Simplest SMTP plugin."
 msgstr "Este é un correo de proba dende o plugin CL Simplest SMTP."
 
-#: includes/cl-simplest-functions.php:192
+#: includes/cl-simplest-functions.php:216
 msgid "HTML version"
 msgstr "Versión HTML"
 
-#: includes/cl-simplest-functions.php:193
+#: includes/cl-simplest-functions.php:251
 msgid "Message sent as HTML"
 msgstr "Mensaxe enviada como HTML"
 
-#: includes/cl-simplest-functions.php:196
+#: includes/cl-simplest-functions.php:251
 msgid "Message sent as plain text"
 msgstr "Mensaxe enviada como texto plano"
 
-#: includes/cl-simplest-functions.php:201
-#: includes/templates/test-mail-page.php:57
+#: includes/cl-simplest-functions.php:252
+#: includes/templates/test-mail-page.php:58
 msgid "WordPress Mail method (using current SMTP options)"
 msgstr "Método de correo de WordPress (usando as opcións actuais de SMTP)"
 
-#: includes/cl-simplest-functions.php:205
-#: includes/templates/test-mail-page.php:58
+#: includes/cl-simplest-functions.php:252
+#: includes/templates/test-mail-page.php:61
 msgid "Native PHP mail (ignoring WordPress SMTP options)"
 msgstr "Método de correo nativo de PHP (ignorando as opcións actuais de SMTP)"
 
-#: includes/cl-simplest-functions.php:210
+#: includes/cl-simplest-functions.php:255
 msgid "Fantastic! The test mail was sent successfully."
 msgstr "Caralludo! O correo de proba enviouse correctamente."
 
-#: includes/cl-simplest-functions.php:212
-#: includes/cl-simplest-functions.php:218
+#: includes/cl-simplest-functions.php:257
+#: includes/cl-simplest-functions.php:263
 msgid "Mail method:"
 msgstr "Método de envío:"
 
-#: includes/cl-simplest-functions.php:213
+#: includes/cl-simplest-functions.php:258
 msgid "Please check your inbox."
 msgstr "Por favor revisa a túa bandexa de entrada."
 
-#: includes/cl-simplest-functions.php:216
+#: includes/cl-simplest-functions.php:261
 msgid ""
 "Error: The test mail was not sent. Please check the SMTP or mail settings."
 msgstr ""
 "Erro: O correo de proba non se enviou. Por favor, comproba as opciones SMTP "
 "ou do correo."
 
-#: includes/cl-simplest-functions.php:219
+#: includes/cl-simplest-functions.php:264
 msgid "The error returned the following message:"
 msgstr "O erro devolveu a seguinte mensaxe:"
 
@@ -216,15 +216,15 @@ msgstr "Tipo de correo"
 msgid "HTML mail"
 msgstr "Correo HTML"
 
-#: includes/templates/test-mail-page.php:45
+#: includes/templates/test-mail-page.php:47
 msgid "Plain mail"
 msgstr "Correo de texto plano"
 
-#: includes/templates/test-mail-page.php:52
+#: includes/templates/test-mail-page.php:53
 msgid "Mail method"
 msgstr "Método de envío"
 
-#: includes/templates/test-mail-page.php:64
+#: includes/templates/test-mail-page.php:66
 msgid "Send test mail"
 msgstr "Enviar correo de proba"
 
