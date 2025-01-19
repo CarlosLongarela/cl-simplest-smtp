@@ -173,71 +173,121 @@ function send_test_mail() {
 		$mail_to     = sanitize_email( wp_unslash( $_POST['mail-to'] ) );
 		$mail_type   = sanitize_text_field( wp_unslash( $_POST['mail-type'] ) );
 		$mail_method = sanitize_text_field( wp_unslash( $_POST['mail-method'] ) );
-		$from_mail   = get_option( 'admin_email' );
 
-		// Set the mail headers.
-		$headers   = array();
-		$headers[] = 'MIME-Version: 1.0';
-
-		// Set the mail subject.
+		$headers = prepare_mail_headers( $mail_type );
 		$subject = __( 'Test mail from CL Simplest SMTP', 'cl-simplest-smtp' );
+		$message = prepare_mail_message( $mail_type );
 
-		// Set the mail message.
-		$message = __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' );
+		$result = send_mail( $mail_to, $subject, $message, $headers, $mail_method );
 
-		if ( 'html' === $mail_type ) {
-			$headers[] = 'Content-Type: text/html; charset=UTF-8';
-			$message  .= '<br /><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong>';
-			$text_html = __( 'Message sent as HTML', 'cl-simplest-smtp' );
-		} else {
-			$headers[] = 'Content-Type: text/plain; charset=UTF-8';
-			$text_html = __( 'Message sent as plain text', 'cl-simplest-smtp' );
-		}
+		display_mail_result_notice( $result, $mail_type, $mail_method );
+	}
+}
 
-		// Send the mail.
-		if ( 'wp_mail' === $mail_method ) {
-			$test_mail_type = __( 'WordPress Mail method (using current SMTP options)', 'cl-simplest-smtp' );
-			$result         = wp_mail( $mail_to, $subject, $message, $headers );
-		} else {
-			$headers[]      = 'From: <' . $from_mail . '>' . "\r\n";
-			$test_mail_type = __( 'Native PHP mail (ignoring WordPress SMTP options)', 'cl-simplest-smtp' );
-			$result         = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
-		}
+/**
+ * Prepare mail headers based on mail type.
+ *
+ * @param string $mail_type The type of mail (html or plain).
+ * @return array The prepared headers.
+ */
+function prepare_mail_headers( string $mail_type ): array {
+	$headers   = array();
+	$headers[] = 'MIME-Version: 1.0';
 
-		if ( $result ) {
-			$message_notice  = '<p>' . esc_html__( 'Fantastic! The test mail was sent successfully.', 'cl-simplest-smtp' ) . '</p>';
-			$message_notice .= '<p>' . esc_html( $text_html ) . '</p>';
-			$message_notice .= '<p>' . esc_html__( 'Mail method:', 'cl-simplest-smtp' ) . ' ' . esc_html( $test_mail_type ) . '</p>';
-			$message_notice .= '<p>' . esc_html__( 'Please check your inbox.', 'cl-simplest-smtp' ) . '</p>';
-			$type            = 'success';
-		} else {
-			$message_notice  = '<p>' . esc_html__( 'Error: The test mail was not sent. Please check the SMTP or mail settings.', 'cl-simplest-smtp' ) . '</p>';
-			$message_notice .= '<p>' . esc_html( $text_html ) . '</p>';
-			$message_notice .= '<p>' . esc_html__( 'Mail method:', 'cl-simplest-smtp' ) . ' ' . esc_html( $test_mail_type ) . '</p>';
-			$message_notice .= '<p><strong>' . esc_html__( 'The error returned the following message:', 'cl-simplest-smtp' ) . '</strong></p>';
-			if ( 'wp_mail' === $mail_method ) {
-				global $phpmailer;
+	if ( 'html' === $mail_type ) {
+		$headers[] = 'Content-Type: text/html; charset=UTF-8';
+	} else {
+		$headers[] = 'Content-Type: text/plain; charset=UTF-8';
+	}
 
-				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-				if ( ! empty( $phpmailer->ErrorInfo ) ) {
-					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-					$message_notice .= '<p><em>' . esc_html( $phpmailer->ErrorInfo ) . '</em></p>';
-				}
-			} else {
-				$error_maessage = error_get_last();
-				if ( ! empty( $error_maessage['message'] ) ) {
-					$message_notice .= '<p><em>' . esc_html( $error_maessage['message'] ) . '</em></p>';
-				}
-			}
-			$type = 'error';
-		}
+	return $headers;
+}
 
-		wp_admin_notice(
-			$message_notice,
-			array(
-				'type'        => $type,
-				'dismissible' => true,
-			)
-		);
+/**
+ * Prepare mail message based on mail type.
+ *
+ * @param string $mail_type The type of mail (html or plain).
+ * @return string The prepared message.
+ */
+function prepare_mail_message( string $mail_type ): string {
+	$message = __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' );
+
+	if ( 'html' === $mail_type ) {
+		$message .= '<br /><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong>';
+	}
+
+	return $message;
+}
+
+/**
+ * Send mail using the specified method.
+ *
+ * @param string $mail_to The recipient email address.
+ * @param string $subject The email subject.
+ * @param string $message The email message.
+ * @param array  $headers The email headers.
+ * @param string $mail_method The method to send mail (wp_mail or native).
+ * @return bool The result of the mail sending.
+ */
+function send_mail( string $mail_to, string $subject, string $message, array $headers, string $mail_method ): bool {
+	$from_mail = get_option( 'admin_email' );
+
+	if ( 'wp_mail' === $mail_method ) {
+		return wp_mail( $mail_to, $subject, $message, $headers );
+	} else {
+		$headers[] = 'From: <' . $from_mail . '>' . "\r\n";
+		return mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
+	}
+}
+
+/**
+ * Display the result notice of the mail sending.
+ *
+ * @param bool   $result The result of the mail sending.
+ * @param string $mail_type The type of mail (html or plain).
+ * @param string $mail_method The method used to send mail.
+ */
+function display_mail_result_notice( bool $result, string $mail_type, string $mail_method ) {
+	$text_html = ( 'html' === $mail_type ) ? __( 'Message sent as HTML', 'cl-simplest-smtp' ) : __( 'Message sent as plain text', 'cl-simplest-smtp' );
+	$test_mail_type = ( 'wp_mail' === $mail_method ) ? __( 'WordPress Mail method (using current SMTP options)', 'cl-simplest-smtp' ) : __( 'Native PHP mail (ignoring WordPress SMTP options)', 'cl-simplest-smtp' );
+
+	if ( $result ) {
+		$message_notice  = '<p>' . esc_html__( 'Fantastic! The test mail was sent successfully.', 'cl-simplest-smtp' ) . '</p>';
+		$message_notice .= '<p>' . esc_html( $text_html ) . '</p>';
+		$message_notice .= '<p>' . esc_html__( 'Mail method:', 'cl-simplest-smtp' ) . ' ' . esc_html( $test_mail_type ) . '</p>';
+		$message_notice .= '<p>' . esc_html__( 'Please check your inbox.', 'cl-simplest-smtp' ) . '</p>';
+		$type            = 'success';
+	} else {
+		$message_notice  = '<p>' . esc_html__( 'Error: The test mail was not sent. Please check the SMTP or mail settings.', 'cl-simplest-smtp' ) . '</p>';
+		$message_notice .= '<p>' . esc_html( $text_html ) . '</p>';
+		$message_notice .= '<p>' . esc_html__( 'Mail method:', 'cl-simplest-smtp' ) . ' ' . esc_html( $test_mail_type ) . '</p>';
+		$message_notice .= '<p><strong>' . esc_html__( 'The error returned the following message:', 'cl-simplest-smtp' ) . '</strong></p>';
+		$message_notice .= '<p><em>' . esc_html( get_mail_error_message( $mail_method ) ) . '</em></p>';
+		$type = 'error';
+	}
+
+	wp_admin_notice(
+		$message_notice,
+		array(
+			'type'        => $type,
+			'dismissible' => true,
+		)
+	);
+}
+
+/**
+ * Get the error message from the mail sending process.
+ *
+ * @param string $mail_method The method used to send mail.
+ * @return string The error message.
+ */
+function get_mail_error_message( string $mail_method ): string {
+	if ( 'wp_mail' === $mail_method ) {
+		global $phpmailer;
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		return ! empty( $phpmailer->ErrorInfo ) ? $phpmailer->ErrorInfo : '';
+	} else {
+		$error_message = error_get_last();
+		return ! empty( $error_message['message'] ) ? $error_message['message'] : '';
 	}
 }
