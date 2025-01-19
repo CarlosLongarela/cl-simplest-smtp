@@ -13,7 +13,7 @@
  * Plugin Name:       CL Simplest SMTP
  * Plugin URI:        https://wordpress.org/plugins/cl-simplest-smtp/
  * Description:       The simplest SMTP option for your WordPress.
- * Version:           1.0.8
+ * Version:           1.0.9
  * Requires at least: 5.0
  * Requires PHP:      7.4
  * Tested up to:      6.7.1
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'CL_SIMPLEST_SMTP_VERSION', '1.0.8' );
+define( 'CL_SIMPLEST_SMTP_VERSION', '1.0.9' );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -69,7 +69,7 @@ function enqueue_styles() {
 	$screen = get_current_screen();
 
 	if ( 'settings_page_cl-simplest-smtp' === $screen->id ) {
-		wp_enqueue_style( 'cl-simplest-smtp-styles', CL_SIMPLEST_SMTP_PLUGIN_URL . 'css/smtp-styles.css' );
+		wp_enqueue_style( 'cl-simplest-smtp-styles', CL_SIMPLEST_SMTP_PLUGIN_URL . 'css/smtp-styles.css', array(), CL_SIMPLEST_SMTP_VERSION );
 	}
 }
 add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_styles' );

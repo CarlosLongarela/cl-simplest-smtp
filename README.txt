@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,9 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 2. SMTP config file options
 
 == Changelog ==
+= 1.0.9 - 2025-01-19 =
+* Improved: Refactorized send_test_mail function.
+
 = 1.0.8 - 2025-01-18 =
 = 1.0.7 - 2025-01-18 =
 = 1.0.6 - 2025-01-18 =
