@@ -1,0 +1,7 @@
+.cl-smtp-settings-page {
+    width: auto; /* Ajusta el ancho al contenido */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    border: 1px solid #ccc; /* Ejemplo de borde */
+    padding: 20px; /* Espacio interno */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}

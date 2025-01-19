@@ -55,3 +55,7 @@
   8. Use WordPress's hook system for modular and extensible code.
   9. Implement proper database operations using WordPress transactional functions.
   10. Use WordPress's WP_Cron API for scheduling tasks.
+
+  Commit Message
+  1. Generate a complete Git commit message following the "Conventional Commits" specification.
+  2. Avoid obvious details, unnecessary explanations, and filler content.

@@ -1,0 +1,88 @@
+:root {
+	--cl-mail-bg-base: #135e96;
+	--cl-airmail-blue: #0066CC;
+	--cl-airmail-red: #FF0000;
+}
+
+.cl-test-mail-settings summary {
+	cursor: pointer;
+	color: var(--cl-mail-bg-base);
+}
+
+.cl-test-mail-settings summary:hover {
+	text-decoration: underline;
+}
+
+.cl-test-mail-settings summary h2 {
+	display: inline-block;
+	color: var(--cl-mail-bg-base);
+}
+
+.cl-airmail-border {
+	display: inline-flex;
+	flex-direction: column;
+	min-width: 250px;
+	max-width: 90%;
+	border: 15px solid transparent;
+	background:
+		linear-gradient(white, white) padding-box,
+		repeating-linear-gradient(
+			-45deg,
+			var(--cl-airmail-red) 0,
+			var(--cl-airmail-red) 12px,
+			transparent 12px,
+			transparent 24px,
+			var(--cl-airmail-blue) 24px,
+			var(--cl-airmail-blue) 36px,
+			transparent 36px,
+			transparent 48px
+		) border-box;
+	border-radius: 4px;
+	margin-block: 20px;
+	padding: 20px;
+}
+
+.cl-airmail-border.cl-smtp-help-page {
+	display: flex;
+}
+
+.cl-airmail-border details summary {
+	cursor: pointer;
+	position: relative;
+	padding-left: 1.2em;
+	list-style: none;
+}
+
+.cl-airmail-border details summary::before {
+	content: '>';
+	font-family: serif;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%) rotate(90deg) scaleY(1.8);
+	transition: transform 0.3s ease;
+}
+
+.cl-airmail-border details[open] summary::before {
+	transform: translateY(-50%) rotate(-90deg) scaleY(1.8);
+}
+
+.cl-airmail-border details summary h2 {
+	display: inline-block;
+}
+
+.cl-airmail-border details .cl-details-content {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.8s ease-out, padding 0.8s ease-out;
+}
+
+.cl-airmail-border details[open] .cl-details-content {
+	max-height: 1000px;
+}
+
+.cl-smtp-help-page pre code {
+	display: block;
+	white-space: pre-wrap;
+	tab-size: 1;
+}

@@ -69,7 +69,8 @@ function enqueue_styles() {
 	$screen = get_current_screen();
 
 	if ( 'settings_page_cl-simplest-smtp' === $screen->id ) {
-		wp_enqueue_style( 'cl-simplest-smtp-styles', CL_SIMPLEST_SMTP_PLUGIN_URL . 'css/smtp-styles.css', array(), CL_SIMPLEST_SMTP_VERSION );
+		wp_enqueue_style( 'cl-simplest-smtp-styles', CL_SIMPLEST_SMTP_PLUGIN_URL . 'assets/css/smtp-styles.css', array(), CL_SIMPLEST_SMTP_VERSION );
+		wp_enqueue_script( 'cl-simplest-smtp-scripts', CL_SIMPLEST_SMTP_PLUGIN_URL . 'assets/js/smtp-scripts.js', array(), CL_SIMPLEST_SMTP_VERSION, true );
 	}
 }
 add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_styles' );
