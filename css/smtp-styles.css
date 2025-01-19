@@ -19,6 +19,9 @@
 }
 
 .cl-airmail-border {
+	display: inline-block;
+	min-width: 250px;
+	max-width: 90%;
 	border: 15px solid transparent;
 	background:
 		linear-gradient(white, white) padding-box,

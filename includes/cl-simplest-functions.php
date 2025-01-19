@@ -143,26 +143,64 @@ function sanitize_callback( $options ) {
 }
 
 /**
- * Render the settings page.
+ * Render the settings page with tabs.
  */
 function render_settings_page() {
+	$current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'info';
+
 	echo '<div class="wrap">';
-	// Add a button next to the title.
-	echo '<h1>' . esc_html__( 'CL Simplest SMTP Settings', 'cl-simplest-smtp' );
-	if ( ! defined( 'CL_SIMPLEST_SMTP_HIDE_DONATE' ) ) {
-		echo ' <a href="' . esc_url( 'https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4' ) . '" target="_blank" class="page-title-action">' . esc_html__( 'Invite me to a coffe', 'cl-simplest-smtp' ) . '</a>';
-	}
-	echo '</h1>';
+	echo '<h1>' . esc_html__( 'CL Simplest SMTP Settings', 'cl-simplest-smtp' ) . '</h1>';
+	echo '<h2 class="nav-tab-wrapper">';
+	echo '<a href="?page=cl-simplest-smtp&tab=info" class="nav-tab ' . ( 'info' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Info', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="?page=cl-simplest-smtp&tab=settings" class="nav-tab ' . ( 'settings' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Settings', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="?page=cl-simplest-smtp&tab=test" class="nav-tab ' . ( 'test' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Test', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="?page=cl-simplest-smtp&tab=help" class="nav-tab ' . ( 'help' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Help', 'cl-simplest-smtp' ) . '</a>';
+	echo '</h2>';
 
-	if ( defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) {
-		require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-page.php';
-	} else {
-		require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-info-page.php';
+	switch ( $current_tab ) {
+		case 'info':
+			render_info_tab();
+			break;
+		case 'settings':
+			render_settings_tab();
+			break;
+		case 'test':
+			render_test_tab();
+			break;
+		case 'help':
+			render_help_tab();
+			break;
 	}
-
-	require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/test-mail-page.php';
 
 	echo '</div>';
+}
+
+/**
+ * Render the "Settings" tab content.
+ */
+function render_settings_tab() {
+	require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-page.php';
+}
+
+/**
+ * Render the "Test" tab content.
+ */
+function render_test_tab() {
+	require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/test-mail-page.php';
+}
+
+/**
+ * Render the "Info" tab content.
+ */
+function render_info_tab() {
+	require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-info-page.php';
+}
+
+/**
+ * Render the "Help" tab content.
+ */
+function render_help_tab() {
+	require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/help-page.php';
 }
 
 /**
