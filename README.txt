@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,12 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 4. SMTP Help options.
 
 == Changelog ==
+= 1.2.0 - 2025-01-21 =
+* Improved: Added log tab to show mail error log files
+* Improved: Added options to show 10, 100, 1000 or 10000 log items
+* Improved: Added options to delete 10, 100, 1000 or 10000 log items
+* Improved: Added a new option to configure log file name with a constant definition
+
 = 1.1.1 - 2025-01-20 =
 * Info: Updated plugin page screenshots
 
