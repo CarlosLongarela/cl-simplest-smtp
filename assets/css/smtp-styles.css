@@ -88,3 +88,20 @@
 .cl-details-content ul ul > li {
 	margin-left: 3em;
 }
+
+.cl-simplest-smtp-logs {
+	max-width: 100%;
+	max-height: 80vh;
+	overflow: auto;
+}
+
+.cl-simplest-smtp-logs-list {
+	margin-left: 2em;
+	padding-left: 0;
+	font-weight: normal;
+}
+
+.cl-simplest-smtp-logs-list::marker,
+.cl-simplest-smtp-logs-list li::marker {
+	font-weight: bold;
+}

@@ -74,3 +74,11 @@ function enqueue_styles() {
 	}
 }
 add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_styles' );
+
+/**
+ * Activación del plugin.
+ */
+function cl_simplest_smtp_activate() {
+	create_log_file_if_not_exists();
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\cl_simplest_smtp_activate' );

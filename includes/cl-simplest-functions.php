@@ -154,6 +154,7 @@ function render_settings_page() {
 	echo '<a href="?page=cl-simplest-smtp&tab=info" class="nav-tab ' . ( 'info' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Info', 'cl-simplest-smtp' ) . '</a>';
 	echo '<a href="?page=cl-simplest-smtp&tab=settings" class="nav-tab ' . ( 'settings' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Settings', 'cl-simplest-smtp' ) . '</a>';
 	echo '<a href="?page=cl-simplest-smtp&tab=test" class="nav-tab ' . ( 'test' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Test', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="?page=cl-simplest-smtp&tab=logs" class="nav-tab ' . ( 'logs' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Logs', 'cl-simplest-smtp' ) . '</a>';
 	echo '<a href="?page=cl-simplest-smtp&tab=help" class="nav-tab ' . ( 'help' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Help', 'cl-simplest-smtp' ) . '</a>';
 	echo '</h2>';
 
@@ -166,6 +167,9 @@ function render_settings_page() {
 			break;
 		case 'test':
 			render_test_tab();
+			break;
+		case 'logs':
+			render_logs_tab();
 			break;
 		case 'help':
 			render_help_tab();
@@ -194,6 +198,13 @@ function render_test_tab() {
  */
 function render_info_tab() {
 	require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/settings-info-page.php';
+}
+
+/**
+ * Render the "Logs" tab content.
+ */
+function render_logs_tab() {
+	require_once CL_SIMPLEST_SMTP_PLUGIN_DIR . 'includes/templates/logs-page.php';
 }
 
 /**
@@ -274,11 +285,56 @@ function prepare_mail_message( string $mail_type ): string {
 function send_mail( string $mail_to, string $subject, string $message, array $headers, string $mail_method ): bool {
 	$from_mail = get_option( 'admin_email' );
 
+	$result = false;
 	if ( 'wp_mail' === $mail_method ) {
-		return wp_mail( $mail_to, $subject, $message, $headers );
+		$result = wp_mail( $mail_to, $subject, $message, $headers );
 	} else {
 		$headers[] = 'From: <' . $from_mail . '>' . "\r\n";
-		return mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
+		$result = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
+	}
+
+	if ( ! $result ) {
+		log_mail_error( $mail_to, $subject, $mail_method );
+	}
+
+	return $result;
+}
+
+/**
+ * Log mail error to the log file.
+ *
+ * @param string $mail_to     The recipient email address.
+ * @param string $subject     The email subject.
+ * @param string $mail_method The method used to send mail.
+ * @return void
+ */
+function log_mail_error( string $mail_to, string $subject, string $mail_method ) {
+	create_log_file_if_not_exists();
+
+	$error_message = get_mail_error_message( $mail_method );
+	$log_entry = sprintf(
+		"[%s] Error sending mail to %s with subject '%s' using method '%s'. Error: %s\n",
+		date( 'Y-m-d H:i:s' ),
+		$mail_to,
+		$subject,
+		$mail_method,
+		$error_message
+	);
+
+	$upload_dir    = wp_upload_dir();
+	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . 'cl-simplest-smtp-log.txt';
+
+	// Use native PHP functions to append to the log file
+	if ( is_writable( $log_file_path ) ) {
+		$handle = fopen( $log_file_path, 'a' );
+		if ( $handle ) {
+			fwrite( $handle, $log_entry );
+			fclose( $handle );
+		} else {
+			error_log( 'Failed to open log file for writing: ' . $log_file_path );
+		}
+	} else {
+		error_log( 'Log file is not writable: ' . $log_file_path );
 	}
 }
 
@@ -331,5 +387,28 @@ function get_mail_error_message( string $mail_method ): string {
 	} else {
 		$error_message = error_get_last();
 		return ! empty( $error_message['message'] ) ? $error_message['message'] : '';
+	}
+}
+
+/**
+ * Create the log file if it does not exist.
+ *
+ * @return void
+ */
+function create_log_file_if_not_exists() {
+	// Initialize the WordPress filesystem.
+	if ( ! function_exists( 'WP_Filesystem' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	WP_Filesystem();
+
+	global $wp_filesystem;
+
+	$upload_dir    = wp_upload_dir();
+	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . 'cl-simplest-smtp-log.txt';
+
+	if ( ! $wp_filesystem->exists( $log_file_path ) ) {
+		$wp_filesystem->put_contents( $log_file_path, "## Log file created on " . date( 'Y-m-d H:i:s' ) . "\n" );
 	}
 }
