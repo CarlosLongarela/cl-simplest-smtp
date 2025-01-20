@@ -4,20 +4,6 @@
 	--cl-airmail-red: #FF0000;
 }
 
-.cl-test-mail-settings summary {
-	cursor: pointer;
-	color: var(--cl-mail-bg-base);
-}
-
-.cl-test-mail-settings summary:hover {
-	text-decoration: underline;
-}
-
-.cl-test-mail-settings summary h2 {
-	display: inline-block;
-	color: var(--cl-mail-bg-base);
-}
-
 .cl-airmail-border {
 	display: inline-flex;
 	flex-direction: column;
@@ -85,4 +71,20 @@
 	display: block;
 	white-space: pre-wrap;
 	tab-size: 1;
+}
+
+.cl-details-content ul {
+	list-style: disc;
+}
+
+.cl-details-content ul ul {
+	list-style: circle;
+}
+
+.cl-details-content ul > li {
+	margin-left: 1.5em;
+}
+
+.cl-details-content ul ul > li {
+	margin-left: 3em;
 }

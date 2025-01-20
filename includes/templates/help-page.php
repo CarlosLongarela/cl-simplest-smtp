@@ -56,7 +56,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="cl-details-content">
 			<p>
-				<?php esc_html_e( 'No. This plugin is very lightweight and only adds one CSS file if you are in the WordPress SMTP options page <code>/wp-admin/options-general.php?page=cl-simplest-smtp</code> and does not add anything to any other pages or on the frontend.', 'cl-simplest-smtp' ); ?>
+				<?php
+				// translators: %s: <code>, %s: </code>
+				printf( esc_html__( 'No. This plugin is very lightweight and only adds one CSS file and one JS file if you are in the WordPress SMTP options page %s/wp-admin/options-general.php?page=cl-simplest-smtp%s and does not add anything to any other pages or on the frontend.', 'cl-simplest-smtp' ), '<code>', '</code>' ); ?>
 			</p>
 
 			<p>
@@ -98,7 +100,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p>
 				<?php
 				// translators: %s: <a>, %s: </a>
-				printf( esc_html__( 'The plugin development of this plugin is managed in this GitHub repository %shttps://github.com/CarlosLongarela/cl-simplest-smtp%s', 'cl-simplest-smtp' ), '<a href="https://github.com/CarlosLongarela/cl-simplest-smtp" target="_blank">', '</a>' ); ?>
+				printf( esc_html__( 'The development of this plugin is managed in this GitHub repository %shttps://github.com/CarlosLongarela/cl-simplest-smtp%s', 'cl-simplest-smtp' ), '<a href="https://github.com/CarlosLongarela/cl-simplest-smtp" target="_blank">', '</a>' ); ?>
 			</p>
 
 			<p>
@@ -106,6 +108,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 				// translators: %s: <a>, %s: </a>
 				printf( esc_html__( 'You can send us issues, requests or any comments to %shttps://github.com/CarlosLongarela/cl-simplest-smtp/issues%s or create a pull request to contribute with any new bug fix, functionality or any other code change.', 'cl-simplest-smtp' ), '<a href="https://github.com/CarlosLongarela/cl-simplest-smtp/issues" target="_blank">', '</a>' ); ?>
 			</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><h2> <?php esc_html_e( 'Some good tools for checking mail validity and configurations?', 'cl-simplest-smtp' ); ?></h2></summary>
+
+		<div class="cl-details-content">
+			<p>
+				<?php esc_html_e( 'Yes, of course. You can use this tools to check the mail validity and configurations:', 'cl-simplest-smtp' ); ?>
+			</p>
+
+			<ul>
+				<li><a href="https://www.mail-tester.com/" target="_blank"><?php esc_html_e( 'Mail Tester, Test the Spammyness of your Emails', 'cl-simplest-smtp' ); ?></a></li>
+				<li><a href="https://check.sendock.com/" target="_blank"><?php esc_html_e( 'Email Record Checker (SPF and DMARC)', 'cl-simplest-smtp' ); ?></a></li>
+				<li><strong><?php esc_html_e( 'MX Toolbox', 'cl-simplest-smtp' ); ?></strong></li>
+					<ul>
+						<li><a href="https://mxtoolbox.com/MXLookup.aspx" target="_blank"><?php esc_html_e( 'MX Lookup', 'cl-simplest-smtp' ); ?></a></li>
+						<li><a href="https://mxtoolbox.com/SPF.aspx" target="_blank"><?php esc_html_e( 'SPF Record Check', 'cl-simplest-smtp' ); ?></a></li>
+						<li><a href="https://mxtoolbox.com/dkim.aspx" target="_blank"><?php esc_html_e( 'DKIM Record Lookup', 'cl-simplest-smtp' ); ?></a></li>
+						<li><a href="https://mxtoolbox.com/blacklists.aspx" target="_blank"><?php esc_html_e( 'Blacklists', 'cl-simplest-smtp' ); ?></a></li>
+						<li><a href="https://mxtoolbox.com/emailhealth" target="_blank"><?php esc_html_e( 'Email Health Report', 'cl-simplest-smtp' ); ?></a></li>
+					</ul>
+			</ul>
 		</div>
 	</details>
 

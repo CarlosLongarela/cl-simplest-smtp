@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable tag: 1.0.9
+Stable tag: 1.1.0
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ We also could to check the SMTP options and check the native PHP mail.
 ### This plugin adds any options to my database?
 If you configure the plugin with constants in your `wp-config.php` file (see next FAQ), this plugin does not add any data to your database. This is the fastest option because the mail does not need to check data from your database.
 
-If you configure the options from the WordPress admin panel, the plugin will save only one array of options in your database with all the SMTP parameters. The options saved in your database (`wp_options` table) is `cl_simplest_smtp_options`.
+If you configure the options from the WordPress admin panel, the plugin will save only one array of options in your database with all the SMTP parameters. The options array saved in your database (`wp_options` table) is `cl_simplest_smtp_options`.
 
 ### Configure plugin with constants.
 Configure plugin with constants is the fastest option and also avoids database queries.
@@ -44,7 +44,7 @@ We must set these constants in our `wp-config.php` file:
 This option is the optimal for security.
 
 ### This plugin will slow down my WordPress?
-No. This plugin is very lightweight and only adds one CSS file if you are in the WordPress SMTP options page `/wp-admin/options-general.php?page=cl-simplest-smtp` and does not add anything to any other pages or on the frontend.
+No. This plugin is very lightweight and only adds one CSS file and one JS file if you are in the WordPress SMTP options page `/wp-admin/options-general.php?page=cl-simplest-smtp` and does not add anything to any other pages or on the frontend.
 
 Only adds one database option (first FAQ) with an array of 8 short values and nothing if you configure it with constants in your `wp-config.php` file (the best option for speed and security).
 
@@ -53,12 +53,12 @@ Yes, of course. You must to define the constant `CL_SIMPLEST_SMTP_HIDE_DONATE` a
 
 `define( 'CL_SIMPLEST_SMTP_HIDE_DONATE', true );`
 
-But you can invite me to that coffee at any time from https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4
+But you can invite me to that coffee at any time from <https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4>
 
 ### How can I tell you about a bug, ask for a functionality or contribute to the plugin?
-The plugin development of this plugin is managed in this GitHub repository https://github.com/CarlosLongarela/cl-simplest-smtp
+The plugin development of this plugin is managed in this GitHub repository <https://github.com/CarlosLongarela/cl-simplest-smtp>
 
-You can send us issues, requests or any comments to https://github.com/CarlosLongarela/cl-simplest-smtp/issues or create a pull request to contribute with any new bug fix, functionality or any other code change.
+You can send us issues, requests or any comments to <https://github.com/CarlosLongarela/cl-simplest-smtp/issues> or create a pull request to contribute with any new bug fix, functionality or any other code change.
 
 == Upgrade Notice ==
 Upgrade plugin from WordPress public repository or uploading the plugin zip file from WordPress admin panel -> Plugins -> Add new plugin.
@@ -68,6 +68,10 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 2. SMTP config file options
 
 == Changelog ==
+= 1.1.0 - 2025-01-20 =
+* Improved: Added sections with tabs.
+* Improved: Added a Help tab with FAQs and external tools for checking mail validity and configurations.
+
 = 1.0.9 - 2025-01-19 =
 * Improved: Refactorized send_test_mail function.
 
