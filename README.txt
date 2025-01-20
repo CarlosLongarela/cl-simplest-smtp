@@ -64,10 +64,15 @@ You can send us issues, requests or any comments to <https://github.com/CarlosLo
 Upgrade plugin from WordPress public repository or uploading the plugin zip file from WordPress admin panel -> Plugins -> Add new plugin.
 
 == Screenshots ==
-1. SMTP save options
-2. SMTP config file options
+1. SMTP info.
+2. SMTP settings.
+3. SMTP test with PHP native email and WordPress email.
+4. SMTP Help options.
 
 == Changelog ==
+= 1.1.1 - 2025-01-20 =
+* Info: Updated plugin page screenshots
+
 = 1.1.0 - 2025-01-20 =
 * Improved: Added sections with tabs.
 * Improved: Added a Help tab with FAQs and external tools for checking mail validity and configurations.
