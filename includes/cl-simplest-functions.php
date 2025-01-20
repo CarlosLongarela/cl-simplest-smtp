@@ -248,10 +248,14 @@ function prepare_mail_headers( string $mail_type ): array {
  * @return string The prepared message.
  */
 function prepare_mail_message( string $mail_type ): string {
-	$message = __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' );
+
 
 	if ( 'html' === $mail_type ) {
-		$message .= '<br /><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong>';
+		$message = '<p>' . __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' ) . '</p>';
+		$message .= '<p><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong></p>';
+	} else {
+		$message = __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' );
+		$message .= "\n\n" . __( 'Plain text version', 'cl-simplest-smtp' );
 	}
 
 	return $message;
@@ -260,10 +264,10 @@ function prepare_mail_message( string $mail_type ): string {
 /**
  * Send mail using the specified method.
  *
- * @param string $mail_to The recipient email address.
- * @param string $subject The email subject.
- * @param string $message The email message.
- * @param array  $headers The email headers.
+ * @param string $mail_to     The recipient email address.
+ * @param string $subject     The email subject.
+ * @param string $message     The email message.
+ * @param array  $headers     The email headers.
  * @param string $mail_method The method to send mail (wp_mail or native).
  * @return bool The result of the mail sending.
  */
@@ -281,8 +285,8 @@ function send_mail( string $mail_to, string $subject, string $message, array $he
 /**
  * Display the result notice of the mail sending.
  *
- * @param bool   $result The result of the mail sending.
- * @param string $mail_type The type of mail (html or plain).
+ * @param bool   $result      The result of the mail sending.
+ * @param string $mail_type   The type of mail (html or plain).
  * @param string $mail_method The method used to send mail.
  */
 function display_mail_result_notice( bool $result, string $mail_type, string $mail_method ) {
