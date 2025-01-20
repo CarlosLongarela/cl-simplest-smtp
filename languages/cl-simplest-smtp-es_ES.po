@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CL Simplest SMTP\n"
-"POT-Creation-Date: 2025-01-20 00:36+0100\n"
-"PO-Revision-Date: 2025-01-20 00:38+0100\n"
+"POT-Creation-Date: 2025-01-20 01:13+0100\n"
+"PO-Revision-Date: 2025-01-20 01:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -117,23 +117,25 @@ msgstr "El error devolvió el siguiente mensaje:"
 msgid "This plugin adds any options to my database?"
 msgstr "¿Este plugin añade alguna opción a mi base de datos?"
 
-#: includes/templates/help-page.php:19
+#. translators: %s: <code>, %s: </code>
+#: includes/templates/help-page.php:21
+#, php-format
 msgid ""
-"If you configure the plugin with constants in your wp-config.php file (see "
-"next question), this plugin does not add any data to your database. This is "
-"the fastest option because the mail does not need to check data from your "
-"database."
+"If you configure the plugin with constants in your %swp-config.php%s file "
+"(see next question), this plugin does not add any data to your database. "
+"This is the fastest option because the mail does not need to check data from "
+"your database."
 msgstr ""
-"Si configuras el plugin con constantes en tu archivo wp-config.php (ver "
+"Si configuras el plugin con constantes en tu archivo %swp-config.php%s (ver "
 "siguiente pregunta), este plugin no añade nada a tu base de datos. Esta es "
 "la opción más rápida porque el correo no necesita comprobar nada en tu base "
 "de datos."
 
-#: includes/templates/help-page.php:25
+#: includes/templates/help-page.php:27
 msgid "Configure plugin with constants."
 msgstr "Configurar el plugin con constantes."
 
-#: includes/templates/help-page.php:28
+#: includes/templates/help-page.php:30
 msgid ""
 "Configure plugin with constants is the fastest option and also avoids "
 "database queries."
@@ -142,22 +144,22 @@ msgstr ""
 "consultas a la base de datos."
 
 #. translators: %1: <code>, %2: </code>
-#: includes/templates/help-page.php:34
+#: includes/templates/help-page.php:36
 #, php-format
 msgid "We must set these constants in our %swp-config.php%s file:"
 msgstr ""
 "Debemos establecer estas constantes en nuestro archivo %swp-config.php%s:"
 
-#: includes/templates/help-page.php:49
+#: includes/templates/help-page.php:51
 msgid "This option is the optimal for security."
 msgstr "Esta opción es la óptima para la seguridad."
 
-#: includes/templates/help-page.php:55
+#: includes/templates/help-page.php:57
 msgid "This plugin will slow down my WordPress?"
 msgstr "¿Este plugin ralentizará mi WordPress?"
 
 #. translators: %s: <code>, %s: </code>
-#: includes/templates/help-page.php:61
+#: includes/templates/help-page.php:63
 #, php-format
 msgid ""
 "No. This plugin is very lightweight and only adds one CSS file and one JS "
@@ -171,7 +173,7 @@ msgstr ""
 "en el frontend."
 
 #. translators: %s: <code>, %s: </code>
-#: includes/templates/help-page.php:67
+#: includes/templates/help-page.php:69
 #, php-format
 msgid ""
 "Only adds one database option (first FAQ) with an array of 8 short values "
@@ -182,12 +184,12 @@ msgstr ""
 "valores cortos y nada si lo configuras con constantes en tu fichero %swp-"
 "config.php%s (la mejor opción por velocidad y seguridad)."
 
-#: includes/templates/help-page.php:73
+#: includes/templates/help-page.php:75
 msgid "Can I hide the \"Invite me to a coffe\" button?"
 msgstr "¿Puedo ocultar el botón \"Invítame a un café\"?"
 
 #. translators: %s: <code>, %s: </code>, %s: <code>, %s: </code>, %s: <code>, %s: </code>
-#: includes/templates/help-page.php:79
+#: includes/templates/help-page.php:81
 #, php-format
 msgid ""
 "Yes, of course. You must to define the constant "
@@ -199,7 +201,7 @@ msgstr ""
 "php%s y el botón saldrá volando ;)"
 
 #. translators: %s: <a>, %s: </a>
-#: includes/templates/help-page.php:91
+#: includes/templates/help-page.php:93
 #, php-format
 msgid ""
 "But you can invite me to that coffee at any time from %shttps://www.paypal."
@@ -208,7 +210,7 @@ msgstr ""
 "Pero puedes invitarme a ese café en cualquier momento desde %shttps://www."
 "paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4%s"
 
-#: includes/templates/help-page.php:97
+#: includes/templates/help-page.php:99
 msgid ""
 "How can I tell you about a bug, ask for a functionality or contribute to the "
 "plugin?"
@@ -217,7 +219,7 @@ msgstr ""
 "al plugin?"
 
 #. translators: %s: <a>, %s: </a>
-#: includes/templates/help-page.php:103
+#: includes/templates/help-page.php:105
 #, php-format
 msgid ""
 "The development of this plugin is managed in this GitHub repository "
@@ -227,7 +229,7 @@ msgstr ""
 "%shttps://github.com/CarlosLongarela/cl-simplest-smtp%s"
 
 #. translators: %s: <a>, %s: </a>
-#: includes/templates/help-page.php:109
+#: includes/templates/help-page.php:111
 #, php-format
 msgid ""
 "You can send us issues, requests or any comments to %shttps://github.com/"
@@ -239,13 +241,27 @@ msgstr ""
 "para contribuir con cualquier nueva corrección de errores, funcionalidad o "
 "cualquier otro cambio en el código."
 
-#: includes/templates/help-page.php:115
+#: includes/templates/help-page.php:117
+msgid "How can I contact the author?"
+msgstr "¿Cómo puedo ponerme en contacto con el autor?"
+
+#. translators: %s: <a>, %s: </a>, %s: <a>, %s: </a>
+#: includes/templates/help-page.php:123
+#, php-format
+msgid ""
+"You can contact the author at this email: %sinfo@tabernawp.com%s or in the "
+"page %shttps://tabernawp.com/contacto/%s"
+msgstr ""
+"Puedes ponerte en contacto con el autor en este correo electrónico: "
+"%sinfo@tabernawp.com%s o en la página %shttps://tabernawp.com/contacto/%s"
+
+#: includes/templates/help-page.php:129
 msgid "Some good tools for checking mail validity and configurations?"
 msgstr ""
 "¿Algunas buenas herramientas para comprobar la validez del correo y las "
 "configuraciones?"
 
-#: includes/templates/help-page.php:119
+#: includes/templates/help-page.php:133
 msgid ""
 "Yes, of course. You can use this tools to check the mail validity and "
 "configurations:"
@@ -253,35 +269,35 @@ msgstr ""
 "Sí, por supuesto. Puedes utilizar estas herramientas para comprobar la "
 "validez del correo y las configuraciones:"
 
-#: includes/templates/help-page.php:123
+#: includes/templates/help-page.php:137
 msgid "Mail Tester, Test the Spammyness of your Emails"
 msgstr "Mail Tester, compruebe el spam de sus correos electrónicos"
 
-#: includes/templates/help-page.php:124
+#: includes/templates/help-page.php:138
 msgid "Email Record Checker (SPF and DMARC)"
 msgstr "Comprobador de registros de correo electrónico (SPF y DMARC)"
 
-#: includes/templates/help-page.php:125
+#: includes/templates/help-page.php:139
 msgid "MX Toolbox"
 msgstr "MX Toolbox"
 
-#: includes/templates/help-page.php:127
+#: includes/templates/help-page.php:141
 msgid "MX Lookup"
 msgstr "MX Lookup"
 
-#: includes/templates/help-page.php:128
+#: includes/templates/help-page.php:142
 msgid "SPF Record Check"
 msgstr "Comprobador de entrada SPF"
 
-#: includes/templates/help-page.php:129
+#: includes/templates/help-page.php:143
 msgid "DKIM Record Lookup"
 msgstr "Búsqueda de registros DKIM"
 
-#: includes/templates/help-page.php:130
+#: includes/templates/help-page.php:144
 msgid "Blacklists"
 msgstr "Blacklists"
 
-#: includes/templates/help-page.php:131
+#: includes/templates/help-page.php:145
 msgid "Email Health Report"
 msgstr "Informe de salud de correo electrónico"
 

@@ -16,7 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<summary><h2> <?php esc_html_e( 'This plugin adds any options to my database?', 'cl-simplest-smtp' ); ?></h2></summary>
 		<div class="cl-details-content">
 			<p>
-				<?php esc_html_e( 'If you configure the plugin with constants in your wp-config.php file (see next question), this plugin does not add any data to your database. This is the fastest option because the mail does not need to check data from your database.', 'cl-simplest-smtp' ); ?>
+				<?php
+				// translators: %s: <code>, %s: </code>
+				printf( esc_html__( 'If you configure the plugin with constants in your %swp-config.php%s file (see next question), this plugin does not add any data to your database. This is the fastest option because the mail does not need to check data from your database.', 'cl-simplest-smtp' ), '<code>', '</code>' ); ?>
 			</p>
 		</div>
 	</details>
@@ -107,6 +109,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php
 				// translators: %s: <a>, %s: </a>
 				printf( esc_html__( 'You can send us issues, requests or any comments to %shttps://github.com/CarlosLongarela/cl-simplest-smtp/issues%s or create a pull request to contribute with any new bug fix, functionality or any other code change.', 'cl-simplest-smtp' ), '<a href="https://github.com/CarlosLongarela/cl-simplest-smtp/issues" target="_blank">', '</a>' ); ?>
+			</p>
+		</div>
+	</details>
+
+	<details>
+		<summary><h2> <?php esc_html_e( 'How can I contact the author?', 'cl-simplest-smtp' ); ?></h2></summary>
+
+		<div class="cl-details-content">
+			<p>
+				<?php
+				// translators: %s: <a>, %s: </a>, %s: <a>, %s: </a>
+				printf( esc_html__( 'You can contact the author at this email: %sinfo@tabernawp.com%s or in the page %shttps://tabernawp.com/contacto/%s', 'cl-simplest-smtp' ), '<a href="mailto:info@tabernawp.com">', '</a>', '<a href="https://tabernawp.com/contacto/" target="_blank">', '</a>' ); ?>
 			</p>
 		</div>
 	</details>
