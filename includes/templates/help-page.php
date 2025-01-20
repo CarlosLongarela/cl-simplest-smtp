@@ -96,6 +96,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</details>
 
 	<details>
+		<summary><h2> <?php esc_html_e( 'Can I change the log file name?', 'cl-simplest-smtp' ); ?></h2></summary>
+
+		<div class="cl-details-content">
+			<p>
+				<?php
+				// translators: %s: <code>, %s: </code>
+				printf( esc_html__( 'Yes, the default mail log file name is %scl-simplest-smtp-log.txt%s and is located in %suploads%s folder. You can\'t change the location, but you can change the file name if you define the constant %sCL_SIMPLEST_SMTP_LOG_FILENAME%s with the file name at your %swp-config.php%s file.', 'cl-simplest-smtp' ), '<code>', '</code>', '<code>', '</code>', '<code>', '</code>', '<code>', '</code>' ); ?>
+			</p>
+
+			<p>
+				<?php
+				// translators: %s: <code>, %s: </code>
+				printf( esc_html__( 'Example:', 'cl-simplest-smtp' ), '<code>', '</code>' ); ?>
+			</p>
+
+			<p>
+				<code>
+					define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'my-cl-simplest-smtp-log-dec-2025.txt' );
+				</code>
+			</p>
+
+			<p>
+				<?php esc_html_e( 'Keep in mind that if the default log file was previously created, it won\'t be deleted, only the new file will be created and the file that will be deleted on plugin uninstall will be the new defined file.', 'cl-simplest-smtp' ); ?>
+			</p>
+		</div>
+	</details>
+
+	<details>
 		<summary><h2> <?php esc_html_e( 'How can I tell you about a bug, ask for a functionality or contribute to the plugin?', 'cl-simplest-smtp' ); ?></h2></summary>
 
 		<div class="cl-details-content">

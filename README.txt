@@ -55,6 +55,15 @@ Yes, of course. You must to define the constant `CL_SIMPLEST_SMTP_HIDE_DONATE` a
 
 But you can invite me to that coffee at any time from <https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4>
 
+### Can I change the log file name?
+Yes, the default mail log file name is `cl-simplest-smtp-log.txt` and is located in `uploads` folder. You can't change the location, but you can change the file name if you define the constant `CL_SIMPLEST_SMTP_LOG_FILENAME` with the file name at your `wp-config.php` file.
+
+Example:
+
+`define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'my-cl-simplest-smtp-log-dec-2025.txt' );`
+
+Keep in mind that if the default log file was previously created, it won't be deleted, only the new file will be created and the file that will be deleted on plugin uninstall will be the new defined file.
+
 ### How can I tell you about a bug, ask for a functionality or contribute to the plugin?
 The plugin development of this plugin is managed in this GitHub repository <https://github.com/CarlosLongarela/cl-simplest-smtp>
 
