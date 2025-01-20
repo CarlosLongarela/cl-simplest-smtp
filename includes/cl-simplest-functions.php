@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Code is Poetry, but you are not an poet ;)' );
 }
 
+
+
 /**
  * Configure internal WordPress phpmailer to use SMTP.
  *
@@ -322,7 +324,7 @@ function log_mail_error( string $mail_to, string $subject, string $mail_method )
 	);
 
 	$upload_dir    = wp_upload_dir();
-	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . 'cl-simplest-smtp-log.txt';
+	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
 	// Use native PHP functions to append to the log file
 	if ( is_writable( $log_file_path ) ) {
@@ -406,9 +408,77 @@ function create_log_file_if_not_exists() {
 	global $wp_filesystem;
 
 	$upload_dir    = wp_upload_dir();
-	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . 'cl-simplest-smtp-log.txt';
+	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
 	if ( ! $wp_filesystem->exists( $log_file_path ) ) {
 		$wp_filesystem->put_contents( $log_file_path, "## Log file created on " . date( 'Y-m-d H:i:s' ) . "\n" );
 	}
 }
+
+/**
+ * Handle log deletion requests.
+ */
+function handle_log_deletion() {
+	if ( ! isset( $_GET['action'] ) || 'delete_logs' !== $_GET['action'] ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'cl-simplest-smtp' ) );
+	}
+
+	$count = isset( $_GET['count'] ) ? (int) $_GET['count'] : 0;
+	if ( ! in_array( $count, array( 10, 100, 1000, 10000 ), true ) ) {
+		return;
+	}
+
+	// Verify nonce
+	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'delete_logs_' . $count ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'cl-simplest-smtp' ) );
+	}
+
+	$upload_dir = wp_upload_dir();
+	$log_file = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
+
+	if ( ! file_exists( $log_file ) ) {
+		return;
+	}
+
+	// Read all lines
+	$lines = file( $log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
+	if ( false === $lines ) {
+		return;
+	}
+
+	// Keep only the newest lines
+	$lines = array_slice( $lines, $count );
+
+	// Add header line if file will be empty
+	if ( empty( $lines ) ) {
+		$lines[] = "## Log file cleaned on " . date( 'Y-m-d H:i:s' );
+	}
+
+	// Write back to file
+	$success = file_put_contents( $log_file, implode( PHP_EOL, $lines ) . PHP_EOL );
+
+	if ( $success ) {
+		add_settings_error(
+			'cl_simplest_smtp_messages',
+			'logs_deleted',
+			sprintf(
+				/* translators: %s: formatted number of deleted entries */
+				esc_html__( 'Successfully deleted the oldest %s log entries.', 'cl-simplest-smtp' ),
+				number_format_i18n( $count )
+			),
+			'updated'
+		);
+	} else {
+		add_settings_error(
+			'cl_simplest_smtp_messages',
+			'logs_delete_error',
+			esc_html__( 'Error deleting log entries.', 'cl-simplest-smtp' ),
+			'error'
+		);
+	}
+}
+add_action( 'admin_init', __NAMESPACE__ . '\handle_log_deletion' );

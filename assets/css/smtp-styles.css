@@ -2,6 +2,7 @@
 	--cl-mail-bg-base: #135e96;
 	--cl-airmail-blue: #0066CC;
 	--cl-airmail-red: #FF0000;
+	--cl-delete-button-color: #dc3232;
 }
 
 .cl-airmail-border {
@@ -103,5 +104,33 @@
 
 .cl-simplest-smtp-logs-list::marker,
 .cl-simplest-smtp-logs-list li::marker {
+	font-weight: bold;
+}
+
+.cl-simplest-smtp-log-buttons,
+.cl-simplest-smtp-delete-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1em;
+}
+
+.cl-simplest-smtp-delete-buttons {
+	margin-top: 1.5em;
+}
+
+.cl-simplest-smtp-delete-buttons .button-link-delete {
+	color: var(--cl-delete-button-color);
+	margin-right: 10px;
+	border: 1px solid var(--cl-delete-button-color);
+}
+
+.cl-simplest-smtp-delete-buttons .button-link-delete:hover {
+	background: var(--cl-delete-button-color);
+	color: #fff;
+}
+
+.cl-simplest-smtp-log-buttons-title,
+.cl-simplest-smtp-delete-buttons-title {
 	font-weight: bold;
 }

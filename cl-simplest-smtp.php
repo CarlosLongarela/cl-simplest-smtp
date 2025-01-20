@@ -36,6 +36,11 @@ define( 'CL_SIMPLEST_SMTP_VERSION', '1.1.1' );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
+// Define the log file name.
+if ( ! defined( 'CL_SIMPLEST_SMTP_LOG_FILENAME' ) ) {
+	define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'cl-simplest-smtp-log.txt' );
+}
+
 /**
  * Load plugin text domain.
  *
