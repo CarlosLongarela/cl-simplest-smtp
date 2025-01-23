@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,10 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 4. SMTP Help options.
 
 == Changelog ==
+= 1.2.1 - 2025-01-23 =
+Fixed: Fixed info messages about configurations on config file and database.
+Improved: If you set data in constants, settings options are disabled. You need to change or disable constants.
+
 = 1.2.0 - 2025-01-21 =
 * Improved: Added log tab to show mail error log files
 * Improved: Added options to show 10, 100, 1000 or 10000 log items

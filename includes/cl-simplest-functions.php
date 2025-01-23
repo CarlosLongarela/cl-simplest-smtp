@@ -12,8 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Code is Poetry, but you are not an poet ;)' );
 }
 
-
-
 /**
  * Configure internal WordPress phpmailer to use SMTP.
  *

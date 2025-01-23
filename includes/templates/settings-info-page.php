@@ -21,25 +21,19 @@ if ( defined( 'CL_SIMPLEST_SMTP_NAME' ) ) {
 } else {
 	$from_name = '';
 }
-?>
 
-<div class="cl-info-settings">
-	<?php
-	$info_message = '<p><strong>' . esc_html__( 'CONGRATULATIONS ! Your SMTP settings are saved in a configuration file. This is good for speed and security.', 'cl-simplest-smtp' ) . '</strong></p>';
-
-	$info_message .= '<p>' . wp_kses(
-		__( 'These setting can\'t be changed here because are saved in a configuration file (maybe <code>wp-config.php</code> or something similar to <code>user-settings.php</code>).', 'cl-simplest-smtp' ),
-		array( 'code' => array() )
-	) . '</p>';
-
-	$info_message .= '<p>' . wp_kses(
-		__( 'To change these settings you have to edit these <code>CL_SIMPLEST_SMTP*</code> constants that you previously setted.', 'cl-simplest-smtp' ),
-		array( 'code' => array() )
-	) . '</p>';
-
-	wp_admin_notice( $info_message, array( 'type' => 'success' ) );
+if ( ! defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) { // There is no SMTP constants in our config file.
 	?>
-</div>
+	<div class="cl-info-settings">
+		<?php
+		$info_message = '<p><strong>' . esc_html__( 'CONGRATULATIONS ! Your SMTP settings are saved in a configuration file. This is good for speed and security.', 'cl-simplest-smtp' ) . '</strong></p>';
+
+		wp_admin_notice( $info_message, array( 'type' => 'success' ) );
+		?>
+	</div>
+	<?php
+}
+?>
 
 <div class="cl-smtp-preview-settings cl-airmail-border">
 	<p>
