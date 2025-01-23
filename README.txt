@@ -80,8 +80,8 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 
 == Changelog ==
 = 1.2.1 - 2025-01-23 =
-Fixed: Fixed info messages about configurations on config file and database.
-Improved: If you set data in constants, settings options are disabled. You need to change or disable constants.
+* Fixed: Fixed info messages about configurations on config file and database.
+* Improved: If you set data in constants, settings options are disabled. You need to change or disable constants.
 
 = 1.2.0 - 2025-01-21 =
 * Improved: Added log tab to show mail error log files
