@@ -1,27 +1,26 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CL Simplest SMTP\n"
-"POT-Creation-Date: 2025-01-21 00:14+0100\n"
-"PO-Revision-Date: 2025-01-21 00:30+0100\n"
+"POT-Creation-Date: 2025-04-09 01:43+0200\n"
+"PO-Revision-Date: 2025-04-09 01:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: gl_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: cl-simplest-smtp.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
 #. translators: %s: URL to settings page
-#: includes/cl-simplest-functions.php:84
+#: includes/cl-simplest-functions.php:72
 #, php-format
 msgid ""
 "<strong>CL Simplest SMTP:</strong> You can't send mails using this plugin. "
@@ -30,112 +29,110 @@ msgstr ""
 "<strong>CL Simplest SMTP:</strong> Non podes enviar correos usando este "
 "plugin. Por favor <a href=\"%s\">configura as opcións do plugin</a>."
 
-#: includes/cl-simplest-functions.php:110
-#: includes/cl-simplest-functions.php:154
+#: includes/cl-simplest-functions.php:98 includes/cl-simplest-functions.php:153
 #: includes/cl-simplest-smtp-admin.php:26
 msgid "CL Simplest SMTP Settings"
 msgstr "Opcións CL Simplest SMTP"
 
 #. Plugin Name of the plugin/theme
-#: includes/cl-simplest-functions.php:111
-#: includes/cl-simplest-smtp-admin.php:27
+#: includes/cl-simplest-functions.php:99 includes/cl-simplest-smtp-admin.php:27
 msgid "CL Simplest SMTP"
 msgstr "CL Simplest SMTP"
 
-#: includes/cl-simplest-functions.php:156
+#: includes/cl-simplest-functions.php:155
 msgid "Info"
 msgstr "Información"
 
-#: includes/cl-simplest-functions.php:157
+#: includes/cl-simplest-functions.php:156
 msgid "Settings"
 msgstr "Axustes"
 
-#: includes/cl-simplest-functions.php:158
+#: includes/cl-simplest-functions.php:157
 msgid "Test"
 msgstr "Probas"
 
-#: includes/cl-simplest-functions.php:159 includes/templates/logs-page.php:70
+#: includes/cl-simplest-functions.php:158 includes/templates/logs-page.php:76
 msgid "Logs"
 msgstr "Rexistros"
 
-#: includes/cl-simplest-functions.php:160
+#: includes/cl-simplest-functions.php:159
 msgid "Help"
 msgstr "Axuda"
 
-#: includes/cl-simplest-functions.php:229
+#: includes/cl-simplest-functions.php:228
 msgid "Test mail from CL Simplest SMTP"
 msgstr "Probar o correo dende CL Simplest SMTP"
 
+#: includes/cl-simplest-functions.php:264
 #: includes/cl-simplest-functions.php:267
-#: includes/cl-simplest-functions.php:270
 msgid "This is a test mail from the CL Simplest SMTP plugin."
 msgstr "Este é un correo de proba dende o plugin CL Simplest SMTP."
 
-#: includes/cl-simplest-functions.php:268
+#: includes/cl-simplest-functions.php:265
 msgid "HTML version"
 msgstr "Versión HTML"
 
-#: includes/cl-simplest-functions.php:271
+#: includes/cl-simplest-functions.php:268
 msgid "Plain text version"
 msgstr "Versión de texto sen formato"
 
-#: includes/cl-simplest-functions.php:351
+#: includes/cl-simplest-functions.php:357
 msgid "Message sent as HTML"
 msgstr "Mensaxe enviada como HTML"
 
-#: includes/cl-simplest-functions.php:351
+#: includes/cl-simplest-functions.php:357
 msgid "Message sent as plain text"
 msgstr "Mensaxe enviada como texto plano"
 
-#: includes/cl-simplest-functions.php:352
+#: includes/cl-simplest-functions.php:358
 #: includes/templates/test-mail-page.php:58
 msgid "WordPress Mail method (using current SMTP options)"
 msgstr "Método de correo de WordPress (usando as opcións actuais de SMTP)"
 
-#: includes/cl-simplest-functions.php:352
+#: includes/cl-simplest-functions.php:358
 #: includes/templates/test-mail-page.php:61
 msgid "Native PHP mail (ignoring WordPress SMTP options)"
 msgstr "Método de correo nativo de PHP (ignorando as opcións actuais de SMTP)"
 
-#: includes/cl-simplest-functions.php:355
+#: includes/cl-simplest-functions.php:361
 msgid "Fantastic! The test mail was sent successfully."
 msgstr "Caralludo! O correo de proba enviouse correctamente."
 
-#: includes/cl-simplest-functions.php:357
 #: includes/cl-simplest-functions.php:363
+#: includes/cl-simplest-functions.php:369
 msgid "Mail method:"
 msgstr "Método de envío:"
 
-#: includes/cl-simplest-functions.php:358
+#: includes/cl-simplest-functions.php:364
 msgid "Please check your inbox."
 msgstr "Por favor revisa a túa bandexa de entrada."
 
-#: includes/cl-simplest-functions.php:361
+#: includes/cl-simplest-functions.php:367
 msgid ""
 "Error: The test mail was not sent. Please check the SMTP or mail settings."
 msgstr ""
 "Erro: O correo de proba non se enviou. Por favor, comproba as opciones SMTP "
 "ou do correo."
 
-#: includes/cl-simplest-functions.php:364
+#: includes/cl-simplest-functions.php:370
 msgid "The error returned the following message:"
 msgstr "O erro devolveu a seguinte mensaxe:"
 
-#: includes/cl-simplest-functions.php:427
+#: includes/cl-simplest-functions.php:433
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Non tes suficientes permisos para acceder a esta páxina."
 
-#: includes/cl-simplest-functions.php:437
+#: includes/cl-simplest-functions.php:443
 msgid "Security check failed."
 msgstr "Fallou a comprobación de seguridade."
 
 #. translators: %s: formatted number of deleted entries
-#: includes/cl-simplest-functions.php:470
+#: includes/cl-simplest-functions.php:476
 #, php-format
 msgid "Successfully deleted the oldest %s log entries."
 msgstr "Eliminadas con éxito as %s entradas de rexistro máis antigas."
 
-#: includes/cl-simplest-functions.php:479
+#: includes/cl-simplest-functions.php:485
 msgid "Error deleting log entries."
 msgstr "Erro ó borrar entradas de rexistro."
 
@@ -143,25 +140,25 @@ msgstr "Erro ó borrar entradas de rexistro."
 msgid "This plugin adds any options to my database?"
 msgstr "Este plugin engade algunha opción a miña base de datos?"
 
-#. translators: %s: <code>, %s: </code>
+#. translators: %1: <code>, %2: </code>.
 #: includes/templates/help-page.php:21
 #, php-format
 msgid ""
-"If you configure the plugin with constants in your %swp-config.php%s file "
-"(see next question), this plugin does not add any data to your database. "
-"This is the fastest option because the mail does not need to check data from "
-"your database."
+"If you configure the plugin with constants in your %1$swp-config.php%2$s "
+"file (see next question), this plugin does not add any data to your "
+"database. This is the fastest option because the mail does not need to check "
+"data from your database."
 msgstr ""
-"Si configuras o plugin con constantes no teu arquivo %swp-config.php%s (ver "
-"seguinte pregunta), este plugin non engade ningún dato a túa base de datos. "
-"Esta é a opción máis rápida porque o correo non necesita comprobar datos da "
-"túa base de datos."
+"Si configuras o plugin con constantes no teu arquivo %1$swp-config.php%2$s "
+"(ver seguinte pregunta), este plugin non engade ningún dato a túa base de "
+"datos. Esta é a opción máis rápida porque o correo non necesita comprobar "
+"datos da túa base de datos."
 
-#: includes/templates/help-page.php:27
+#: includes/templates/help-page.php:28
 msgid "Configure plugin with constants."
 msgstr "Configurar o plugin con constantes."
 
-#: includes/templates/help-page.php:30
+#: includes/templates/help-page.php:31
 msgid ""
 "Configure plugin with constants is the fastest option and also avoids "
 "database queries."
@@ -169,97 +166,98 @@ msgstr ""
 "Configurar o plugin con constantes é a opción máis rápida e ademais evita "
 "consultas á base de datos."
 
-#. translators: %1: <code>, %2: </code>
-#: includes/templates/help-page.php:36
+#. translators: %1: <code>, %2: </code>.
+#: includes/templates/help-page.php:37
 #, php-format
-msgid "We must set these constants in our %swp-config.php%s file:"
-msgstr "Debemos establecer estas constantes no noso arquivo %swp-config.php%s:"
+msgid "We must set these constants in our %1$swp-config.php%2$s file:"
+msgstr ""
+"Debemos establecer estas constantes no noso arquivo %1$swp-config.php%2$s:"
 
-#: includes/templates/help-page.php:51
+#: includes/templates/help-page.php:53
 msgid "This option is the optimal for security."
 msgstr "Esta opción é a óptima para a seguridade."
 
-#: includes/templates/help-page.php:57
+#: includes/templates/help-page.php:59
 msgid "This plugin will slow down my WordPress?"
 msgstr "Este plugin ralentizará o meu WordPress?"
 
-#. translators: %s: <code>, %s: </code>
-#: includes/templates/help-page.php:63
+#. translators: %1: <code>, %2: </code>.
+#: includes/templates/help-page.php:65
 #, php-format
 msgid ""
 "No. This plugin is very lightweight and only adds one CSS file and one JS "
-"file if you are in the WordPress SMTP options page %s/wp-admin/options-"
-"general.php?page=cl-simplest-smtp%s and does not add anything to any other "
+"file if you are in the WordPress SMTP options page %1$s/wp-admin/options-"
+"general.php?page=cl-simplest-smtp%2$s and does not add anything to any other "
 "pages or on the frontend."
 msgstr ""
 "Non. Este plugin é moi lixeiro e só engade un arquivo CSS e un arquivo JS si "
-"se atopa na páxina de opción SMTP de WordPress %s/wp-admin/options-general."
-"php?page=cl-simplest-smtp%s e non engade nada a ningunha outra páxina ou no "
-"frontend."
+"se atopa na páxina de opción SMTP de WordPress %1$s/wp-admin/options-"
+"general.php?page=cl-simplest-smtp%2$s e non engade nada a ningunha outra "
+"páxina ou no frontend."
 
-#. translators: %s: <code>, %s: </code>
-#: includes/templates/help-page.php:69
+#. translators: %1: <code>, %2: </code>.
+#: includes/templates/help-page.php:72
 #, php-format
 msgid ""
 "Only adds one database option (first FAQ) with an array of 8 short values "
-"and nothing if you configure it with constants in your %swp-config.php%s "
+"and nothing if you configure it with constants in your %1$swp-config.php%2$s "
 "file (the best option for speed and security)."
 msgstr ""
 "Só engade unha opción na base de datos (primeira FAQ) cun array de 8 valores "
-"curtos e nada se o configuras con constantes no teu ficheiro %swp-config."
-"php%s (a mellor opción por velocidade e seguridade)."
+"curtos e nada se o configuras con constantes no teu ficheiro %1$swp-"
+"config.php%2$s (a mellor opción por velocidade e seguridade)."
 
-#: includes/templates/help-page.php:75
+#: includes/templates/help-page.php:79
 msgid "Can I hide the \"Invite me to a coffe\" button?"
 msgstr "Podo ocultar o botón \"Invítame a un café\"?"
 
-#. translators: %s: <code>, %s: </code>, %s: <code>, %s: </code>, %s: <code>, %s: </code>
-#: includes/templates/help-page.php:81
+#. translators: %1: <code>, %2: </code>, %3: <code>, %4: </code>, %5: <code>, %6: </code>.
+#: includes/templates/help-page.php:85
 #, php-format
 msgid ""
 "Yes, of course. You must to define the constant "
-"%sCL_SIMPLEST_SMTP_HIDE_DONATE%s as %strue%s in your %swp-config.php%s file "
-"and the button will fly out ;)"
+"%1$sCL_SIMPLEST_SMTP_HIDE_DONATE%2$s as %3$strue%4$s in your %5$swp-"
+"config.php%6$s file and the button will fly out ;)"
 msgstr ""
-"Si, por suposto. Debes definir a constante %sCL_SIMPLEST_SMTP_HIDE_DONATE%s "
-"como %strue%s no teu arquivo %swp-config.php%s e o botón liscará ;)"
+"Si, por suposto. Debes definir a constante "
+"%1$sCL_SIMPLEST_SMTP_HIDE_DONATE%2$s como %3$strue%4$s no teu arquivo %5$swp-"
+"config.php%6$s e o botón liscará ;)"
 
-#. translators: %s: <a>, %s: </a>
-#: includes/templates/help-page.php:93
+#. translators: %1: <a>, %2: </a>.
+#: includes/templates/help-page.php:98
 #, php-format
 msgid ""
-"But you can invite me to that coffee at any time from %shttps://www.paypal."
-"com/donate/?hosted_button_id=V6U6ZLFHNE6N4%s"
+"But you can invite me to that coffee at any time from %1$shttps://"
+"www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4%2$s"
 msgstr ""
-"Pero podes invitarme a ese café en calquera momento dende %shttps://www."
-"paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4%s"
+"Pero podes invitarme a ese café en calquera momento dende %1$shttps://"
+"www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4%2$s"
 
-#: includes/templates/help-page.php:99
+#: includes/templates/help-page.php:105
 msgid "Can I change the log file name?"
 msgstr "Podo cambiar o nome do arquivo de rexistro?"
 
-#. translators: %s: <code>, %s: </code>
-#: includes/templates/help-page.php:105
+#. translators: %1: <code>, %2: </code>.
+#: includes/templates/help-page.php:111
 #, php-format
 msgid ""
-"Yes, the default mail log file name is %scl-simplest-smtp-log.txt%s and is "
-"located in %suploads%s folder. You can't change the location, but you can "
-"change the file name if you define the constant "
-"%sCL_SIMPLEST_SMTP_LOG_FILENAME%s with the file name at your %swp-config."
-"php%s file."
+"Yes, the default mail log file name is %1$scl-simplest-smtp-log.txt%2$s and "
+"is located in %3$suploads%4$s folder. You can't change the location, but you "
+"can change the file name if you define the constant "
+"%5$sCL_SIMPLEST_SMTP_LOG_FILENAME%6$s with the file name at your %7$swp-"
+"config.php%8$s file."
 msgstr ""
-"Si, o nome predeterminado do arquivo de rexistro de correo é %scl-simplest-"
-"smtp-log.txt%s e se atopa no cartafol %suploads%s. Non podes cambiar a "
+"Si, o nome predeterminado do arquivo de rexistro de correo é %1$scl-simplest-"
+"smtp-log.txt%2$s e se atopa no cartafol %3$suploads%4$s. Non podes cambiar a "
 "localización, pero podes cambiar o nome do arquivo si defines a constante "
-"%sCL_SIMPLEST_SMTP_LOG_FILENAME%s co nome de arquivo no teu arquivo %swp-"
-"config.php%s."
+"%5$sCL_SIMPLEST_SMTP_LOG_FILENAME%6$s co nome de arquivo no teu arquivo "
+"%7$swp-config.php%8$s."
 
-#. translators: %s: <code>, %s: </code>
-#: includes/templates/help-page.php:111
+#: includes/templates/help-page.php:117
 msgid "Example:"
 msgstr "Exemplo:"
 
-#: includes/templates/help-page.php:121
+#: includes/templates/help-page.php:129
 msgid ""
 "Keep in mind that if the default log file was previously created, it won't "
 "be deleted, only the new file will be created and the file that will be "
@@ -269,7 +267,7 @@ msgstr ""
 "previamente, non se eliminará, só se creará o novo arquivo e o arquivo que "
 "se eliminará o desinstalar o plugin será o novo arquivo definido."
 
-#: includes/templates/help-page.php:127
+#: includes/templates/help-page.php:136
 msgid ""
 "How can I tell you about a bug, ask for a functionality or contribute to the "
 "plugin?"
@@ -277,50 +275,51 @@ msgstr ""
 "Como podo informarche dun erro, solicitar unha funcionalidade ou contribuír "
 "ó plugin?"
 
-#. translators: %s: <a>, %s: </a>
-#: includes/templates/help-page.php:133
+#. translators: %1: <a>, %2: </a>.
+#: includes/templates/help-page.php:142
 #, php-format
 msgid ""
 "The development of this plugin is managed in this GitHub repository "
-"%shttps://github.com/CarlosLongarela/cl-simplest-smtp%s"
+"%1$shttps://github.com/CarlosLongarela/cl-simplest-smtp%2$s"
 msgstr ""
 "O desenvolvemento deste plugin xestionase neste repositorio de GitHub "
-"%shttps://github.com/CarlosLongarela/cl-simplest-smtp%s"
+"%1$shttps://github.com/CarlosLongarela/cl-simplest-smtp%2$s"
 
-#. translators: %s: <a>, %s: </a>
-#: includes/templates/help-page.php:139
+#. translators: %1: <a>, %2: </a>.
+#: includes/templates/help-page.php:149
 #, php-format
 msgid ""
-"You can send us issues, requests or any comments to %shttps://github.com/"
-"CarlosLongarela/cl-simplest-smtp/issues%s or create a pull request to "
+"You can send us issues, requests or any comments to %1$shttps://github.com/"
+"CarlosLongarela/cl-simplest-smtp/issues%2$s or create a pull request to "
 "contribute with any new bug fix, functionality or any other code change."
 msgstr ""
-"Podes enviarnos problemas, petición ou calquera comentario a %shttps://"
-"github.com/CarlosLongarela/cl-simplest-smtp/issues%s ou crear un pull "
+"Podes enviarnos problemas, petición ou calquera comentario a %1$shttps://"
+"github.com/CarlosLongarela/cl-simplest-smtp/issues%2$s ou crear un pull "
 "request para contribuír con calquera nova corrección de erros, "
 "funcionalidade ou calquera outro cambio no código."
 
-#: includes/templates/help-page.php:145
+#: includes/templates/help-page.php:156
 msgid "How can I contact the author?"
 msgstr "Cómo podo poñerme en contacto co autor?"
 
-#. translators: %s: <a>, %s: </a>, %s: <a>, %s: </a>
-#: includes/templates/help-page.php:151
+#. translators: %1: <a>, %2: </a>, %3: <a>, %4: </a>.
+#: includes/templates/help-page.php:162
 #, php-format
 msgid ""
-"You can contact the author at this email: %sinfo@tabernawp.com%s or in the "
-"page %shttps://tabernawp.com/contacto/%s"
+"You can contact the author at this email: %1$sinfo@tabernawp.com%2$s or in "
+"the page %3$shttps://tabernawp.com/contacto/%4$s"
 msgstr ""
 "Podes poñerte en contacto co autor neste correo electrónico: "
-"%sinfo@tabernawp.com%s ou na páxina %shttps://tabernawp.com/contacto/%s"
+"%1$sinfo@tabernawp.com%2$s ou na páxina %3$shttps://tabernawp.com/contacto/"
+"%4$s"
 
-#: includes/templates/help-page.php:157
+#: includes/templates/help-page.php:169
 msgid "Some good tools for checking mail validity and configurations?"
 msgstr ""
 "Algunhas boas ferramentas para comprobar a validez do correo e as "
 "configuracións?"
 
-#: includes/templates/help-page.php:161
+#: includes/templates/help-page.php:173
 msgid ""
 "Yes, of course. You can use this tools to check the mail validity and "
 "configurations:"
@@ -328,60 +327,56 @@ msgstr ""
 "Si, por suposto. Podes utilizar estas ferramentas para comprobar a validez "
 "do correo e as configuracións:"
 
-#: includes/templates/help-page.php:165
+#: includes/templates/help-page.php:177
 msgid "Mail Tester, Test the Spammyness of your Emails"
 msgstr "Mail Tester, comproba o spam dos teus correos electrónicos"
 
-#: includes/templates/help-page.php:166
+#: includes/templates/help-page.php:178
 msgid "Email Record Checker (SPF and DMARC)"
 msgstr "Comprobador de rexistros de correo electrónico (SPF e DMARC)"
 
-#: includes/templates/help-page.php:167
+#: includes/templates/help-page.php:179
 msgid "MX Toolbox"
 msgstr "MX Toolbox"
 
-#: includes/templates/help-page.php:169
+#: includes/templates/help-page.php:181
 msgid "MX Lookup"
 msgstr "MX Lookup"
 
-#: includes/templates/help-page.php:170
+#: includes/templates/help-page.php:182
 msgid "SPF Record Check"
 msgstr "Comprobación do rexistro SPF"
 
-#: includes/templates/help-page.php:171
+#: includes/templates/help-page.php:183
 msgid "DKIM Record Lookup"
 msgstr "Procura de rexistros DKIM"
 
-#: includes/templates/help-page.php:172
+#: includes/templates/help-page.php:184
 msgid "Blacklists"
 msgstr "Blacklists"
 
-#: includes/templates/help-page.php:173
+#: includes/templates/help-page.php:185
 msgid "Email Health Report"
 msgstr "Informe de saúde do correo electrónico"
 
-#: includes/templates/logs-page.php:76
-msgid "Show last"
-msgstr "Mostrar últimos"
-
 #. translators: %s: formatted number of lines to display
 #. translators: %s: formatted number of entries to delete
-#: includes/templates/logs-page.php:88 includes/templates/logs-page.php:125
+#: includes/templates/logs-page.php:92 includes/templates/logs-page.php:131
 #, php-format
 msgid "%s entries"
 msgstr "%s entradas"
 
-#: includes/templates/logs-page.php:99
+#: includes/templates/logs-page.php:103
 msgid "Delete oldest"
 msgstr "Borrar os máis antigos"
 
 #. translators: %s: formatted number of entries to delete
-#: includes/templates/logs-page.php:120
+#: includes/templates/logs-page.php:125
 #, php-format
 msgid "Are you sure you want to delete the oldest %s entries?"
 msgstr "Estás seguro de que queres borrar as entradas %s máis antigas?"
 
-#: includes/templates/logs-page.php:132
+#: includes/templates/logs-page.php:138
 msgid ""
 "Log format is: \"[Date-hour] Error sending mail to [mail to] with subject "
 "[subject] using mail method [mail method]. Error: [error message]\""
@@ -390,11 +385,11 @@ msgstr ""
 "with subject [asunto] using mail method [método de envío]. Error: [mensaxe "
 "de erro]\""
 
-#: includes/templates/logs-page.php:137
+#: includes/templates/logs-page.php:143
 msgid "There are no records available."
 msgstr "Non hai rexistros dispoñibles."
 
-#: includes/templates/settings-info-page.php:28
+#: includes/templates/settings-info-page.php:29
 msgid ""
 "CONGRATULATIONS ! Your SMTP settings are saved in a configuration file. This "
 "is good for speed and security."
@@ -402,7 +397,81 @@ msgstr ""
 "NORABOA ! As túas opcións do SMTP están gardadas nun arquivo de "
 "configuración. Esto é bo tanto por velocidade como por seguridade."
 
-#: includes/templates/settings-info-page.php:31
+#: includes/templates/settings-info-page.php:40
+msgid "SMTP Server"
+msgstr "Servidor SMTP"
+
+#: includes/templates/settings-info-page.php:45
+msgid "SMTP Port"
+msgstr "Porto SMTP"
+
+#: includes/templates/settings-info-page.php:50
+msgid "SMTP Username"
+msgstr "Usuario SMTP"
+
+#: includes/templates/settings-info-page.php:55
+msgid "SMTP Password"
+msgstr "Clave SMTP"
+
+#: includes/templates/settings-info-page.php:60
+#: includes/templates/settings-page.php:92
+msgid "From Email"
+msgstr "Correo do remitente"
+
+#: includes/templates/settings-info-page.php:65
+#: includes/templates/settings-page.php:100
+msgid "From Name"
+msgstr "Nome do remitente"
+
+#: includes/templates/settings-page.php:31
+msgid "SMTP settings"
+msgstr "Configuración SMTP"
+
+#: includes/templates/settings-page.php:38
+msgid "Host"
+msgstr "Servidor"
+
+#: includes/templates/settings-page.php:46
+msgid "Secure connection type"
+msgstr "Tipo de conexión segura"
+
+#: includes/templates/settings-page.php:50
+msgid "SSL"
+msgstr "SSL"
+
+#: includes/templates/settings-page.php:51
+msgid "TLS"
+msgstr "TLS"
+
+#: includes/templates/settings-page.php:57
+msgid "Port"
+msgstr "Porto"
+
+#: includes/templates/settings-page.php:65
+msgid "Authenticate connection"
+msgstr "Autenticar a conexión"
+
+#: includes/templates/settings-page.php:69
+msgid "Yes"
+msgstr "Si"
+
+#: includes/templates/settings-page.php:70
+msgid "No"
+msgstr "Non"
+
+#: includes/templates/settings-page.php:76
+msgid "SMTP User"
+msgstr "Usuario SMTP"
+
+#: includes/templates/settings-page.php:84
+msgid "SMTP Pass"
+msgstr "Clave SMTP"
+
+#: includes/templates/settings-page.php:107
+msgid "Save SMTP data"
+msgstr "Gardar datos SMTP"
+
+#: includes/templates/settings-page.php:114
 msgid ""
 "These setting can't be changed here because are saved in a configuration "
 "file (maybe <code>wp-config.php</code> or something similar to <code>user-"
@@ -412,87 +481,13 @@ msgstr ""
 "configuración (quizais <code>wp-config.php</code> ou algo similar a "
 "<code>user-settings.php</code>)."
 
-#: includes/templates/settings-info-page.php:36
+#: includes/templates/settings-page.php:119
 msgid ""
 "To change these settings you have to edit these <code>CL_SIMPLEST_SMTP*</"
 "code> constants that you previously setted."
 msgstr ""
 "Para cambiar estas opción tes que editar as constantes "
 "<code>CL_SIMPLEST_SMTP*</code> que gardaches previamente."
-
-#: includes/templates/settings-info-page.php:46
-msgid "SMTP Server"
-msgstr "Servidor SMTP"
-
-#: includes/templates/settings-info-page.php:51
-msgid "SMTP Port"
-msgstr "Porto SMTP"
-
-#: includes/templates/settings-info-page.php:56
-msgid "SMTP Username"
-msgstr "Usuario SMTP"
-
-#: includes/templates/settings-info-page.php:61
-msgid "SMTP Password"
-msgstr "Clave SMTP"
-
-#: includes/templates/settings-info-page.php:66
-#: includes/templates/settings-page.php:91
-msgid "From Email"
-msgstr "Correo do remitente"
-
-#: includes/templates/settings-info-page.php:71
-#: includes/templates/settings-page.php:99
-msgid "From Name"
-msgstr "Nome do remitente"
-
-#: includes/templates/settings-page.php:30
-msgid "SMTP settings"
-msgstr "Configuración SMTP"
-
-#: includes/templates/settings-page.php:37
-msgid "Host"
-msgstr "Servidor"
-
-#: includes/templates/settings-page.php:45
-msgid "Secure connection type"
-msgstr "Tipo de conexión segura"
-
-#: includes/templates/settings-page.php:49
-msgid "SSL"
-msgstr "SSL"
-
-#: includes/templates/settings-page.php:50
-msgid "TLS"
-msgstr "TLS"
-
-#: includes/templates/settings-page.php:56
-msgid "Port"
-msgstr "Porto"
-
-#: includes/templates/settings-page.php:64
-msgid "Authenticate connection"
-msgstr "Autenticar a conexión"
-
-#: includes/templates/settings-page.php:68
-msgid "Yes"
-msgstr "Si"
-
-#: includes/templates/settings-page.php:69
-msgid "No"
-msgstr "Non"
-
-#: includes/templates/settings-page.php:75
-msgid "SMTP User"
-msgstr "Usuario SMTP"
-
-#: includes/templates/settings-page.php:83
-msgid "SMTP Pass"
-msgstr "Clave SMTP"
-
-#: includes/templates/settings-page.php:106
-msgid "Save SMTP data"
-msgstr "Gardar datos SMTP"
 
 #: includes/templates/test-mail-page.php:20
 msgid "Test mail"
@@ -537,3 +532,6 @@ msgstr "Carlos Longarela"
 #. Author URI of the plugin/theme
 msgid "https://tabernawp.com/"
 msgstr "https://tabernawp.com/"
+
+#~ msgid "Show last"
+#~ msgstr "Mostrar últimos"
