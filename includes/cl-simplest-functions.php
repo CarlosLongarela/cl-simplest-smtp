@@ -332,8 +332,14 @@ function log_mail_error( string $mail_to, string $subject, string $mail_method )
 	global $wp_filesystem;
 
 	if ( $wp_filesystem->exists( $log_file_path ) && $wp_filesystem->is_writable( $log_file_path ) ) {
-		if ( ! $wp_filesystem->append_to_file( $log_file_path, $log_entry ) ) {
-			error_log( 'Failed to write to log file using WP_Filesystem: ' . $log_file_path );
+		// WP_Filesystem doesn't have an append method, so we need to get content, append, and put it back.
+		$current_content = $wp_filesystem->get_contents( $log_file_path );
+		if ( false !== $current_content ) {
+			if ( ! $wp_filesystem->put_contents( $log_file_path, $current_content . $log_entry ) ) {
+				error_log( 'Failed to write to log file using WP_Filesystem: ' . $log_file_path );
+			}
+		} else {
+			error_log( 'Failed to read log file for appending: ' . $log_file_path );
 		}
 	} else {
 		error_log( 'Log file does not exist or is not writable: ' . $log_file_path );
