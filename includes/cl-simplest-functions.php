@@ -136,16 +136,27 @@ function sanitize_callback( $options ) {
  * Render the settings page with tabs.
  */
 function render_settings_page() {
-	$current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'info';
+	// Get and validate the current tab with nonce verification.
+	$allowed_tabs = array( 'info', 'settings', 'test', 'logs', 'help' );
+	$default_tab  = 'info';
+
+	// Check if tab parameter exists and verify nonce when switching tabs.
+	if ( isset( $_GET['tab'] ) && isset( $_GET['_wpnonce'] ) &&
+		wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'cl_simplest_smtp_tab_' . sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) ) {
+		$current_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
+		$current_tab = in_array( $current_tab, $allowed_tabs, true ) ? $current_tab : $default_tab;
+	} else {
+		$current_tab = $default_tab;
+	}
 
 	echo '<div class="wrap">';
 	echo '<h1>' . esc_html__( 'CL Simplest SMTP Settings', 'cl-simplest-smtp' ) . '</h1>';
 	echo '<h2 class="nav-tab-wrapper">';
-	echo '<a href="?page=cl-simplest-smtp&tab=info" class="nav-tab ' . ( 'info' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Info', 'cl-simplest-smtp' ) . '</a>';
-	echo '<a href="?page=cl-simplest-smtp&tab=settings" class="nav-tab ' . ( 'settings' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Settings', 'cl-simplest-smtp' ) . '</a>';
-	echo '<a href="?page=cl-simplest-smtp&tab=test" class="nav-tab ' . ( 'test' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Test', 'cl-simplest-smtp' ) . '</a>';
-	echo '<a href="?page=cl-simplest-smtp&tab=logs" class="nav-tab ' . ( 'logs' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Logs', 'cl-simplest-smtp' ) . '</a>';
-	echo '<a href="?page=cl-simplest-smtp&tab=help" class="nav-tab ' . ( 'help' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Help', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=info', 'cl_simplest_smtp_tab_info' ) ) . '" class="nav-tab ' . ( 'info' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Info', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=settings', 'cl_simplest_smtp_tab_settings' ) ) . '" class="nav-tab ' . ( 'settings' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Settings', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=test', 'cl_simplest_smtp_tab_test' ) ) . '" class="nav-tab ' . ( 'test' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Test', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=logs', 'cl_simplest_smtp_tab_logs' ) ) . '" class="nav-tab ' . ( 'logs' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Logs', 'cl-simplest-smtp' ) . '</a>';
+	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=help', 'cl_simplest_smtp_tab_help' ) ) . '" class="nav-tab ' . ( 'help' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Help', 'cl-simplest-smtp' ) . '</a>';
 	echo '</h2>';
 
 	switch ( $current_tab ) {
@@ -312,17 +323,20 @@ function log_mail_error( string $mail_to, string $subject, string $mail_method )
 	$upload_dir    = wp_upload_dir();
 	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
-	// Use native PHP functions to append to the log file.
-	if ( is_writable( $log_file_path ) ) {
-		$handle = fopen( $log_file_path, 'a' );
-		if ( $handle ) {
-			fwrite( $handle, $log_entry );
-			fclose( $handle );
-		} else {
-			error_log( 'Failed to open log file for writing: ' . $log_file_path );
+	// Initialize the WordPress filesystem if not already done.
+	if ( ! function_exists( 'WP_Filesystem' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	WP_Filesystem();
+	global $wp_filesystem;
+
+	if ( $wp_filesystem->exists( $log_file_path ) && $wp_filesystem->is_writable( $log_file_path ) ) {
+		if ( ! $wp_filesystem->append_to_file( $log_file_path, $log_entry ) ) {
+			error_log( 'Failed to write to log file using WP_Filesystem: ' . $log_file_path );
 		}
 	} else {
-		error_log( 'Log file is not writable: ' . $log_file_path );
+		error_log( 'Log file does not exist or is not writable: ' . $log_file_path );
 	}
 }
 
@@ -419,7 +433,7 @@ function handle_log_deletion() {
 	}
 
 	// Verify nonce.
-	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'delete_logs_' . $count ) ) {
+	if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'delete_logs_' . $count ) ) {
 		wp_die( esc_html__( 'Security check failed.', 'cl-simplest-smtp' ) );
 	}
 
