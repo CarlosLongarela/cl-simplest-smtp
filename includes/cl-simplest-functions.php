@@ -45,27 +45,17 @@ function use_email_smtp( $phpmailer ) {
  * @return bool
  */
 function check_params() {
-	if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
-		return false;
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_AUTH' ) || ! is_bool( CL_SIMPLEST_SMTP_AUTH ) ) {
-		return false;
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_PORT' ) || ! is_int( CL_SIMPLEST_SMTP_PORT ) ) {
-		return false;
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_USER' ) ) {
-		return false;
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_PASS' ) ) {
-		return false;
-	}
-
-	if ( ! defined( 'CL_SIMPLEST_SMTP_SECURE' ) || ( 'tls' !== CL_SIMPLEST_SMTP_SECURE && 'ssl' !== CL_SIMPLEST_SMTP_SECURE ) ) {
+	// Check all required parameters are defined and have valid values.
+	if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' )
+		|| ! defined( 'CL_SIMPLEST_SMTP_USER' )
+		|| ! defined( 'CL_SIMPLEST_SMTP_PASS' )
+		|| ! defined( 'CL_SIMPLEST_SMTP_AUTH' )
+		|| ! is_bool( CL_SIMPLEST_SMTP_AUTH )
+		|| ! defined( 'CL_SIMPLEST_SMTP_PORT' )
+		|| ! is_int( CL_SIMPLEST_SMTP_PORT )
+		|| ! defined( 'CL_SIMPLEST_SMTP_SECURE' )
+		|| ( 'tls' !== CL_SIMPLEST_SMTP_SECURE && 'ssl' !== CL_SIMPLEST_SMTP_SECURE )
+	) {
 		return false;
 	}
 
@@ -259,13 +249,11 @@ function prepare_mail_headers( string $mail_type ): array {
  * @return string The prepared message.
  */
 function prepare_mail_message( string $mail_type ): string {
-
-
 	if ( 'html' === $mail_type ) {
-		$message = '<p>' . __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' ) . '</p>';
+		$message  = '<p>' . __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' ) . '</p>';
 		$message .= '<p><strong>' . __( 'HTML version', 'cl-simplest-smtp' ) . '</strong></p>';
 	} else {
-		$message = __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' );
+		$message  = __( 'This is a test mail from the CL Simplest SMTP plugin.', 'cl-simplest-smtp' );
 		$message .= "\n\n" . __( 'Plain text version', 'cl-simplest-smtp' );
 	}
 
@@ -290,7 +278,7 @@ function send_mail( string $mail_to, string $subject, string $message, array $he
 		$result = wp_mail( $mail_to, $subject, $message, $headers );
 	} else {
 		$headers[] = 'From: <' . $from_mail . '>' . "\r\n";
-		$result = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
+		$result    = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
 	}
 
 	if ( ! $result ) {
@@ -312,9 +300,9 @@ function log_mail_error( string $mail_to, string $subject, string $mail_method )
 	create_log_file_if_not_exists();
 
 	$error_message = get_mail_error_message( $mail_method );
-	$log_entry = sprintf(
+	$log_entry     = sprintf(
 		"[%s] Error sending mail to %s with subject '%s' using method '%s'. Error: %s\n",
-		date( 'Y-m-d H:i:s' ),
+		gmdate( 'Y-m-d H:i:s' ),
 		$mail_to,
 		$subject,
 		$mail_method,
@@ -324,7 +312,7 @@ function log_mail_error( string $mail_to, string $subject, string $mail_method )
 	$upload_dir    = wp_upload_dir();
 	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
-	// Use native PHP functions to append to the log file
+	// Use native PHP functions to append to the log file.
 	if ( is_writable( $log_file_path ) ) {
 		$handle = fopen( $log_file_path, 'a' );
 		if ( $handle ) {
@@ -361,7 +349,7 @@ function display_mail_result_notice( bool $result, string $mail_type, string $ma
 		$message_notice .= '<p>' . esc_html__( 'Mail method:', 'cl-simplest-smtp' ) . ' ' . esc_html( $test_mail_type ) . '</p>';
 		$message_notice .= '<p><strong>' . esc_html__( 'The error returned the following message:', 'cl-simplest-smtp' ) . '</strong></p>';
 		$message_notice .= '<p><em>' . esc_html( get_mail_error_message( $mail_method ) ) . '</em></p>';
-		$type = 'error';
+		$type            = 'error';
 	}
 
 	wp_admin_notice(
@@ -409,7 +397,7 @@ function create_log_file_if_not_exists() {
 	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
 	if ( ! $wp_filesystem->exists( $log_file_path ) ) {
-		$wp_filesystem->put_contents( $log_file_path, "## Log file created on " . date( 'Y-m-d H:i:s' ) . "\n" );
+		$wp_filesystem->put_contents( $log_file_path, '## Log file created on ' . gmdate( 'Y-m-d H:i:s' ) . "\n" );
 	}
 }
 
@@ -430,33 +418,33 @@ function handle_log_deletion() {
 		return;
 	}
 
-	// Verify nonce
+	// Verify nonce.
 	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'delete_logs_' . $count ) ) {
 		wp_die( esc_html__( 'Security check failed.', 'cl-simplest-smtp' ) );
 	}
 
 	$upload_dir = wp_upload_dir();
-	$log_file = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
+	$log_file   = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
 	if ( ! file_exists( $log_file ) ) {
 		return;
 	}
 
-	// Read all lines
+	// Read all lines.
 	$lines = file( $log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
 	if ( false === $lines ) {
 		return;
 	}
 
-	// Keep only the newest lines
+	// Keep only the newest lines.
 	$lines = array_slice( $lines, $count );
 
-	// Add header line if file will be empty
+	// Add header line if file will be empty.
 	if ( empty( $lines ) ) {
-		$lines[] = "## Log file cleaned on " . date( 'Y-m-d H:i:s' );
+		$lines[] = '## Log file cleaned on ' . gmdate( 'Y-m-d H:i:s' );
 	}
 
-	// Write back to file
+	// Write back to file.
 	$success = file_put_contents( $log_file, implode( PHP_EOL, $lines ) . PHP_EOL );
 
 	if ( $success ) {

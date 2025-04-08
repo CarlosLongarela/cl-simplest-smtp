@@ -20,8 +20,8 @@ $upload_dir    = wp_upload_dir();
 $log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
 // Number of lines to display (default value).
-$lines_to_display = 100; // Default value
-if ( isset( $_GET['lines'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'cl_simplest_smtp_display_lines' ) ) {
+$lines_to_display = 100; // Default value.
+if ( isset( $_GET['lines'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'cl_simplest_smtp_display_lines' ) ) {
 	$lines_to_display = (int) $_GET['lines'];
 }
 
