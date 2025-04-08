@@ -20,7 +20,10 @@ $upload_dir    = wp_upload_dir();
 $log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
 // Number of lines to display (default value).
-$lines_to_display = isset( $_GET['lines'] ) ? (int) $_GET['lines'] : 100;
+$lines_to_display = 100; // Default value
+if ( isset( $_GET['lines'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'cl_simplest_smtp_display_lines' ) ) {
+	$lines_to_display = (int) $_GET['lines'];
+}
 
 // Initialize the WordPress filesystem.
 if ( ! function_exists( 'WP_Filesystem' ) ) {
@@ -75,13 +78,11 @@ echo '<h2>' . esc_html__( 'Logs', 'cl-simplest-smtp' ) . '</h2>';
 // Add buttons for different line counts.
 $current_url = remove_query_arg( [ 'lines', 'delete' ] );
 echo '<div class="cl-simplest-smtp-log-buttons">';
-
-echo '<span class="cl-simplest-smtp-log-buttons-title">' . esc_html__( 'Show last', 'cl-simplest-smtp' ) . ':</span>';
-
 // View buttons.
 foreach ( array( 10, 100, 1000, 10000 ) as $line_count ) {
-	$button_url   = add_query_arg( 'lines', $line_count, $current_url );
+	$button_url   = wp_nonce_url( add_query_arg( 'lines', $line_count, $current_url ), 'cl_simplest_smtp_display_lines' );
 	$button_class = $lines_to_display === $line_count ? 'button button-primary' : 'button';
+
 	printf(
 		'<a href="%s" class="%s">%s</a> ',
 		esc_url( $button_url ),
