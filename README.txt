@@ -3,9 +3,9 @@ Contributors: carloslongarela
 Tags: system, debug, mail, smtp
 Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
-Tested up to: 6.7.1
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,9 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 4. SMTP Help options.
 
 == Changelog ==
+= 1.2.2 - 2025-04-08 =
+* Info: Updated Tested up to
+
 = 1.2.1 - 2025-01-23 =
 * Fixed: Fixed info messages about configurations on config file and database.
 * Improved: If you set data in constants, settings options are disabled. You need to change or disable constants.

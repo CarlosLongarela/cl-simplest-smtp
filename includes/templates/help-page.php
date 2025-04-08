@@ -17,8 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="cl-details-content">
 			<p>
 				<?php
-				// translators: %s: <code>, %s: </code>
-				printf( esc_html__( 'If you configure the plugin with constants in your %swp-config.php%s file (see next question), this plugin does not add any data to your database. This is the fastest option because the mail does not need to check data from your database.', 'cl-simplest-smtp' ), '<code>', '</code>' ); ?>
+				// translators: %1: <code>, %2: </code>.
+				printf( esc_html__( 'If you configure the plugin with constants in your %1$swp-config.php%2$s file (see next question), this plugin does not add any data to your database. This is the fastest option because the mail does not need to check data from your database.', 'cl-simplest-smtp' ), '<code>', '</code>' );
+				?>
 			</p>
 		</div>
 	</details>
@@ -32,8 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<p>
 				<?php
-				// translators: %1: <code>, %2: </code>
-				printf( esc_html__( 'We must set these constants in our %swp-config.php%s file:', 'cl-simplest-smtp' ), '<code>', '</code>' ); ?>
+				// translators: %1: <code>, %2: </code>.
+				printf( esc_html__( 'We must set these constants in our %1$swp-config.php%2$s file:', 'cl-simplest-smtp' ), '<code>', '</code>' );
+				?>
 			</p>
 
 			<pre><code>
@@ -59,14 +61,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="cl-details-content">
 			<p>
 				<?php
-				// translators: %s: <code>, %s: </code>
-				printf( esc_html__( 'No. This plugin is very lightweight and only adds one CSS file and one JS file if you are in the WordPress SMTP options page %s/wp-admin/options-general.php?page=cl-simplest-smtp%s and does not add anything to any other pages or on the frontend.', 'cl-simplest-smtp' ), '<code>', '</code>' ); ?>
+				// translators: %1: <code>, %2: </code>.
+				printf( esc_html__( 'No. This plugin is very lightweight and only adds one CSS file and one JS file if you are in the WordPress SMTP options page %1$s/wp-admin/options-general.php?page=cl-simplest-smtp%2$s and does not add anything to any other pages or on the frontend.', 'cl-simplest-smtp' ), '<code>', '</code>' );
+				?>
 			</p>
 
 			<p>
 				<?php
-				// translators: %s: <code>, %s: </code>
-				printf( esc_html__( 'Only adds one database option (first FAQ) with an array of 8 short values and nothing if you configure it with constants in your %swp-config.php%s file (the best option for speed and security).', 'cl-simplest-smtp' ), '<code>', '</code>' ); ?>
+				// translators: %1: <code>, %2: </code>.
+				printf( esc_html__( 'Only adds one database option (first FAQ) with an array of 8 short values and nothing if you configure it with constants in your %1$swp-config.php%2$s file (the best option for speed and security).', 'cl-simplest-smtp' ), '<code>', '</code>' );
+				?>
 			</p>
 		</div>
 	</details>
@@ -77,8 +81,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="cl-details-content">
 			<p>
 				<?php
-				// translators: %s: <code>, %s: </code>, %s: <code>, %s: </code>, %s: <code>, %s: </code>
-				printf( esc_html__( 'Yes, of course. You must to define the constant %sCL_SIMPLEST_SMTP_HIDE_DONATE%s as %strue%s in your %swp-config.php%s file and the button will fly out ;)', 'cl-simplest-smtp' ), '<code>', '</code>', '<code>', '</code>', '<code>', '</code>' ); ?>
+				// translators: %1: <code>, %2: </code>, %3: <code>, %4: </code>, %5: <code>, %6: </code>.
+				printf( esc_html__( 'Yes, of course. You must to define the constant %1$sCL_SIMPLEST_SMTP_HIDE_DONATE%2$s as %3$strue%4$s in your %5$swp-config.php%6$s file and the button will fly out ;)', 'cl-simplest-smtp' ), '<code>', '</code>', '<code>', '</code>', '<code>', '</code>' );
+				?>
 			</p>
 
 			<p>
@@ -89,8 +94,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<p>
 				<?php
-				// translators: %s: <a>, %s: </a>
-				printf( esc_html__( 'But you can invite me to that coffee at any time from %shttps://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4%s', 'cl-simplest-smtp' ), '<a href="https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4" target="_blank">', '</a>' ); ?>
+				// translators: %1: <a>, %2: </a>.
+				printf( esc_html__( 'But you can invite me to that coffee at any time from %1$shttps://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4%2$s', 'cl-simplest-smtp' ), '<a href="https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4" target="_blank">', '</a>' );
+				?>
 			</p>
 		</div>
 	</details>
@@ -101,14 +107,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="cl-details-content">
 			<p>
 				<?php
-				// translators: %s: <code>, %s: </code>
-				printf( esc_html__( 'Yes, the default mail log file name is %scl-simplest-smtp-log.txt%s and is located in %suploads%s folder. You can\'t change the location, but you can change the file name if you define the constant %sCL_SIMPLEST_SMTP_LOG_FILENAME%s with the file name at your %swp-config.php%s file.', 'cl-simplest-smtp' ), '<code>', '</code>', '<code>', '</code>', '<code>', '</code>', '<code>', '</code>' ); ?>
+				// translators: %1: <code>, %2: </code>.
+				printf( esc_html__( 'Yes, the default mail log file name is %1$scl-simplest-smtp-log.txt%2$s and is located in %3$suploads%4$s folder. You can\'t change the location, but you can change the file name if you define the constant %5$sCL_SIMPLEST_SMTP_LOG_FILENAME%6$s with the file name at your %7$swp-config.php%8$s file.', 'cl-simplest-smtp' ), '<code>', '</code>', '<code>', '</code>', '<code>', '</code>', '<code>', '</code>' );
+				?>
 			</p>
 
 			<p>
 				<?php
-				// translators: %s: <code>, %s: </code>
-				printf( esc_html__( 'Example:', 'cl-simplest-smtp' ), '<code>', '</code>' ); ?>
+				esc_html_e( 'Example:', 'cl-simplest-smtp' );
+				?>
 			</p>
 
 			<p>
@@ -118,7 +125,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</p>
 
 			<p>
-				<?php esc_html_e( 'Keep in mind that if the default log file was previously created, it won\'t be deleted, only the new file will be created and the file that will be deleted on plugin uninstall will be the new defined file.', 'cl-simplest-smtp' ); ?>
+				<?php
+				esc_html_e( 'Keep in mind that if the default log file was previously created, it won\'t be deleted, only the new file will be created and the file that will be deleted on plugin uninstall will be the new defined file.', 'cl-simplest-smtp' );
+				?>
 			</p>
 		</div>
 	</details>
@@ -129,14 +138,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="cl-details-content">
 			<p>
 				<?php
-				// translators: %s: <a>, %s: </a>
-				printf( esc_html__( 'The development of this plugin is managed in this GitHub repository %shttps://github.com/CarlosLongarela/cl-simplest-smtp%s', 'cl-simplest-smtp' ), '<a href="https://github.com/CarlosLongarela/cl-simplest-smtp" target="_blank">', '</a>' ); ?>
+				// translators: %1: <a>, %2: </a>.
+				printf( esc_html__( 'The development of this plugin is managed in this GitHub repository %1$shttps://github.com/CarlosLongarela/cl-simplest-smtp%2$s', 'cl-simplest-smtp' ), '<a href="https://github.com/CarlosLongarela/cl-simplest-smtp" target="_blank">', '</a>' );
+				?>
 			</p>
 
 			<p>
 				<?php
-				// translators: %s: <a>, %s: </a>
-				printf( esc_html__( 'You can send us issues, requests or any comments to %shttps://github.com/CarlosLongarela/cl-simplest-smtp/issues%s or create a pull request to contribute with any new bug fix, functionality or any other code change.', 'cl-simplest-smtp' ), '<a href="https://github.com/CarlosLongarela/cl-simplest-smtp/issues" target="_blank">', '</a>' ); ?>
+				// translators: %1: <a>, %2: </a>.
+				printf( esc_html__( 'You can send us issues, requests or any comments to %1$shttps://github.com/CarlosLongarela/cl-simplest-smtp/issues%2$s or create a pull request to contribute with any new bug fix, functionality or any other code change.', 'cl-simplest-smtp' ), '<a href="https://github.com/CarlosLongarela/cl-simplest-smtp/issues" target="_blank">', '</a>' );
+				?>
 			</p>
 		</div>
 	</details>
@@ -147,8 +158,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="cl-details-content">
 			<p>
 				<?php
-				// translators: %s: <a>, %s: </a>, %s: <a>, %s: </a>
-				printf( esc_html__( 'You can contact the author at this email: %sinfo@tabernawp.com%s or in the page %shttps://tabernawp.com/contacto/%s', 'cl-simplest-smtp' ), '<a href="mailto:info@tabernawp.com">', '</a>', '<a href="https://tabernawp.com/contacto/" target="_blank">', '</a>' ); ?>
+				// translators: %1: <a>, %2: </a>, %3: <a>, %4: </a>.
+				printf( esc_html__( 'You can contact the author at this email: %1$sinfo@tabernawp.com%2$s or in the page %3$shttps://tabernawp.com/contacto/%4$s', 'cl-simplest-smtp' ), '<a href="mailto:info@tabernawp.com">', '</a>', '<a href="https://tabernawp.com/contacto/" target="_blank">', '</a>' );
+				?>
 			</p>
 		</div>
 	</details>
