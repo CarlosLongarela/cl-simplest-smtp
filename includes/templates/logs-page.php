@@ -76,7 +76,7 @@ echo '<div class="cl-simplest-smtp-logs cl-airmail-border">';
 echo '<h2>' . esc_html__( 'Logs', 'cl-simplest-smtp' ) . '</h2>';
 
 // Add buttons for different line counts.
-$current_url = remove_query_arg( [ 'lines', 'delete' ] );
+$current_url = remove_query_arg( array( 'lines', 'delete' ) );
 echo '<div class="cl-simplest-smtp-log-buttons">';
 // View buttons.
 foreach ( array( 10, 100, 1000, 10000 ) as $line_count ) {
