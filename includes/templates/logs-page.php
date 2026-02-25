@@ -20,7 +20,7 @@ $log_file_path = get_log_file_path();
 
 // Number of lines to display (default value).
 $lines_to_display = 100; // Default value.
-if ( isset( $_GET['lines'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'cl_simplest_smtp_display_lines' ) ) {
+if ( isset( $_GET['lines'] ) && isset( $_GET['lines_nonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['lines_nonce'] ) ), 'cl_simplest_smtp_display_lines' ) ) {
 	$lines_to_display = (int) $_GET['lines'];
 }
 
@@ -97,11 +97,12 @@ echo '<div class="cl-simplest-smtp-logs cl-airmail-border">';
 echo '<h2>' . esc_html__( 'Logs', 'cl-simplest-smtp' ) . '</h2>';
 
 // Add buttons for different line counts.
-$current_url = remove_query_arg( array( 'lines', 'delete' ) );
+$current_url  = remove_query_arg( array( 'lines', 'lines_nonce', 'delete' ) );
+$lines_nonce  = wp_create_nonce( 'cl_simplest_smtp_display_lines' );
 echo '<div class="cl-simplest-smtp-log-buttons">';
 // View buttons.
 foreach ( array( 10, 100, 1000, 10000 ) as $line_count ) {
-	$button_url   = wp_nonce_url( add_query_arg( 'lines', $line_count, $current_url ), 'cl_simplest_smtp_display_lines' );
+	$button_url   = add_query_arg( array( 'lines' => $line_count, 'lines_nonce' => $lines_nonce ), $current_url );
 	$button_class = $lines_to_display === $line_count ? 'button button-primary' : 'button';
 
 	printf(
