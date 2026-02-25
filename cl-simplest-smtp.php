@@ -6,17 +6,17 @@
  * @author            Carlos Longarela
  * @copyright         2024 Carlos Longarela
  * @license           GPL-2.0-or-later
- * @updated           2025-01-23
+ * @updated           2026-02-25
  * @github            https://github.com/CarlosLongarela/cl-simplest-smtp/
  *
  * @wordpress-plugin
  * Plugin Name:       CL Simplest SMTP
  * Plugin URI:        https://wordpress.org/plugins/cl-simplest-smtp/
  * Description:       The simplest SMTP option for your WordPress.
- * Version:           1.2.2
+ * Version:           1.2.3
  * Requires at least: 5.0
  * Requires PHP:      7.4
- * Tested up to:      6.7.1
+ * Tested up to:      6.9.1
  * Author:            Carlos Longarela
  * Author URI:        https://tabernawp.com/
  * Text Domain:       cl-simplest-smtp

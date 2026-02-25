@@ -16,8 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 create_log_file_if_not_exists();
 
 // Path to the log file.
-$upload_dir    = wp_upload_dir();
-$log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
+$log_file_path = get_log_file_path();
 
 // Number of lines to display (default value).
 $lines_to_display = 100; // Default value.
@@ -35,37 +34,59 @@ WP_Filesystem();
 global $wp_filesystem;
 
 /**
- * Read the last lines of a file using WordPress filesystem API.
+ * Read the last lines of a file efficiently.
  *
  * @param string $filepath The path to the log file.
  * @param int    $lines    The number of lines to read.
  * @return string The last lines of the file.
  */
 function tail_file( $filepath, $lines = 100 ) {
-	global $wp_filesystem;
-
-	if ( ! $wp_filesystem->exists( $filepath ) ) {
+	if ( ! file_exists( $filepath ) ) {
 		return '';
 	}
 
-	$lines_array = $wp_filesystem->get_contents_array( $filepath );
-	if ( false === $lines_array ) {
+	$fp = fopen( $filepath, 'r' );
+	if ( ! $fp ) {
 		return '';
 	}
 
-	$total_lines = count( $lines_array );
+	$line_count = 0;
+	$pos = -2; // Skip potential trailing newline.
+	$output = '';
 
-	// Get the last $lines lines and reverse the order.
-	$recent_lines = array_slice( $lines_array, max( 0, $total_lines - $lines ) );
+	// Start from the end and work backwards.
+	fseek( $fp, 0, SEEK_END );
+	$end_pos = ftell( $fp );
+
+	while ( $line_count < $lines && abs( $pos ) <= $end_pos ) {
+		fseek( $fp, $pos, SEEK_END );
+		$char = fgetc( $fp );
+		if ( "\n" === $char ) {
+			$line_count++;
+		}
+		$pos--;
+	}
+
+	// Move back one to include the last line read.
+	if ( $line_count > 0 ) {
+		fseek( $fp, $pos + 2, SEEK_END );
+	} else {
+		fseek( $fp, 0 );
+	}
+
+	$recent_lines = array();
+	while ( ! feof( $fp ) ) {
+		$line = fgets( $fp );
+		if ( false !== $line ) {
+			$line = trim( $line );
+			if ( ! empty( $line ) ) {
+				$recent_lines[] = '<li>' . esc_html( $line ) . '</li>';
+			}
+		}
+	}
+	fclose( $fp );
+
 	$recent_lines = array_reverse( $recent_lines );
-
-	// Convert each line to a list item using array_map.
-	$recent_lines = array_map(
-		function ( $line ) {
-			return '<li>' . esc_html( $line ) . '</li>';
-		},
-		$recent_lines
-	);
 
 	return '<ol class="cl-simplest-smtp-logs-list">' . implode( '', $recent_lines ) . '</ol>';
 }

@@ -320,8 +320,7 @@ function log_mail_error( string $mail_to, string $subject, string $mail_method )
 		$error_message
 	);
 
-	$upload_dir    = wp_upload_dir();
-	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
+	$log_file_path = get_log_file_path();
 
 	// Initialize the WordPress filesystem if not already done.
 	if ( ! function_exists( 'WP_Filesystem' ) ) {
@@ -344,6 +343,36 @@ function log_mail_error( string $mail_to, string $subject, string $mail_method )
 	} else {
 		error_log( 'Log file does not exist or is not writable: ' . $log_file_path );
 	}
+}
+
+/**
+ * Get the log file path and ensure the directory exists with an index.html file.
+ *
+ * @return string The full path to the log file.
+ */
+function get_log_file_path(): string {
+	$upload_dir = wp_upload_dir();
+	$log_dir    = trailingslashit( $upload_dir['basedir'] ) . 'cl-simplest-smtp';
+	$log_file   = trailingslashit( $log_dir ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
+
+	// Initialize the WordPress filesystem.
+	if ( ! function_exists( 'WP_Filesystem' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	WP_Filesystem();
+	global $wp_filesystem;
+
+	if ( ! $wp_filesystem->is_dir( $log_dir ) ) {
+		$wp_filesystem->mkdir( $log_dir );
+	}
+
+	$index_file = trailingslashit( $log_dir ) . 'index.html';
+	if ( ! $wp_filesystem->exists( $index_file ) ) {
+		$wp_filesystem->put_contents( $index_file, '' );
+	}
+
+	return $log_file;
 }
 
 /**
@@ -404,17 +433,9 @@ function get_mail_error_message( string $mail_method ): string {
  * @return void
  */
 function create_log_file_if_not_exists() {
-	// Initialize the WordPress filesystem.
-	if ( ! function_exists( 'WP_Filesystem' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-	}
-
-	WP_Filesystem();
+	$log_file_path = get_log_file_path();
 
 	global $wp_filesystem;
-
-	$upload_dir    = wp_upload_dir();
-	$log_file_path = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
 
 	if ( ! $wp_filesystem->exists( $log_file_path ) ) {
 		$wp_filesystem->put_contents( $log_file_path, '## Log file created on ' . gmdate( 'Y-m-d H:i:s' ) . "\n" );
@@ -443,21 +464,25 @@ function handle_log_deletion() {
 		wp_die( esc_html__( 'Security check failed.', 'cl-simplest-smtp' ) );
 	}
 
-	$upload_dir = wp_upload_dir();
-	$log_file   = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
+	$log_file = get_log_file_path();
 
 	if ( ! file_exists( $log_file ) ) {
 		return;
 	}
 
-	// Read all lines.
+	// Read all lines - using file() is okay for deletion since we are likely keeping most lines,
+	// but we should still be careful. For very large files, a temporary file approach is better.
 	$lines = file( $log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
 	if ( false === $lines ) {
 		return;
 	}
 
 	// Keep only the newest lines.
-	$lines = array_slice( $lines, $count );
+	if ( count( $lines ) > $count ) {
+		$lines = array_slice( $lines, $count );
+	} else {
+		$lines = array();
+	}
 
 	// Add header line if file will be empty.
 	if ( empty( $lines ) ) {
