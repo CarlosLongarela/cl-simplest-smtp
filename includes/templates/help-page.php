@@ -12,6 +12,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div id="cl-smtp-help-page" class="cl-smtp-help-page cl-airmail-border">
+	<?php if ( ! ( defined( 'CL_SIMPLEST_SMTP_HIDE_DONATE' ) && CL_SIMPLEST_SMTP_HIDE_DONATE ) ) : ?>
+	<div class="cl-smtp-donate">
+		<a href="https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4" target="_blank" class="button button-primary">
+			☕ <?php esc_html_e( 'Invite me to a coffee', 'cl-simplest-smtp' ); ?>
+		</a>
+	</div>
+	<?php endif; ?>
+
+	<p class="cl-smtp-plugin-version">
+		<?php
+		// translators: %s: plugin version number.
+		printf( esc_html__( 'Plugin version: %s', 'cl-simplest-smtp' ), esc_html( CL_SIMPLEST_SMTP_VERSION ) );
+		?>
+	</p>
+
 	<details>
 		<summary><h2> <?php esc_html_e( 'This plugin adds any options to my database?', 'cl-simplest-smtp' ); ?></h2></summary>
 		<div class="cl-details-content">
