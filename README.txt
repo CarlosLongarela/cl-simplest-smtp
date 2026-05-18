@@ -3,9 +3,9 @@ Contributors: carloslongarela
 Tags: system, debug, mail, smtp
 Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
-Tested up to: 6.9.1
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,9 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 4. SMTP Help options.
 
 == Changelog ==
+= 1.2.4 - 2026-05-18 =
+* Info: Updated Tested up to
+
 = 1.2.3 - 2026-02-25 =
 * Info: Updated Tested up to
 * Improved: deleted unnecesary code
