@@ -6,14 +6,14 @@
  * @author            Carlos Longarela
  * @copyright         2024 Carlos Longarela
  * @license           GPL-2.0-or-later
- * @updated           2026-05-18
+ * @updated           2026-10-27
  * @github            https://github.com/CarlosLongarela/cl-simplest-smtp/
  *
  * @wordpress-plugin
  * Plugin Name:       CL Simplest SMTP
  * Plugin URI:        https://wordpress.org/plugins/cl-simplest-smtp/
  * Description:       The simplest SMTP option for your WordPress.
- * Version:           1.2.4
+ * Version:           1.2.5
  * Requires at least: 5.0
  * Requires PHP:      7.4
  * Tested up to:      7.0
@@ -32,14 +32,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'CL_SIMPLEST_SMTP_VERSION', '1.2.4' );
+define( 'CL_SIMPLEST_SMTP_VERSION', '1.2.5' );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CL_SIMPLEST_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-
-// Define the log file name.
-if ( ! defined( 'CL_SIMPLEST_SMTP_LOG_FILENAME' ) ) {
-	define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'cl-simplest-smtp-log.txt' );
-}
 
 /**
  * Load plugin text domain.
@@ -73,7 +68,7 @@ if ( check_params() ) {
 function enqueue_styles() {
 	$screen = get_current_screen();
 
-	if ( 'settings_page_cl-simplest-smtp' === $screen->id ) {
+	if ( $screen && 'settings_page_cl-simplest-smtp' === $screen->id ) {
 		wp_enqueue_style( 'cl-simplest-smtp-styles', CL_SIMPLEST_SMTP_PLUGIN_URL . 'assets/css/smtp-styles.css', array(), CL_SIMPLEST_SMTP_VERSION );
 		wp_enqueue_script( 'cl-simplest-smtp-scripts', CL_SIMPLEST_SMTP_PLUGIN_URL . 'assets/js/smtp-scripts.js', array(), CL_SIMPLEST_SMTP_VERSION, true );
 	}

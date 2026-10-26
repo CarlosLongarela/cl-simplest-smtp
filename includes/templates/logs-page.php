@@ -18,77 +18,101 @@ create_log_file_if_not_exists();
 // Path to the log file.
 $log_file_path = get_log_file_path();
 
+// Allowed number of lines to display.
+$allowed_line_counts = array( 10, 100, 1000, 10000 );
+
 // Number of lines to display (default value).
 $lines_to_display = 100; // Default value.
 if ( isset( $_GET['lines'] ) && isset( $_GET['lines_nonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['lines_nonce'] ) ), 'cl_simplest_smtp_display_lines' ) ) {
-	$lines_to_display = (int) $_GET['lines'];
+	$requested_lines = (int) $_GET['lines'];
+	if ( in_array( $requested_lines, $allowed_line_counts, true ) ) {
+		$lines_to_display = $requested_lines;
+	}
 }
-
-// Initialize the WordPress filesystem.
-if ( ! function_exists( 'WP_Filesystem' ) ) {
-	require_once ABSPATH . 'wp-admin/includes/file.php';
-}
-
-WP_Filesystem();
-
-global $wp_filesystem;
 
 /**
- * Read the last lines of a file efficiently.
+ * Read the last lines of a file efficiently, reading backwards in chunks.
  *
  * @param string $filepath The path to the log file.
  * @param int    $lines    The number of lines to read.
- * @return string The last lines of the file.
+ * @return string The last lines of the file (newest first) as an HTML ordered list.
  */
-function tail_file( $filepath, $lines = 100 ) {
+function tail_file( string $filepath, int $lines = 100 ): string {
 	if ( ! file_exists( $filepath ) ) {
 		return '';
 	}
 
-	$fp = fopen( $filepath, 'r' );
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+	$fp = fopen( $filepath, 'rb' );
 	if ( ! $fp ) {
 		return '';
 	}
 
-	$line_count = 0;
-	$pos = -2; // Skip potential trailing newline.
-	$output = '';
+	$chunk_size = 8192;
+	$buffer     = '';
+	$newlines   = 0;
 
-	// Start from the end and work backwards.
 	fseek( $fp, 0, SEEK_END );
-	$end_pos = ftell( $fp );
+	$pos = ftell( $fp );
 
-	while ( $line_count < $lines && abs( $pos ) <= $end_pos ) {
-		fseek( $fp, $pos, SEEK_END );
-		$char = fgetc( $fp );
-		if ( "\n" === $char ) {
-			$line_count++;
-		}
-		$pos--;
+	// Read chunks from the end until we have more lines than needed or we reach the start.
+	while ( $pos > 0 && $newlines <= $lines ) {
+		$read = min( $chunk_size, $pos );
+		$pos -= $read;
+		fseek( $fp, $pos );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fread
+		$chunk     = fread( $fp, $read );
+		$newlines += substr_count( $chunk, "\n" );
+		$buffer    = $chunk . $buffer;
 	}
-
-	// Move back one to include the last line read.
-	if ( $line_count > 0 ) {
-		fseek( $fp, $pos + 2, SEEK_END );
-	} else {
-		fseek( $fp, 0 );
-	}
-
-	$recent_lines = array();
-	while ( ! feof( $fp ) ) {
-		$line = fgets( $fp );
-		if ( false !== $line ) {
-			$line = trim( $line );
-			if ( ! empty( $line ) ) {
-				$recent_lines[] = '<li>' . esc_html( $line ) . '</li>';
-			}
-		}
-	}
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 	fclose( $fp );
 
-	$recent_lines = array_reverse( $recent_lines );
+	$rows = explode( "\n", $buffer );
+
+	// The first row is incomplete if we didn't reach the start of the file.
+	if ( $pos > 0 ) {
+		array_shift( $rows );
+	}
+
+	$rows = array_filter( array_map( 'trim', $rows ), 'strlen' );
+	$rows = array_reverse( array_slice( $rows, -$lines ) );
+
+	$recent_lines = array();
+	foreach ( $rows as $row ) {
+		$recent_lines[] = '<li>' . esc_html( $row ) . '</li>';
+	}
 
 	return '<ol class="cl-simplest-smtp-logs-list">' . implode( '', $recent_lines ) . '</ol>';
+}
+
+// Result of a previous deletion (read-only, the deletion itself is nonce protected).
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+if ( isset( $_GET['cl_logs_deleted'] ) ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$deleted_count = (int) $_GET['cl_logs_deleted'];
+
+	if ( in_array( $deleted_count, $allowed_line_counts, true ) ) {
+		show_admin_notice(
+			sprintf(
+				/* translators: %s: formatted number of deleted entries */
+				esc_html__( 'Successfully deleted the oldest %s log entries.', 'cl-simplest-smtp' ),
+				number_format_i18n( $deleted_count )
+			),
+			array(
+				'type'        => 'success',
+				'dismissible' => true,
+			)
+		);
+	} else {
+		show_admin_notice(
+			esc_html__( 'Error deleting log entries.', 'cl-simplest-smtp' ),
+			array(
+				'type'        => 'error',
+				'dismissible' => true,
+			)
+		);
+	}
 }
 
 // Display the log content.
@@ -97,12 +121,18 @@ echo '<div class="cl-simplest-smtp-logs cl-airmail-border">';
 echo '<h2>' . esc_html__( 'Logs', 'cl-simplest-smtp' ) . '</h2>';
 
 // Add buttons for different line counts.
-$current_url  = remove_query_arg( array( 'lines', 'lines_nonce', 'delete' ) );
-$lines_nonce  = wp_create_nonce( 'cl_simplest_smtp_display_lines' );
+$current_url = remove_query_arg( array( 'lines', 'lines_nonce', 'cl_logs_deleted' ) );
+$lines_nonce = wp_create_nonce( 'cl_simplest_smtp_display_lines' );
 echo '<div class="cl-simplest-smtp-log-buttons">';
 // View buttons.
-foreach ( array( 10, 100, 1000, 10000 ) as $line_count ) {
-	$button_url   = add_query_arg( array( 'lines' => $line_count, 'lines_nonce' => $lines_nonce ), $current_url );
+foreach ( $allowed_line_counts as $line_count ) {
+	$button_url   = add_query_arg(
+		array(
+			'lines'       => $line_count,
+			'lines_nonce' => $lines_nonce,
+		),
+		$current_url
+	);
 	$button_class = $lines_to_display === $line_count ? 'button button-primary' : 'button';
 
 	printf(
@@ -124,7 +154,7 @@ echo '<div class="cl-simplest-smtp-delete-buttons">';
 
 echo '<span class="cl-simplest-smtp-delete-buttons-title">' . esc_html__( 'Delete oldest', 'cl-simplest-smtp' ) . ':</span>';
 
-foreach ( array( 10, 100, 1000, 10000 ) as $delete_count ) {
+foreach ( $allowed_line_counts as $delete_count ) {
 	$delete_url = wp_nonce_url(
 		add_query_arg(
 			array(
@@ -159,7 +189,7 @@ echo '</div>';
 
 echo '<p><strong><em>' . esc_html__( 'Log format is: "[Date-hour] Error sending mail to [mail to] with subject [subject] using mail method [mail method]. Error: [error message]"', 'cl-simplest-smtp' ) . '</em></strong></p>';
 
-if ( $wp_filesystem->exists( $log_file_path ) ) {
+if ( file_exists( $log_file_path ) ) {
 	echo wp_kses_post( tail_file( $log_file_path, $lines_to_display ) );
 } else {
 	echo '<p>' . esc_html__( 'There are no records available.', 'cl-simplest-smtp' ) . '</p>';

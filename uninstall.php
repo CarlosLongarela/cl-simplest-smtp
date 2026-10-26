@@ -10,35 +10,44 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-// Define log filename constant if not already defined.
-if ( ! defined( 'CL_SIMPLEST_SMTP_LOG_FILENAME' ) ) {
-	define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'cl-simplest-smtp-log.txt' );
-}
-
 /**
- * Delete the log file if it exists.
+ * Delete the log directory (with all log files) and the legacy log file if they exist.
  */
-function cl_simplest_smtp_delete_log_file() {
+function cl_simplest_smtp_delete_log_files() {
 	$upload_dir = wp_upload_dir();
-	$log_file   = trailingslashit( $upload_dir['basedir'] ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
+	$base_dir   = trailingslashit( $upload_dir['basedir'] );
+	$log_dir    = $base_dir . 'cl-simplest-smtp';
 
-	if ( file_exists( $log_file ) ) {
-		// Initialize the WordPress filesystem.
-		if ( ! function_exists( 'WP_Filesystem' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
+	// Log file location used by very old versions.
+	$legacy_files = array( $base_dir . 'cl-simplest-smtp-log.txt' );
+	if ( defined( 'CL_SIMPLEST_SMTP_LOG_FILENAME' ) && '' !== CL_SIMPLEST_SMTP_LOG_FILENAME ) {
+		$legacy_files[] = $base_dir . sanitize_file_name( basename( CL_SIMPLEST_SMTP_LOG_FILENAME ) );
+	}
+
+	foreach ( $legacy_files as $legacy_file ) {
+		if ( is_file( $legacy_file ) ) {
+			wp_delete_file( $legacy_file );
 		}
+	}
 
-		WP_Filesystem();
-		global $wp_filesystem;
+	if ( ! is_dir( $log_dir ) ) {
+		return;
+	}
 
-		if ( $wp_filesystem->exists( $log_file ) ) {
-			$wp_filesystem->delete( $log_file );
-		}
+	// Initialize the WordPress filesystem.
+	if ( ! function_exists( 'WP_Filesystem' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	global $wp_filesystem;
+
+	if ( WP_Filesystem() && $wp_filesystem ) {
+		$wp_filesystem->delete( $log_dir, true );
 	}
 }
 
-// Delete the log file
-cl_simplest_smtp_delete_log_file();
+// Delete the log files.
+cl_simplest_smtp_delete_log_files();
 
-// Delete plugin options
+// Delete plugin options.
 delete_option( 'cl_simplest_smtp_options' );

@@ -28,7 +28,13 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) { // There is no SMTP consta
 		<?php
 		$info_message = '<p><strong>' . esc_html__( 'CONGRATULATIONS ! Your SMTP settings are saved in a configuration file. This is good for speed and security.', 'cl-simplest-smtp' ) . '</strong></p>';
 
-		wp_admin_notice( $info_message, array( 'type' => 'success' ) );
+		CL\Simplest_SMTP\show_admin_notice(
+			$info_message,
+			array(
+				'type'           => 'success',
+				'paragraph_wrap' => false,
+			)
+		);
 		?>
 	</div>
 	<?php
@@ -38,7 +44,7 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) { // There is no SMTP consta
 <div class="cl-smtp-preview-settings cl-airmail-border">
 	<p>
 		<strong><?php esc_html_e( 'SMTP Server', 'cl-simplest-smtp' ); ?>:</strong>
-		<?php echo esc_attr( CL_SIMPLEST_SMTP_HOST ); ?>
+		<?php echo esc_html( CL_SIMPLEST_SMTP_HOST ); ?>
 	</p>
 
 	<p>
@@ -48,7 +54,7 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) { // There is no SMTP consta
 
 	<p>
 		<strong><?php esc_html_e( 'SMTP Username', 'cl-simplest-smtp' ); ?>:</strong>
-		<?php echo esc_attr( CL_SIMPLEST_SMTP_USER ); ?>
+		<?php echo esc_html( CL_SIMPLEST_SMTP_USER ); ?>
 	</p>
 
 	<p>
@@ -58,11 +64,11 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) { // There is no SMTP consta
 
 	<p>
 		<strong><?php esc_html_e( 'From Email', 'cl-simplest-smtp' ); ?>:</strong>
-		<?php echo esc_attr( $from_mail ); ?>
+		<?php echo esc_html( $from_mail ); ?>
 	</p>
 
 	<p>
 		<strong><?php esc_html_e( 'From Name', 'cl-simplest-smtp' ); ?>:</strong>
-		<?php echo esc_attr( $from_name ); ?>
+		<?php echo esc_html( $from_name ); ?>
 	</p>
 </div>

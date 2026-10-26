@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/CarlosLongarela
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,13 +56,16 @@ Yes, of course. You must to define the constant `CL_SIMPLEST_SMTP_HIDE_DONATE` a
 But you can invite me to that coffee at any time from <https://www.paypal.com/donate/?hosted_button_id=V6U6ZLFHNE6N4>
 
 ### Can I change the log file name?
-Yes, the default mail log file name is `cl-simplest-smtp-log.txt` and is located in `uploads` folder. You can't change the location, but you can change the file name if you define the constant `CL_SIMPLEST_SMTP_LOG_FILENAME` with the file name at your `wp-config.php` file.
+Yes. By default the mail log file is located in the `uploads/cl-simplest-smtp/` folder and its name includes a random suffix unique for each site (`cl-simplest-smtp-log-xxxxxxxxxxxxxxxx.txt`), so it can't be guessed. You can't change the location, but you can change the file name if you define the constant `CL_SIMPLEST_SMTP_LOG_FILENAME` with the file name at your `wp-config.php` file. Use a name that is hard to guess, because the uploads folder is publicly accessible.
 
 Example:
 
-`define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'my-cl-simplest-smtp-log-dec-2025.txt' );`
+`define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'my-smtp-log-k3j9x2p7q1.txt' );`
 
-Keep in mind that if the default log file was previously created, it won't be deleted, only the new file will be created and the file that will be deleted on plugin uninstall will be the new defined file.
+Keep in mind that if a log file with another name was previously created, it won't be renamed, a new file will be created. All the log files in the plugin log folder are deleted on plugin uninstall.
+
+### What errors are saved in the log file?
+All the mails that WordPress fails to send with `wp_mail()` (from any plugin, theme or the core) and the failed test mails sent with the native PHP `mail()` function from the Test tab.
 
 ### How can I tell you about a bug, ask for a functionality or contribute to the plugin?
 The plugin development of this plugin is managed in this GitHub repository <https://github.com/CarlosLongarela/cl-simplest-smtp>
@@ -79,6 +82,24 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 4. SMTP Help options.
 
 == Changelog ==
+= 1.2.5 - 2026-10-27 =
+* Fixed: Fatal error when saving the settings from the admin panel (wrong sanitize callback name).
+* Fixed: SMTP passwords, users and sender names with special characters (`&`, `<`, `"`, `'`, `%`...) were altered and the SMTP authentication failed.
+* Security: The SMTP password is no longer printed in the settings form HTML. Leave the field blank to keep the current password.
+* Security: The default log file name now includes a site-specific random suffix so it can't be guessed. The old log file is renamed automatically.
+* Security: The "not configured" notice is only shown to users who can manage options.
+* Security: Settings are validated (secure connection type must be SSL or TLS, port must be between 1 and 65535).
+* Fixed: Reloading the page after deleting log entries deleted more entries. Now the page is redirected to the Logs tab.
+* Fixed: Uninstall didn't delete the log file and the log folder.
+* Fixed: The log only saved the failed test mails. Now all `wp_mail()` failures are logged.
+* Fixed: Compatibility with WordPress versions older than 6.4 (fatal error with `wp_admin_notice()`).
+* Fixed: JavaScript error on all tabs except Help, and open help sections couldn't be closed.
+* Fixed: The first character of the log file was lost when showing fewer lines than requested.
+* Fixed: Malformed headers (trailing line break) in native PHP test mails.
+* Improved: Log entries are appended atomically instead of rewriting the whole file.
+* Improved: Faster reading of the last log lines (chunked reading).
+* Improved: Tab navigation doesn't need nonces anymore.
+
 = 1.2.4 - 2026-05-18 =
 * Info: Updated Tested up to
 
@@ -115,7 +136,6 @@ Upgrade plugin from WordPress public repository or uploading the plugin zip file
 = 1.0.6 - 2025-01-18 =
 * Info: Version upgrade for deploy
 
-== Changelog ==
 = 1.0.5 - 2025-01-17 =
 * Improved: Changed selectors to option fields on the test mailing page.
 

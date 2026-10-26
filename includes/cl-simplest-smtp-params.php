@@ -30,7 +30,7 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
 		$cl_simplest_smtp_name   = '';
 	} else {
 		if ( isset( $cl_simplest_smtp_data['host'] ) ) {
-			$cl_simplest_smtp_host = esc_attr( $cl_simplest_smtp_data['host'] );
+			$cl_simplest_smtp_host = (string) $cl_simplest_smtp_data['host'];
 		} else {
 			$cl_simplest_smtp_host = '';
 		}
@@ -48,19 +48,19 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
 		}
 
 		if ( isset( $cl_simplest_smtp_data['user'] ) ) {
-			$cl_simplest_smtp_user = esc_attr( $cl_simplest_smtp_data['user'] );
+			$cl_simplest_smtp_user = (string) $cl_simplest_smtp_data['user'];
 		} else {
 			$cl_simplest_smtp_user = '';
 		}
 
 		if ( isset( $cl_simplest_smtp_data['pass'] ) ) {
-			$cl_simplest_smtp_pass = esc_attr( $cl_simplest_smtp_data['pass'] );
+			$cl_simplest_smtp_pass = (string) $cl_simplest_smtp_data['pass'];
 		} else {
 			$cl_simplest_smtp_pass = '';
 		}
 
 		if ( isset( $cl_simplest_smtp_data['secure'] ) ) {
-			$cl_simplest_smtp_secure = esc_attr( $cl_simplest_smtp_data['secure'] );
+			$cl_simplest_smtp_secure = (string) $cl_simplest_smtp_data['secure'];
 		} else {
 			$cl_simplest_smtp_secure = '';
 		}
@@ -72,7 +72,7 @@ if ( ! defined( 'CL_SIMPLEST_SMTP_HOST' ) ) {
 		}
 
 		if ( isset( $cl_simplest_smtp_data['name'] ) ) {
-			$cl_simplest_smtp_name = esc_attr( $cl_simplest_smtp_data['name'] );
+			$cl_simplest_smtp_name = (string) $cl_simplest_smtp_data['name'];
 		} else {
 			$cl_simplest_smtp_name = '';
 		}

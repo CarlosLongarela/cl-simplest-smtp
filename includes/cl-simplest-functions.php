@@ -53,6 +53,8 @@ function check_params() {
 		|| ! is_bool( CL_SIMPLEST_SMTP_AUTH )
 		|| ! defined( 'CL_SIMPLEST_SMTP_PORT' )
 		|| ! is_int( CL_SIMPLEST_SMTP_PORT )
+		|| CL_SIMPLEST_SMTP_PORT < 1
+		|| CL_SIMPLEST_SMTP_PORT > 65535
 		|| ! defined( 'CL_SIMPLEST_SMTP_SECURE' )
 		|| ( 'tls' !== CL_SIMPLEST_SMTP_SECURE && 'ssl' !== CL_SIMPLEST_SMTP_SECURE )
 	) {
@@ -63,9 +65,47 @@ function check_params() {
 }
 
 /**
+ * Show an admin notice, with a fallback for WordPress versions older than 6.4 (without wp_admin_notice()).
+ *
+ * @param string $message The notice message (HTML allowed).
+ * @param array  $args    Notice arguments: type, dismissible and paragraph_wrap.
+ * @return void
+ */
+function show_admin_notice( string $message, array $args = array() ) {
+	if ( function_exists( 'wp_admin_notice' ) ) {
+		wp_admin_notice( $message, $args );
+		return;
+	}
+
+	$args = wp_parse_args(
+		$args,
+		array(
+			'type'           => 'info',
+			'dismissible'    => false,
+			'paragraph_wrap' => true,
+		)
+	);
+
+	if ( $args['paragraph_wrap'] ) {
+		$message = '<p>' . $message . '</p>';
+	}
+
+	printf(
+		'<div class="notice notice-%1$s%2$s">%3$s</div>',
+		esc_attr( $args['type'] ),
+		$args['dismissible'] ? ' is-dismissible' : '',
+		wp_kses_post( $message )
+	);
+}
+
+/**
  * Check if plugin options are configured and show an admin notice if not.
  */
 function show_no_params_notice() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
 	$error_message = sprintf(
 		wp_kses(
 			/* translators: %s: URL to settings page */
@@ -81,7 +121,7 @@ function show_no_params_notice() {
 		esc_url( admin_url( 'options-general.php?page=cl-simplest-smtp' ) )
 	);
 
-	wp_admin_notice(
+	show_admin_notice(
 		$error_message,
 		array(
 			'type'        => 'error',
@@ -108,55 +148,79 @@ add_action( 'admin_menu', __NAMESPACE__ . '\register_settings_menu' );
  * Register plugin settings.
  */
 function register_plugin_settings() {
-	register_setting( 'cl_simplest_smtp_options_group', 'cl_simplest_smtp_options', 'sanitize_callback' );
+	register_setting(
+		'cl_simplest_smtp_options_group',
+		'cl_simplest_smtp_options',
+		array(
+			'sanitize_callback' => __NAMESPACE__ . '\sanitize_options',
+		)
+	);
 }
 add_action( 'admin_init', __NAMESPACE__ . '\register_plugin_settings' );
 
 /**
  * Sanitize callback for plugin options.
  *
- * @param array $options The options to sanitize.
+ * Values are stored raw (only sanitized), they are escaped on output.
+ * The password is never sanitized as text because it could contain any character.
+ *
+ * @param mixed $options The options to sanitize.
  * @return array The sanitized options.
  */
-function sanitize_callback( $options ) {
-	// Sanitize each option as needed.
-	$options['host']   = sanitize_text_field( $options['host'] );
-	$options['auth']   = isset( $options['auth'] ) ? (bool) $options['auth'] : false;
-	$options['port']   = absint( $options['port'] );
-	$options['user']   = sanitize_text_field( $options['user'] );
-	$options['pass']   = sanitize_text_field( $options['pass'] );
-	$options['secure'] = sanitize_text_field( $options['secure'] );
-	$options['from']   = sanitize_email( $options['from'] );
-	$options['name']   = sanitize_text_field( $options['name'] );
+function sanitize_options( $options ): array {
+	if ( ! is_array( $options ) ) {
+		$options = array();
+	}
 
-	return $options;
+	$old_options = get_option( 'cl_simplest_smtp_options' );
+	$old_pass    = ( is_array( $old_options ) && isset( $old_options['pass'] ) ) ? (string) $old_options['pass'] : '';
+
+	$secure = isset( $options['secure'] ) ? sanitize_key( $options['secure'] ) : '';
+	$pass   = isset( $options['pass'] ) && is_string( $options['pass'] ) ? $options['pass'] : '';
+
+	return array(
+		'host'   => isset( $options['host'] ) ? sanitize_text_field( $options['host'] ) : '',
+		'auth'   => ! empty( $options['auth'] ),
+		'port'   => isset( $options['port'] ) ? absint( $options['port'] ) : 0,
+		'user'   => isset( $options['user'] ) ? sanitize_text_field( $options['user'] ) : '',
+		// An empty password field keeps the current password (it is never printed in the form).
+		'pass'   => '' === $pass ? $old_pass : $pass,
+		'secure' => in_array( $secure, array( 'ssl', 'tls' ), true ) ? $secure : '',
+		'from'   => isset( $options['from'] ) ? sanitize_email( $options['from'] ) : '',
+		'name'   => isset( $options['name'] ) ? sanitize_text_field( $options['name'] ) : '',
+	);
 }
 
 /**
  * Render the settings page with tabs.
  */
 function render_settings_page() {
-	// Get and validate the current tab with nonce verification.
-	$allowed_tabs = array( 'info', 'settings', 'test', 'logs', 'help' );
-	$default_tab  = 'info';
+	$allowed_tabs = array(
+		'info'     => __( 'Info', 'cl-simplest-smtp' ),
+		'settings' => __( 'Settings', 'cl-simplest-smtp' ),
+		'test'     => __( 'Test', 'cl-simplest-smtp' ),
+		'logs'     => __( 'Logs', 'cl-simplest-smtp' ),
+		'help'     => __( 'Help', 'cl-simplest-smtp' ),
+	);
 
-	// Check if tab parameter exists and verify nonce when switching tabs.
-	if ( isset( $_GET['tab'] ) && isset( $_GET['_wpnonce'] ) &&
-		wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'cl_simplest_smtp_tab_' . sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) ) {
-		$current_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
-		$current_tab = in_array( $current_tab, $allowed_tabs, true ) ? $current_tab : $default_tab;
-	} else {
-		$current_tab = $default_tab;
+	// Tab navigation is read-only, so a whitelist is enough (no nonce needed).
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$current_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'info';
+	if ( ! isset( $allowed_tabs[ $current_tab ] ) ) {
+		$current_tab = 'info';
 	}
 
 	echo '<div class="wrap">';
 	echo '<h1>' . esc_html__( 'CL Simplest SMTP Settings', 'cl-simplest-smtp' ) . '</h1>';
 	echo '<h2 class="nav-tab-wrapper">';
-	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=info', 'cl_simplest_smtp_tab_info' ) ) . '" class="nav-tab ' . ( 'info' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Info', 'cl-simplest-smtp' ) . '</a>';
-	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=settings', 'cl_simplest_smtp_tab_settings' ) ) . '" class="nav-tab ' . ( 'settings' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Settings', 'cl-simplest-smtp' ) . '</a>';
-	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=test', 'cl_simplest_smtp_tab_test' ) ) . '" class="nav-tab ' . ( 'test' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Test', 'cl-simplest-smtp' ) . '</a>';
-	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=logs', 'cl_simplest_smtp_tab_logs' ) ) . '" class="nav-tab ' . ( 'logs' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Logs', 'cl-simplest-smtp' ) . '</a>';
-	echo '<a href="' . esc_url( wp_nonce_url( '?page=cl-simplest-smtp&tab=help', 'cl_simplest_smtp_tab_help' ) ) . '" class="nav-tab ' . ( 'help' === $current_tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Help', 'cl-simplest-smtp' ) . '</a>';
+	foreach ( $allowed_tabs as $tab => $tab_label ) {
+		printf(
+			'<a href="%s" class="nav-tab %s">%s</a>',
+			esc_url( admin_url( 'options-general.php?page=cl-simplest-smtp&tab=' . $tab ) ),
+			( $tab === $current_tab ? 'nav-tab-active' : '' ),
+			esc_html( $tab_label )
+		);
+	}
 	echo '</h2>';
 
 	switch ( $current_tab ) {
@@ -219,6 +283,10 @@ function render_help_tab() {
  * Send a test mail.
  */
 function send_test_mail() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
 	if ( isset( $_POST['mail-to'], $_POST['mail-type'], $_POST['mail-method'], $_POST['cl_smtp_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['cl_smtp_nonce'] ), 'cl_simplest_smtp_test_mail_nonce' ) ) {
 		$mail_to     = sanitize_email( wp_unslash( $_POST['mail-to'] ) );
 		$mail_type   = sanitize_text_field( wp_unslash( $_POST['mail-type'] ) );
@@ -282,67 +350,98 @@ function prepare_mail_message( string $mail_type ): string {
  * @return bool The result of the mail sending.
  */
 function send_mail( string $mail_to, string $subject, string $message, array $headers, string $mail_method ): bool {
-	$from_mail = get_option( 'admin_email' );
-
-	$result = false;
 	if ( 'wp_mail' === $mail_method ) {
-		$result = wp_mail( $mail_to, $subject, $message, $headers );
-	} else {
-		$headers[] = 'From: <' . $from_mail . '>' . "\r\n";
-		$result    = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
+		// Errors are logged by the wp_mail_failed hook.
+		return wp_mail( $mail_to, $subject, $message, $headers );
 	}
 
+	$headers[] = 'From: <' . get_option( 'admin_email' ) . '>';
+	$result    = mail( $mail_to, $subject, $message, implode( "\r\n", $headers ) );
+
 	if ( ! $result ) {
-		log_mail_error( $mail_to, $subject, $mail_method );
+		log_mail_error( $mail_to, $subject, $mail_method, get_mail_error_message( $mail_method ) );
 	}
 
 	return $result;
 }
 
 /**
- * Log mail error to the log file.
+ * Log every wp_mail() failure on the site.
  *
- * @param string $mail_to     The recipient email address.
- * @param string $subject     The email subject.
- * @param string $mail_method The method used to send mail.
+ * @param \WP_Error $error The error returned by wp_mail().
  * @return void
  */
-function log_mail_error( string $mail_to, string $subject, string $mail_method ) {
+function log_wp_mail_failed( $error ) {
+	if ( ! is_wp_error( $error ) ) {
+		return;
+	}
+
+	$data    = $error->get_error_data();
+	$mail_to = '';
+	$subject = '';
+
+	if ( is_array( $data ) ) {
+		if ( isset( $data['to'] ) ) {
+			$mail_to = is_array( $data['to'] ) ? implode( ', ', $data['to'] ) : (string) $data['to'];
+		}
+		if ( isset( $data['subject'] ) ) {
+			$subject = (string) $data['subject'];
+		}
+	}
+
+	log_mail_error( $mail_to, $subject, 'wp_mail', $error->get_error_message() );
+}
+add_action( 'wp_mail_failed', __NAMESPACE__ . '\log_wp_mail_failed' );
+
+/**
+ * Log mail error to the log file.
+ *
+ * @param string $mail_to       The recipient email address.
+ * @param string $subject       The email subject.
+ * @param string $mail_method   The method used to send mail.
+ * @param string $error_message The error message.
+ * @return void
+ */
+function log_mail_error( string $mail_to, string $subject, string $mail_method, string $error_message ) {
 	create_log_file_if_not_exists();
 
-	$error_message = get_mail_error_message( $mail_method );
-	$log_entry     = sprintf(
-		"[%s] Error sending mail to %s with subject '%s' using method '%s'. Error: %s\n",
-		gmdate( 'Y-m-d H:i:s' ),
-		$mail_to,
-		$subject,
-		$mail_method,
-		$error_message
-	);
+	// Avoid line breaks inside an entry, one entry per line.
+	$log_entry = str_replace(
+		array( "\r", "\n" ),
+		' ',
+		sprintf(
+			"[%s] Error sending mail to %s with subject '%s' using method '%s'. Error: %s",
+			gmdate( 'Y-m-d H:i:s' ),
+			$mail_to,
+			$subject,
+			$mail_method,
+			$error_message
+		)
+	) . "\n";
 
 	$log_file_path = get_log_file_path();
 
-	// Initialize the WordPress filesystem if not already done.
-	if ( ! function_exists( 'WP_Filesystem' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/file.php';
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Atomic append, not available in WP_Filesystem.
+	if ( false === file_put_contents( $log_file_path, $log_entry, FILE_APPEND | LOCK_EX ) ) {
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		error_log( 'CL Simplest SMTP: failed to write to log file: ' . $log_file_path );
+	}
+}
+
+/**
+ * Get the log file name.
+ *
+ * If the CL_SIMPLEST_SMTP_LOG_FILENAME constant is not defined, the name includes a
+ * site-specific hash (based on the WordPress salts) so it can't be guessed from outside.
+ *
+ * @return string The log file name.
+ */
+function get_log_filename(): string {
+	if ( defined( 'CL_SIMPLEST_SMTP_LOG_FILENAME' ) && '' !== CL_SIMPLEST_SMTP_LOG_FILENAME ) {
+		return sanitize_file_name( basename( CL_SIMPLEST_SMTP_LOG_FILENAME ) );
 	}
 
-	WP_Filesystem();
-	global $wp_filesystem;
-
-	if ( $wp_filesystem->exists( $log_file_path ) && $wp_filesystem->is_writable( $log_file_path ) ) {
-		// WP_Filesystem doesn't have an append method, so we need to get content, append, and put it back.
-		$current_content = $wp_filesystem->get_contents( $log_file_path );
-		if ( false !== $current_content ) {
-			if ( ! $wp_filesystem->put_contents( $log_file_path, $current_content . $log_entry ) ) {
-				error_log( 'Failed to write to log file using WP_Filesystem: ' . $log_file_path );
-			}
-		} else {
-			error_log( 'Failed to read log file for appending: ' . $log_file_path );
-		}
-	} else {
-		error_log( 'Log file does not exist or is not writable: ' . $log_file_path );
-	}
+	return 'cl-simplest-smtp-log-' . substr( wp_hash( 'cl-simplest-smtp-log' ), 0, 16 ) . '.txt';
 }
 
 /**
@@ -351,25 +450,31 @@ function log_mail_error( string $mail_to, string $subject, string $mail_method )
  * @return string The full path to the log file.
  */
 function get_log_file_path(): string {
-	$upload_dir = wp_upload_dir();
-	$log_dir    = trailingslashit( $upload_dir['basedir'] ) . 'cl-simplest-smtp';
-	$log_file   = trailingslashit( $log_dir ) . CL_SIMPLEST_SMTP_LOG_FILENAME;
+	static $log_file = null;
 
-	// Initialize the WordPress filesystem.
-	if ( ! function_exists( 'WP_Filesystem' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/file.php';
+	if ( null !== $log_file ) {
+		return $log_file;
 	}
 
-	WP_Filesystem();
-	global $wp_filesystem;
+	$upload_dir = wp_upload_dir();
+	$log_dir    = trailingslashit( $upload_dir['basedir'] ) . 'cl-simplest-smtp';
+	$log_file   = trailingslashit( $log_dir ) . get_log_filename();
 
-	if ( ! $wp_filesystem->is_dir( $log_dir ) ) {
-		$wp_filesystem->mkdir( $log_dir );
+	if ( ! is_dir( $log_dir ) ) {
+		wp_mkdir_p( $log_dir );
 	}
 
 	$index_file = trailingslashit( $log_dir ) . 'index.html';
-	if ( ! $wp_filesystem->exists( $index_file ) ) {
-		$wp_filesystem->put_contents( $index_file, '' );
+	if ( ! file_exists( $index_file ) ) {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		file_put_contents( $index_file, '' );
+	}
+
+	// Move the log file with the old predictable name (versions <= 1.2.4) to the new one.
+	$legacy_file = trailingslashit( $log_dir ) . 'cl-simplest-smtp-log.txt';
+	if ( $legacy_file !== $log_file && file_exists( $legacy_file ) && ! file_exists( $log_file ) ) {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
+		rename( $legacy_file, $log_file );
 	}
 
 	return $log_file;
@@ -383,7 +488,7 @@ function get_log_file_path(): string {
  * @param string $mail_method The method used to send mail.
  */
 function display_mail_result_notice( bool $result, string $mail_type, string $mail_method ) {
-	$text_html = ( 'html' === $mail_type ) ? __( 'Message sent as HTML', 'cl-simplest-smtp' ) : __( 'Message sent as plain text', 'cl-simplest-smtp' );
+	$text_html      = ( 'html' === $mail_type ) ? __( 'Message sent as HTML', 'cl-simplest-smtp' ) : __( 'Message sent as plain text', 'cl-simplest-smtp' );
 	$test_mail_type = ( 'wp_mail' === $mail_method ) ? __( 'WordPress Mail method (using current SMTP options)', 'cl-simplest-smtp' ) : __( 'Native PHP mail (ignoring WordPress SMTP options)', 'cl-simplest-smtp' );
 
 	if ( $result ) {
@@ -401,11 +506,12 @@ function display_mail_result_notice( bool $result, string $mail_type, string $ma
 		$type            = 'error';
 	}
 
-	wp_admin_notice(
+	show_admin_notice(
 		$message_notice,
 		array(
-			'type'        => $type,
-			'dismissible' => true,
+			'type'           => $type,
+			'dismissible'    => true,
+			'paragraph_wrap' => false,
 		)
 	);
 }
@@ -435,10 +541,9 @@ function get_mail_error_message( string $mail_method ): string {
 function create_log_file_if_not_exists() {
 	$log_file_path = get_log_file_path();
 
-	global $wp_filesystem;
-
-	if ( ! $wp_filesystem->exists( $log_file_path ) ) {
-		$wp_filesystem->put_contents( $log_file_path, '## Log file created on ' . gmdate( 'Y-m-d H:i:s' ) . "\n" );
+	if ( ! file_exists( $log_file_path ) ) {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		file_put_contents( $log_file_path, '## Log file created on ' . gmdate( 'Y-m-d H:i:s' ) . "\n", LOCK_EX );
 	}
 }
 
@@ -446,7 +551,8 @@ function create_log_file_if_not_exists() {
  * Handle log deletion requests.
  */
 function handle_log_deletion() {
-	if ( ! isset( $_GET['action'] ) || 'delete_logs' !== $_GET['action'] ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified below.
+	if ( ! isset( $_GET['page'], $_GET['action'] ) || 'cl-simplest-smtp' !== $_GET['page'] || 'delete_logs' !== $_GET['action'] ) {
 		return;
 	}
 
@@ -454,6 +560,7 @@ function handle_log_deletion() {
 		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'cl-simplest-smtp' ) );
 	}
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified below.
 	$count = isset( $_GET['count'] ) ? (int) $_GET['count'] : 0;
 	if ( ! in_array( $count, array( 10, 100, 1000, 10000 ), true ) ) {
 		return;
@@ -465,51 +572,36 @@ function handle_log_deletion() {
 	}
 
 	$log_file = get_log_file_path();
+	$success  = false;
 
-	if ( ! file_exists( $log_file ) ) {
-		return;
+	if ( file_exists( $log_file ) ) {
+		$lines = file( $log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
+
+		if ( false !== $lines ) {
+			// Keep only the newest lines.
+			$lines = array_slice( $lines, $count );
+
+			// Add header line if file will be empty.
+			if ( empty( $lines ) ) {
+				$lines[] = '## Log file cleaned on ' . gmdate( 'Y-m-d H:i:s' );
+			}
+
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			$success = false !== file_put_contents( $log_file, implode( "\n", $lines ) . "\n", LOCK_EX );
+		}
 	}
 
-	// Read all lines - using file() is okay for deletion since we are likely keeping most lines,
-	// but we should still be careful. For very large files, a temporary file approach is better.
-	$lines = file( $log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
-	if ( false === $lines ) {
-		return;
-	}
-
-	// Keep only the newest lines.
-	if ( count( $lines ) > $count ) {
-		$lines = array_slice( $lines, $count );
-	} else {
-		$lines = array();
-	}
-
-	// Add header line if file will be empty.
-	if ( empty( $lines ) ) {
-		$lines[] = '## Log file cleaned on ' . gmdate( 'Y-m-d H:i:s' );
-	}
-
-	// Write back to file.
-	$success = file_put_contents( $log_file, implode( PHP_EOL, $lines ) . PHP_EOL );
-
-	if ( $success ) {
-		add_settings_error(
-			'cl_simplest_smtp_messages',
-			'logs_deleted',
-			sprintf(
-				/* translators: %s: formatted number of deleted entries */
-				esc_html__( 'Successfully deleted the oldest %s log entries.', 'cl-simplest-smtp' ),
-				number_format_i18n( $count )
+	// Redirect (Post/Redirect/Get) so reloading the page doesn't delete more entries.
+	wp_safe_redirect(
+		add_query_arg(
+			array(
+				'page'            => 'cl-simplest-smtp',
+				'tab'             => 'logs',
+				'cl_logs_deleted' => $success ? $count : 0,
 			),
-			'updated'
-		);
-	} else {
-		add_settings_error(
-			'cl_simplest_smtp_messages',
-			'logs_delete_error',
-			esc_html__( 'Error deleting log entries.', 'cl-simplest-smtp' ),
-			'error'
-		);
-	}
+			admin_url( 'options-general.php' )
+		)
+	);
+	exit;
 }
 add_action( 'admin_init', __NAMESPACE__ . '\handle_log_deletion' );

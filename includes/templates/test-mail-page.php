@@ -30,7 +30,7 @@ $admin_mail = get_option( 'admin_email' );
 					</label>
 				</th>
 				<td>
-					<input type="email" name="mail-to" id="mail-to" value="<?php echo esc_html( $admin_mail ); ?>" required class="regular-text" />
+					<input type="email" name="mail-to" id="mail-to" value="<?php echo esc_attr( $admin_mail ); ?>" required class="regular-text" />
 				</td>
 			</tr>
 			<tr>

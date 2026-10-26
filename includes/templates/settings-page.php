@@ -84,7 +84,10 @@ if ( defined( 'CL_SIMPLEST_SMTP_HOST_FROM_DB' ) ) { // There is no SMTP constant
 						<?php esc_html_e( 'SMTP Pass', 'cl-simplest-smtp' ); ?>:
 					</th>
 					<td>
-						<input type="password" name="cl_simplest_smtp_options[pass]" value="<?php echo esc_attr( $options['pass'] ); ?>" class="regular-text" placeholder="youruserfakepass" autocomplete="off" />
+						<input type="password" name="cl_simplest_smtp_options[pass]" value="" class="regular-text" placeholder="<?php echo empty( $options['pass'] ) ? 'youruserfakepass' : '********'; ?>" autocomplete="new-password" />
+						<?php if ( ! empty( $options['pass'] ) ) : ?>
+							<p class="description"><?php esc_html_e( 'Leave blank to keep the current password.', 'cl-simplest-smtp' ); ?></p>
+						<?php endif; ?>
 					</td>
 				</tr>
 				<tr>

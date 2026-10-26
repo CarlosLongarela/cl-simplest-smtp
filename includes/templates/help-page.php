@@ -122,8 +122,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="cl-details-content">
 			<p>
 				<?php
-				// translators: %1: <code>, %2: </code>.
-				printf( esc_html__( 'Yes, the default mail log file name is %1$scl-simplest-smtp-log.txt%2$s and is located in %3$suploads%4$s folder. You can\'t change the location, but you can change the file name if you define the constant %5$sCL_SIMPLEST_SMTP_LOG_FILENAME%6$s with the file name at your %7$swp-config.php%8$s file.', 'cl-simplest-smtp' ), '<code>', '</code>', '<code>', '</code>', '<code>', '</code>', '<code>', '</code>' );
+				// translators: %1$s, %3$s, %5$s, %7$s: <code>, %2$s, %4$s, %6$s, %8$s: </code>.
+				printf( esc_html__( 'Yes. By default the mail log file is located in the %1$suploads/cl-simplest-smtp/%2$s folder and its name includes a random suffix unique for each site (%3$scl-simplest-smtp-log-xxxxxxxxxxxxxxxx.txt%4$s), so it can\'t be guessed. You can\'t change the location, but you can change the file name if you define the constant %5$sCL_SIMPLEST_SMTP_LOG_FILENAME%6$s with the file name at your %7$swp-config.php%8$s file. Use a name that is hard to guess, because the uploads folder is publicly accessible.', 'cl-simplest-smtp' ), '<code>', '</code>', '<code>', '</code>', '<code>', '</code>', '<code>', '</code>' );
 				?>
 			</p>
 
@@ -135,13 +135,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<p>
 				<code>
-					define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'my-cl-simplest-smtp-log-dec-2025.txt' );
+					define( 'CL_SIMPLEST_SMTP_LOG_FILENAME', 'my-smtp-log-k3j9x2p7q1.txt' );
 				</code>
 			</p>
 
 			<p>
 				<?php
-				esc_html_e( 'Keep in mind that if the default log file was previously created, it won\'t be deleted, only the new file will be created and the file that will be deleted on plugin uninstall will be the new defined file.', 'cl-simplest-smtp' );
+				esc_html_e( 'Keep in mind that if a log file with another name was previously created, it won\'t be renamed, a new file will be created. All the log files in the plugin log folder are deleted on plugin uninstall.', 'cl-simplest-smtp' );
 				?>
 			</p>
 		</div>
